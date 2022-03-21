@@ -3,7 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import {FormControlLabel, FormControl} from '@mui/material/';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
@@ -14,7 +14,20 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react'
+import {isEmpty, isEmail, isLength, isMatch} from '../../utils/validation/Validation'
+import {showErrMsg, showSuccessMsg} from '../../utils/notification/Notification'
 
+import axios from 'axios'
+
+
+const initialState = {
+  name: '',
+  email: '',
+  password: '',
+  cf_password: '',
+  err: '',
+  success: ''
+}
 
 
 const theme = createTheme();
@@ -22,30 +35,44 @@ const theme = createTheme();
 function SignUp() {
 	let navigate = useNavigate()
 
-	const [name, setName] = useState('')
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
+  const [user, setUser] = useState(initialState)
 
-  async function handleSubmit(event) {
-    event.preventDefault();
-    const response = await fetch('http://localhost:1212/api/register', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				name,
-				email,
-				password,
-			}),
-		})
+  const {name, email, password,cf_password, err, success} = user
 
-		const data = await response.json()
+  const handleChangeInput = e => {
+      const {name, value} = e.target
+      setUser({...user, [name]:value, err: '', success: ''})
+  }
 
-		if (data.status === 'ok') {
-			navigate.push('/login')
-		}
-  };
+  const handleSubmit = async e => {
+    e.preventDefault();
+    if(isEmpty(name) || isEmpty(password))
+                return setUser({...user, err: "Please fill in all fields.", success: ''})
+
+        if(!isEmail(email))
+            return setUser({...user, err: "Invalid emails.", success: ''})
+
+        if(isLength(password))
+            return setUser({...user, err: "Password must be at least 6 characters.", success: ''})
+        
+        if(!isMatch(password, cf_password))
+            return setUser({...user, err: "Password did not match.", success: ''})
+
+        try {
+            const res = await axios.post('http://localhost:1212/user/register', {
+                name, email, password
+            })
+
+            setUser({...user, err: '', success: res.data.msg})
+            navigate("/Home")
+            alert('plz validate email')
+        } catch (err) {
+            err.response.data.msg && 
+            setUser({...user, err: err.response.data.msg, success: ''})
+        }
+    }
+
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -65,60 +92,75 @@ function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
+          {err && showErrMsg(err)}
+          {success && showSuccessMsg(success)}
+
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <FormControl component="fieldset" variant="standard">
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  onChange={(e) => setName(e.target.value)}
-                  autoComplete="given-name"
-                  name="Name"
+                  onChange={handleChangeInput}
                   required
                   fullWidth
-                  id="Name"
+                  id="name"
                   label="Name"
-                  autoFocus
+                  name="name"
+                  autoComplete="name"
+                  value={name}
                 />
               </Grid>
               
               <Grid item xs={12}>
                 <TextField
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleChangeInput}
                   required
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={email}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={handleChangeInput}
                   required
                   fullWidth
                   name="password"
                   label="Password"
                   type="password"
                   id="password"
+                  value={password}
                   autoComplete="new-password"
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                <TextField
+                onChange={handleChangeInput}
+                  required
+                  fullWidth
+                  name="cf_password"
+                  label="Password Check"
+                  type="password"
+                  id="cf_password"
+                  value={cf_password}
+                  autoComplete="new-password"
                 />
               </Grid>
+              
             </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={()=>{this.handleSubmit()}}
+              // onClick={()=>{this.handleSubmit()}}
             >
               Sign Up
             </Button>
+            </FormControl>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="#" variant="body2">
