@@ -12,40 +12,60 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState } from 'react'
+import {dispatchLogin} from '../../../redux/actions/authAction'
+import {useDispatch} from 'react-redux'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
+import {isEmpty, isEmail, isLength, isMatch} from '../../utils/validation/Validation'
+import {showErrMsg, showSuccessMsg} from '../../utils/notification/Notification'
+import axios from 'axios'
 
 
 
 const theme = createTheme();
 
+const initialState = {
+  email: '',
+  password: '',
+  err: '',
+  success: ''
+}
+
+
+
 export default function SignIn() {
 
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
+  const [user, setUser] = useState(initialState)
+  const dispatch = useDispatch()
+  let navigate = useNavigate()
 
-  async function handleSubmit(event){
-    event.preventDefault();
-		const response = await fetch('http://localhost:1212/api/login', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				email,
-				password,
-			}),
-		})
+  const {email, password, err, success} = user
 
-		const data = await response.json()
+  const handleChangeInput = e => {
+    const {name, value} = e.target
+    setUser({...user, [name]:value, err: '', success: ''})
+}
 
-		if (data.user) {
-			localStorage.setItem('token', data.user)
-			alert('Login successful')
-			window.location.href = '/dashboard'
-		} else {
-			alert('Please check your username and password')
-		}
-	}
+const handleSubmit = async e => {
+  e.preventDefault()
+  try {
+      const res = await axios.post('http://localhost:1212/user/login', {email, password})
+      setUser({...user, err: '', success: res.data.msg})
+
+      localStorage.setItem('firstLogin', true)
+
+      dispatch(dispatchLogin())
+      navigate.push("/")
+      alert('welcome')
+
+  } catch (err) {
+      err.response.data.msg && 
+      setUser({...user, err: err.response.data.msg, success: ''})
+  }
+}
+
+
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -65,6 +85,8 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+          {err && showErrMsg(err)}
+            {success && showSuccessMsg(success)}
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -75,7 +97,8 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleChangeInput}
+              value={email}
 
             />
             <TextField
@@ -86,8 +109,9 @@ export default function SignIn() {
               label="Password"
               type="password"
               id="password"
+              value={password}
               autoComplete="current-password"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleChangeInput}
 
             />
             <FormControlLabel

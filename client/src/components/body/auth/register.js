@@ -64,8 +64,8 @@ function SignUp() {
             })
 
             setUser({...user, err: '', success: res.data.msg})
-            navigate("/Home")
-            alert('plz validate email')
+            navigate("/Home");
+            alert('email register plz')
         } catch (err) {
             err.response.data.msg && 
             setUser({...user, err: err.response.data.msg, success: ''})
