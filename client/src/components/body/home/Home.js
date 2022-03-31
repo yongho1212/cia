@@ -19,15 +19,13 @@ function Home() {
     return (
       <>
         <div className="home_page">
+          <div className="first_page">
+
+          
+
             <h2>Hello everyone!</h2>
             <p>
-                This site is about user authentication, 
-                so there won't be any other pages here. 
-                If people want to see more about how to 
-                create other websites. You can click on 
-                the link below, visit my youtube channel. 
-                And if you find it useful, please subscribe 
-                for us. Thank you very much!
+                This is Home page before Login
             </p>
             <a href="https://www.youtube.com/c/DevATHTML" target="_blank" 
             rel="noopener noreferrer">My Youtube</a>
@@ -36,6 +34,7 @@ function Home() {
 
             <a href="https://youtu.be/uXl77UFkrkQ" target="_blank" 
             rel="noopener noreferrer">Build a Ecommerce</a>
+            </div>
               
               <Section {...homeObjOne} />
               <Section {...homeObjThree} />

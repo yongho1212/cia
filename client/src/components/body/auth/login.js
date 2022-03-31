@@ -53,10 +53,11 @@ const handleSubmit = async e => {
       setUser({...user, err: '', success: res.data.msg})
 
       localStorage.setItem('firstLogin', true)
-
       dispatch(dispatchLogin())
-      navigate.push("/")
-      alert('welcome')
+      console.log('dispatch finish')
+      navigate.push("/Main")
+      console.log('navigated')
+
 
   } catch (err) {
       err.response.data.msg && 
