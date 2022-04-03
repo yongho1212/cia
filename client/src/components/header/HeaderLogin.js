@@ -40,7 +40,7 @@ const HeaderLogin = () => {
     navigate("/Home");
   }
     function handleClickSignIn() {
-      navigate("/SignIn");
+      navigate("/Login");
     }
     function handleClickSignUp() {
       navigate("/SignUp");
