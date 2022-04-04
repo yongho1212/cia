@@ -12,6 +12,8 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {useNavigate} from "react-router-dom";
+import { useUserAuth } from '../../context/UserAuthContext'
+
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -36,15 +38,28 @@ const HeaderLogin = () => {
   };
 
   let navigate = useNavigate();
-  function handleClickHome() {
-    navigate("/Home");
-  }
+    function handleClickHome() {
+      navigate("/Home");
+    }
     function handleClickSignIn() {
       navigate("/Login");
     }
     function handleClickSignUp() {
       navigate("/SignUp");
     }
+    async function handleLogout() {
+      try {
+        await logOut();
+        navigate("/Home");
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    function handleClickProfile() {
+      navigate("/Profile");
+    }
+
+  const { logOut, currentUser } = useUserAuth()
 
   return (
     <AppBar position="static" style={{backgroundColor:'#000'}}>
@@ -61,6 +76,7 @@ const HeaderLogin = () => {
           
           </Button>
         </Box>
+{!currentUser &&
         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Button 
                 variant="contained"
@@ -77,6 +93,26 @@ const HeaderLogin = () => {
                 로그인
             </Button>
         </Box>  
+}
+{currentUser &&
+        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <Button 
+                variant="contained"
+                style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
+                onClick={handleClickProfile}
+            >
+                프로필
+            </Button>
+            <Button 
+                variant="contained"
+                style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
+                onClick={handleLogout}
+            >
+                로그아웃
+            </Button>
+        </Box>  
+}
+
 
          
         </Toolbar>
