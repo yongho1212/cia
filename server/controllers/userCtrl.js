@@ -6,10 +6,7 @@ const jwt = require('jsonwebtoken')
 const sendMail = require('./sendMail')
 
 const {google} = require('googleapis')
-const {OAuth2} = google.auth
 const fetch = require('node-fetch')
-
-const client = new OAuth2(process.env.MAILING_SERVICE_CLIENT_ID)
 
 const {CLIENT_URL} = process.env
 
@@ -17,12 +14,6 @@ const userCtrl = {
     register: async (req, res) => {
         try {
             const {name, email, password} = req.body
-            
-            if(!name || !email || !password)
-                return res.status(400).json({msg: "Please fill in all fields."})
-
-            if(!validateEmail(email))
-                return res.status(400).json({msg: "Invalid emails."})
 
             const user = await Users.findOne({email})
             if(user) return res.status(400).json({msg: "This email already exists."})
@@ -32,21 +23,15 @@ const userCtrl = {
 
             const passwordHash = await bcrypt.hash(password, 12)
 
-            const newUser = {
+
+            const newUser = new Users({
                 name, email, password: passwordHash
-            }
-            console.log('before activation_token')
-            const activation_token = createActivationToken(newUser)
-            console.log('after activation_token')
-            const url = `${CLIENT_URL}/user/activate/${activation_token}`
-            console.log(url)
+            })
+
+            await newUser.save()
             
-            sendMail(email, url, "Verify your email address")
-            console.log('after send mail')
-
-
             res.json({msg: "Register Success! Please activate your email to start."})
-            console.log('end')
+            
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }

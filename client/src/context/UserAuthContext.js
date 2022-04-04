@@ -7,7 +7,9 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signOut,
+  deleteUser,
   confirmPasswordReset,
+  reauthenticateWithCredential
 } from "firebase/auth";
 import { auth } from "../firebase";
 
@@ -53,6 +55,9 @@ export function UserAuthContextProvider({ children }) {
   function resetPassword(oobCode, newPassword) {
     return confirmPasswordReset(auth, oobCode, newPassword)
   }
+
+
+  
 
   const value = {
     currentUser, 

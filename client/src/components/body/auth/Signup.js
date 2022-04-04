@@ -3,8 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useUserAuth } from "../../../context/UserAuthContext";
+import axios from 'axios'
 
 const Signup = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
@@ -13,10 +15,14 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+  
     try {
       await signUp(email, password);
-      navigate("/");
+      axios.post('http://localhost:1212/user/register', {
+        name, email, password
+      })
+      navigate("/Main");
+      
     } catch (err) {
       setError(err.message);
     }
@@ -28,6 +34,13 @@ const Signup = () => {
         <h2 className="mb-3">Firebase Auth Signup</h2>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Control
+              type="name"
+              placeholder="name"
+              onChange={(e) => setName(e.target.value)}
+            />
+          </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control
               type="email"

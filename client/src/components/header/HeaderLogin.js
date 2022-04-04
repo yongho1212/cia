@@ -41,6 +41,9 @@ const HeaderLogin = () => {
     function handleClickHome() {
       navigate("/Home");
     }
+    function handleClickMain() {
+      navigate("/Main");
+    }
     function handleClickSignIn() {
       navigate("/Login");
     }
@@ -65,6 +68,7 @@ const HeaderLogin = () => {
     <AppBar position="static" style={{backgroundColor:'#000'}}>
       <Container maxWidth="xl" >
         <Toolbar disableGutters style={{justifyContent:'space-between'}}>
+        {!currentUser &&
         <Box>
             <Button 
                 variant="contained"
@@ -76,7 +80,21 @@ const HeaderLogin = () => {
           
           </Button>
         </Box>
-{!currentUser &&
+        }
+        {currentUser &&
+        <Box>
+            <Button 
+                variant="contained"
+                style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
+                onClick={handleClickMain}
+            >
+               MAIN
+            
+          
+          </Button>
+        </Box>
+        }
+        {!currentUser &&
         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Button 
                 variant="contained"
