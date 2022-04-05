@@ -9,9 +9,12 @@ import {
   signOut,
   deleteUser,
   confirmPasswordReset,
-  reauthenticateWithCredential
+  reauthenticateWithCredential,
+  browserSessionPersistence,
+  browserLocalPersistence
+  
 } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, app } from "../firebase";
 
 const userAuthContext = createContext();
 
@@ -22,8 +25,9 @@ export function UserAuthContextProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
       setCurrentUser(user ? user : null)
+      
     })
-    return () => {
+    return () => {  
       unsubscribe()
     }
   }, [])
@@ -57,7 +61,6 @@ export function UserAuthContextProvider({ children }) {
   }
 
 
-  
 
   const value = {
     currentUser, 

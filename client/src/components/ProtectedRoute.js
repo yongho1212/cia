@@ -1,14 +1,20 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
-import { useUserAuth } from "../context/UserAuthContext";
-const ProtectedRoute = ({ children }) => {
-  const { user } = useUserAuth();
-
-  console.log("Check user in Private: ", user);
-  if (!user) {
-    return <Navigate to="/" />;
-  }
-  return children;
+import { Navigate, Route } from "react-router";
+import { useSelector } from "react-redux";
+const ProtectedRoute = ({ component: Component }) => {
+  const user = useSelector((state) => state.auth.value);
+  console.log("user", user);
+  return (
+    <Route
+      render={(props) => {
+        if (user) {
+          return <Component {...props} />;
+        } else {
+          return <Navigate to="/" />;
+        }
+      }}
+    />
+  );
 };
 
 export default ProtectedRoute;

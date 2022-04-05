@@ -3,16 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import DataProvider from './redux/store';
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
 import * as serviceWorker from './serviceWorker';
 
 
 ReactDOM.render(
-  <React.StrictMode>
-    <DataProvider>
-      <App />
-    </DataProvider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
 
