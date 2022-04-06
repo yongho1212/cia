@@ -1,44 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { registerInitiate } from "../../../redux/actions"
+
+import "./Register.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import { useUserAuth } from "../../../context/UserAuthContext";
-import axios from 'axios'
+
+
 
 const Signup = () => {
-  const [name, setName] = useState("");
+  const { user } = useSelector((state) => ({ ...state.user }));
+  const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
   const [password, setPassword] = useState("");
-  const { signUp } = useUserAuth();
+  
   let navigate = useNavigate();
+  const dispatch = useDispatch();
+{/*=
+  useEffect(() => {
+    if (user) {
+      navigate("/Main");
+    }
+  }, [user, navigate]);
+*/}
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
     try {
-      await signUp(email, password);
-      axios.post('http://localhost:1212/user/register', {
-        name, email, password
-      })
-      navigate("/Main");
-      
-    } catch (err) {
-      setError(err.message);
-    }
-  };
+          dispatch(registerInitiate(email, password, displayName));
+          console.log(email)
+        } catch (err) {
+    console.log(err)
+    };
+  
+}
+
 
   return (
     <>
       <div className="p-4 box">
         <h2 className="mb-3">Firebase Auth Signup</h2>
-        {error && <Alert variant="danger">{error}</Alert>}
+        
         <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Control
               type="name"
               placeholder="name"
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setDisplayName(e.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">

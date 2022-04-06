@@ -1,51 +1,56 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import {
+  fbSignInInitiate,
+  googleSignInInitiate,
+  loginInitiate,
+} from "../../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
-import { useUserAuth } from "../../../context/UserAuthContext";
-import auth from '../../../firebase'
-import {
-  browserSessionPersistence,
-  getAuth
-} from "firebase/auth";
 
+import "./Login.css";
 
 const Login = () => {
+  const { user } = useSelector((state) => ({ ...state.user }));
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const { logIn, googleSignIn } = useUserAuth();
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    try {
-      await logIn(email, password)
-   //   auth().setPersistence(auth, browserSessionPersistence)
+  useEffect(() => {
+    if (user) {
       navigate("/Main");
+    }
+  }, [user, navigate]);
+
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    try {
+      dispatch(loginInitiate(email, password));
+      
     } catch (err) {
-      setError(err.message);
+      console.log(err)
+      
+  };
+}
 
-    }
+  const handleGoogleSignIn = () => {
+    dispatch(googleSignInInitiate());
   };
 
-  const handleGoogleSignIn = async (e) => {
-    e.preventDefault();
-    try {
-      await googleSignIn();
-      navigate("/Main");
-    } catch (error) {
-      console.log(error.message);
-    }
+  const handleFBSignIn = () => {
+    dispatch(fbSignInInitiate());
   };
-
   return (
     <>
       <div className="p-4 box">
         <h2 className="mb-3">Firebase Auth Login</h2>
-        {error && <Alert variant="danger">{error}</Alert>}
+        
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control

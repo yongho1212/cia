@@ -62,7 +62,7 @@ const Profile = () => {
     
     <div>
       
-      <h2> {user}</h2>
+      <h2> </h2>
        <h3>Once you delete your profile, all your blogs will be deleted permanently.</h3>
                           <h5>In order to continue, please write your password again</h5>
                           <form onSubmit={deleteUserBtn}>

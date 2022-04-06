@@ -10,42 +10,35 @@ import Profile from './components/body/profile/Profile';
 import Main from './components/body/main/Main';
 import Footer from './components/footer/Footer';
 import ProtectedRoute from "./components/ProtectedRoute";
-import { UserAuthContextProvider } from "./context/UserAuthContext";
-import {useDispatch, useSelector} from 'react-redux'
-import { saveUser } from "./redux/slice/userSlice";
-import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
-
+import UserRoute from "./components/UserRoute";
+import { useDispatch, useSelector } from "react-redux";
+import { auth } from "./firebase";
+import { setuser } from "./redux/actions";
 
 
 
 function App() {
-  
-  const auth = getAuth();
-  const user = useSelector((state) => state.auth.value);
-  console.log("user from state", user.refreshToken);
-  console.log("user from state", auth);
+  const { user } = useSelector((state) => ({ ...state.user }));
+
   const dispatch = useDispatch();
-  
   useEffect(() => {
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        dispatch(saveUser(user.refreshToken));
-        
+    auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        dispatch(setuser(authUser));
       } else {
-        dispatch(saveUser(undefined));
-        
+        dispatch(setuser(null));
       }
-    
     });
-  }, [auth, dispatch]);
-
+  }, [dispatch]);
   return (
     <BrowserRouter>
-    <UserAuthContextProvider>
+    
     <HeaderLogin />
-      <Routes>
+    
+      <Routes >
+      {!user &&
         <Route path="/Home" element={<Home />} />
+      }
         <Route path="/Login/*" element={<Login />} />
         <Route path="/Signup/*" element={<Signup />} />
         <Route path="/Main/*" element={<Main />} />
@@ -53,7 +46,7 @@ function App() {
         <Route path="/Chat/*" element={<Chat />} />
       </Routes>
       <Footer />
-      </UserAuthContextProvider>
+      
     </BrowserRouter>
     
   );

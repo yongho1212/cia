@@ -69,7 +69,8 @@ export function UserAuthContextProvider({ children }) {
     logOut, 
     googleSignIn,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    currentUser
   }
 
 
