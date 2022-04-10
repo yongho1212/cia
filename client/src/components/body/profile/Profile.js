@@ -4,10 +4,9 @@ import { reauthenticateWithCredential, EmailAuthProvider, deleteUser } from "fir
 import {updateProfile} from 'firebase/auth'
 import { useNavigate } from "react-router";
 import {useDispatch, useSelector} from 'react-redux'
-import Button from "@restart/ui/esm/Button";
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
-import { Form, Alert } from "react-bootstrap";
+import { Form, Alert, Button } from "react-bootstrap";
 import { InputLabel } from "@mui/material";
 import { Input } from "@mui/material";
 import { async } from "@firebase/util"
