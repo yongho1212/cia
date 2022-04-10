@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 
 const userSchema = new mongoose.Schema({
-    name: {
+    displayName: {
         type: String,
         required: [true, "Please enter your name!"],
         trim: true
@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, "Please enter your password!"]
+    },
+    aboutme: {
+        type: String,
+        default: 'About me'
     },
     avatar: {
         type: String,

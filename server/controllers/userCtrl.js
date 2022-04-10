@@ -13,7 +13,7 @@ const {CLIENT_URL} = process.env
 const userCtrl = {
     register: async (req, res) => {
         try {
-            const {name, email, password} = req.body
+            const {displayName, email, password} = req.body
 
             const user = await Users.findOne({email})
             if(user) return res.status(400).json({msg: "This email already exists."})
@@ -25,11 +25,11 @@ const userCtrl = {
 
 
             const newUser = new Users({
-                name, email, password: passwordHash
+                displayName, email, password: passwordHash
             })
-
-            await newUser.save()
             
+            await newUser.save()
+            res.json({msg: "registered"})
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
@@ -39,13 +39,13 @@ const userCtrl = {
             const {activation_token} = req.body
             const user = jwt.verify(activation_token, process.env.ACTIVATION_TOKEN_SECRET)
 
-            const {name, email, password} = user
+            const {displayName, email, password} = user
 
             const check = await Users.findOne({email})
             if(check) return res.status(400).json({msg:"This email already exists."})
 
             const newUser = new Users({
-                name, email, password
+                displayName, email, password
             })
 
             await newUser.save()
@@ -179,6 +179,20 @@ const userCtrl = {
             await Users.findByIdAndDelete(req.params.id)
 
             res.json({msg: "Deleted Success!"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    aboutMe: async (req, res) => {
+        try {
+            const {about} = req.body
+
+
+            await Users.findOneAndUpdate({_id: req.user.id}, {
+                about
+            })
+
+            res.json({msg: "Update Success!"})
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }

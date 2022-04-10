@@ -81,6 +81,9 @@ const Login = () => {
             type="dark"
             onClick={handleGoogleSignIn}
           />
+          <Button variant="primary" onClick={handleFBSignIn}>
+              FACEBOOK
+            </Button>
         </div>
       </div>
       <div className="p-4 box mt-3 text-center">

@@ -23,6 +23,8 @@ router.get('/logout', userCtrl.logout)
 
 router.patch('/update', auth, userCtrl.updateUser)
 
+router.patch('/aboutme', auth, userCtrl.aboutMe)
+
 router.patch('/update_role/:id', auth, authAdmin, userCtrl.updateUsersRole)
 
 router.delete('/delete/:id', auth, authAdmin, userCtrl.deleteUser)

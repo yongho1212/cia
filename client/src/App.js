@@ -5,7 +5,9 @@ import Login from "./components/body/auth/Login";
 import Signup from "./components/body/auth/Signup";
 import Home from './components/body/home/Home'
 import HeaderLogin  from './components/header/HeaderLogin';
+import HeaderProfile from './components/header/HeaderProfile';
 import Chat from './components/body/chat/Chat';
+import Search from './components/body/search/Search';
 import Profile from './components/body/profile/Profile';
 import Main from './components/body/main/Main';
 import Footer from './components/footer/Footer';
@@ -14,7 +16,6 @@ import UserRoute from "./components/UserRoute";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "./firebase";
 import { setuser } from "./redux/actions";
-
 
 
 function App() {
@@ -32,21 +33,26 @@ function App() {
   }, [dispatch]);
   return (
     <BrowserRouter>
-    
-    <HeaderLogin />
-    
-      <Routes >
-      {!user &&
-        <Route path="/Home" element={<Home />} />
-      }
-        <Route path="/Login/*" element={<Login />} />
-        <Route path="/Signup/*" element={<Signup />} />
-        <Route path="/Main/*" element={<Main />} />
-        <Route path="/Profile/*" element={<Profile />} />
-        <Route path="/Chat/*" element={<Chat />} />
-      </Routes>
+    { user ?
+      <HeaderProfile />
+    : 
+      <HeaderLogin />  
+    }
+        <Routes >
+          { !user ?
+            <Route path="/Home" element={<Home />}  />
+          :
+            <Route path="/Main/*" element={<Main />} />
+          }
+          
+          
+          <Route path="/Login/*" element={<Login />} />
+          <Route path="/Signup/*" element={<Signup />} />
+          <Route path="/Profile/*" element={<Profile />} />
+          <Route path="/Chat/*" element={<Chat />} />
+          <Route path="/Search/*" element={<Search />} />
+        </Routes>
       <Footer />
-      
     </BrowserRouter>
     
   );

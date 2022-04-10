@@ -64,6 +64,7 @@ const HeaderLogin = () => {
     async function handleLogout() {
       try {
         dispatch(logOutInitiate());
+        navigate('/Home')
         console.log('logout')
       } catch (err) {
         console.log(err)
@@ -76,7 +77,7 @@ const HeaderLogin = () => {
   
 
   return (
-    <AppBar position="static" style={{backgroundColor:'#000'}}>
+    <AppBar position="static" style={{backgroundColor:'#000', zIndex:100}}>
       <Container maxWidth="xl" >
         <Toolbar disableGutters style={{justifyContent:'space-between'}}>
         {!user &&

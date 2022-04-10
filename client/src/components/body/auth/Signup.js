@@ -1,13 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { registerInitiate } from "../../../redux/actions"
-
 import "./Register.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
-import { Button } from "react-bootstrap";
 
+import axios from 'axios'
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+const theme = createTheme();
 
 const Signup = () => {
   const { user } = useSelector((state) => ({ ...state.user }));
@@ -17,66 +30,95 @@ const Signup = () => {
   
   let navigate = useNavigate();
   const dispatch = useDispatch();
-{/*=
+
   useEffect(() => {
     if (user) {
       navigate("/Main");
     }
   }, [user, navigate]);
-*/}
+
+  function moveLogin() {
+    navigate("/Login")
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(registerInitiate(email, password, displayName));
     try {
-          dispatch(registerInitiate(email, password, displayName));
-          console.log(email)
+          const res = await axios.post('http://localhost:1212/user/register', 
+          {displayName, email, password}
+        ).then((res) => {
+          console.log(displayName, email, password)
+          })
         } catch (err) {
-    console.log(err)
+          console.log('failed')
+          
     };
-  
+    navigate('/Main');
+    console.log(displayName)
 }
 
 
   return (
-    <>
-      <div className="p-4 box">
-        <h2 className="mb-3">Firebase Auth Signup</h2>
+    <ThemeProvider theme={theme}>
+    <Container>
+      <CssBaseline />
+      <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
         
         <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
+        <Box className="mb-3" controlId="formBasicName">
+            <TextField
               type="name"
               placeholder="name"
               onChange={(e) => setDisplayName(e.target.value)}
             />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Control
+          </Box>
+          <Box className="mb-3" controlId="formBasicEmail">
+            <TextField
               type="email"
               placeholder="Email address"
               onChange={(e) => setEmail(e.target.value)}
             />
-          </Form.Group>
+          </Box>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Control
+          <Box className="mb-3" controlId="formBasicPassword">
+            <TextField
               type="password"
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
             />
-          </Form.Group>
+          </Box>
 
-          <div className="d-grid gap-2">
-            <Button variant="primary" type="Submit">
+          
+            <Button 
+            variant="primary" 
+            type="Submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            >
               Sign up
             </Button>
-          </div>
+          
         </Form>
-      </div>
-      <div className="p-4 box mt-3 text-center">
-        Already have an account? <Link to="/">Log In</Link>
-      </div>
-    </>
+      
+        <Button onClick={moveLogin}>
+        Already have an account? Log In
+        </Button>
+      </Box>
+      </Container>
+      </ThemeProvider>
   );
 };
 

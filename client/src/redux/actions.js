@@ -7,6 +7,7 @@ import {
   onAuthStateChanged,
   signInWithPopup,
   GoogleAuthProvider,
+  FacebookAuthProvider,
   signOut,
   deleteUser,
   confirmPasswordReset,
@@ -16,6 +17,9 @@ import {
   getAuth,
   updateProfile
 } from "firebase/auth";
+
+const ggprovider = new GoogleAuthProvider();
+const fbprovider = new FacebookAuthProvider();
 
 
 export const addToBasket = (item) => ({
@@ -135,8 +139,16 @@ export const loginInitiate = (email, password) => {
 
 export const googleSignInInitiate = () => {
   return function (dispatch) {
-    dispatch(googleSignInStart());
-    signInWithPopup(googleAuthProvider)
+    
+    dispatch(googleSignInStart())
+    signInWithPopup(auth, ggprovider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+      })  
       .then(({ user }) => {
         dispatch(googleSignInSuccess(user));
       })
@@ -147,7 +159,16 @@ export const googleSignInInitiate = () => {
 export const fbSignInInitiate = () => {
   return function (dispatch) {
     dispatch(fbSignInStart());
-      signInWithPopup(facebookAuthProvider.addScope("user_birthday, email"))
+      signInWithPopup(auth, fbprovider)
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
+
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+        }
+      )
       .then((result) => {
         dispatch(fbSignInSuccess(result.user));
       })
