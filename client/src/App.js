@@ -11,6 +11,7 @@ import Search from './components/body/search/Search';
 import Profile from './components/body/profile/Profile';
 import Main from './components/body/main/Main';
 import Footer from './components/footer/Footer';
+import EditProfile from './components/body/editprofile.js/EditProfile';
 import ProtectedRoute from "./components/ProtectedRoute";
 import UserRoute from "./components/UserRoute";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,6 +52,7 @@ function App() {
           <Route path="/Profile/*" element={<Profile />} />
           <Route path="/Chat/*" element={<Chat />} />
           <Route path="/Search/*" element={<Search />} />
+          <Route path="/EditProfile/*" element={<EditProfile />} />
         </Routes>
       <Footer />
     </BrowserRouter>

@@ -44,6 +44,8 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    //firebase에서 유저 생성 후 리덕스에 저장
+    // firebase에서 유저 생성 후 uid값을 서버로 넘겨서 유저 스키마에 저장후 몽고디비를 리덕스에 저장
     dispatch(registerInitiate(email, password, displayName));
     try {
           const res = await axios.post('http://localhost:1212/user/register', 
@@ -53,7 +55,6 @@ const Signup = () => {
           })
         } catch (err) {
           console.log('failed')
-          
     };
     navigate('/Main');
     console.log(displayName)

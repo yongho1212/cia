@@ -13,13 +13,17 @@ import { Input } from "@mui/material";
 import { async } from "@firebase/util"
 import axios from 'axios';
 
+
+
+
 const Profile = () => {
   const [userName, setUserName] = useState("")
   const [userEmail, setUserEmail] = useState("")
   const [aboutMe, setAboutMe] = useState("")
   const { user } = useSelector((state) => ({ ...state.user }));
 
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     const getUser = async() => {
       try{
@@ -45,6 +49,10 @@ const userAboutMeBtn = async(e) => {
   } catch (err) {
     console.log('failed')  
   };
+}
+
+const editProfile = () => {
+  navigate("/EditProfile")
 }
 
 
@@ -127,6 +135,13 @@ const userAboutMeBtn = async(e) => {
             sx={{ mt: 3, mb: 2 }}
             >
               Save
+          </Button>
+          <Button variant="primary" 
+            onClick={editProfile}
+            
+            sx={{ mt: 3, mb: 2 }}
+            >
+              Edit Proifile
           </Button>
         </Form>
     </div>
