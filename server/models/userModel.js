@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 
 
 const userSchema = new mongoose.Schema({
+    uid:{
+        type: String,
+        unique: true
+    },
     displayName: {
         type: String,
         required: [true, "Please enter your name!"],

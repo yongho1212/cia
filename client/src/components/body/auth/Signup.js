@@ -4,7 +4,6 @@ import { registerInitiate } from "../../../redux/actions"
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
-
 import axios from 'axios'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -20,6 +19,24 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  onAuthStateChanged,
+  signInWithPopup,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  signOut,
+  deleteUser,
+  confirmPasswordReset,
+  reauthenticateWithCredential,
+  browserSessionPersistence,
+  browserLocalPersistence,
+  getAuth,
+  updateProfile
+} from "firebase/auth";
+
 const theme = createTheme();
 
 const Signup = () => {
@@ -28,6 +45,9 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
+  const auth = getAuth();
+  const info = auth.currentUser;
+
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -41,20 +61,28 @@ const Signup = () => {
     navigate("/Login")
   };
 
+  async function upLoadProfile() {
+    try{
+    const uid = auth.currentUser.uid
+    const res = await axios.post('http://localhost:1212/user/register', 
+    {displayName, email, password, uid}
+      ).then((res) => {
+    console.log(displayName, email, password, uid)
+      })
+    } catch (err) {
+      console.log('failed')
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(registerInitiate(email, password, displayName));
-    try {
-          const res = await axios.post('http://localhost:1212/user/register', 
-          {displayName, email, password}
-        ).then((res) => {
-          console.log(displayName, email, password)
-          })
-        } catch (err) {
-          console.log('failed')
-          
-    };
+    await createUserWithEmailAndPassword(auth, email,password)
+      .then(() => {
+        updateProfile(auth.currentUser, {
+          displayName,
+        })
+      }).then(() => upLoadProfile())
+      .catch(console.log(e));
     navigate('/Main');
     console.log(displayName)
 }
