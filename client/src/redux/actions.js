@@ -1,5 +1,6 @@
 import * as types from "./actionTypes";
 import { auth, googleAuthProvider, facebookAuthProvider } from "../firebase";
+import axios from "axios";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -20,6 +21,8 @@ import {
 
 const ggprovider = new GoogleAuthProvider();
 const fbprovider = new FacebookAuthProvider();
+
+
 
 
 export const addToBasket = (item) => ({
@@ -113,6 +116,7 @@ export const setBasketEmpty = () => ({
 export const registerInitiate = (email, password, displayName) => {
   return function (dispatch) {
     dispatch(registerStart());
+    
     createUserWithEmailAndPassword(auth, email,password)
       .then(({ user }) => {
          user.displayName = displayName;
