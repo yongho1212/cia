@@ -17,6 +17,7 @@ import UserRoute from "./components/UserRoute";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "./firebase";
 import { setuser } from "./redux/actions";
+import UploadProduct from './components/body/Product/uploadProduct';
 
 
 function App() {
@@ -52,7 +53,11 @@ function App() {
           <Route path="/Profile/*" element={<Profile />} />
           <Route path="/Chat/*" element={<Chat />} />
           <Route path="/Search/*" element={<Search />} />
+<<<<<<< Updated upstream
           <Route path="/EditProfile/*" element={<EditProfile />} />
+=======
+          <Route path="/Upload/" element={<UploadProduct />} />
+>>>>>>> Stashed changes
         </Routes>
       <Footer />
     </BrowserRouter>
