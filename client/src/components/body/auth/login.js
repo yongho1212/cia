@@ -10,6 +10,25 @@ import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 
+
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  onAuthStateChanged,
+  signInWithPopup,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  signOut,
+  deleteUser,
+  confirmPasswordReset,
+  reauthenticateWithCredential,
+  browserSessionPersistence,
+  browserLocalPersistence,
+  getAuth,
+  updateProfile
+} from "firebase/auth";
+
 import "./Login.css";
 
 const Login = () => {
@@ -19,6 +38,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const auth = getAuth();
 
   useEffect(() => {
     if (user) {
@@ -31,6 +51,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
+      signInWithEmailAndPassword(auth, email, password);
       dispatch(loginInitiate(email, password));
       
     } catch (err) {

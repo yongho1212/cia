@@ -85,6 +85,7 @@ const Signup = () => {
       .catch(console.log(e));
     navigate('/Main');
     console.log(displayName)
+    dispatch(registerInitiate())
 }
 
 

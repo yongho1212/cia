@@ -26,7 +26,6 @@ const Profile = () => {
   useEffect(() => {
     const getUser = async() => {
       try{
-        console.log(user)
         setUserName(user.displayName);
         setUserEmail(user.email);
       } catch(e){
@@ -34,7 +33,7 @@ const Profile = () => {
       }
     } ;
     getUser();
-    console.log(user)
+//    console.log(user)
     
   },[userName, userEmail])
 
