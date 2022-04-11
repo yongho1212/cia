@@ -109,17 +109,6 @@ const HeaderLogin = () => {
           </Button>
         </Box>
         }
-        {user &&
-        <Box>
-            <Button 
-                variant="contained"
-                style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
-                onClick={handleClickUpload}
-            >
-               Upload
-          </Button>
-        </Box>
-        }
         {!user &&
         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Button 
