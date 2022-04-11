@@ -59,6 +59,9 @@ const HeaderProfile = () => {
     function handleClickSearch() {
       navigate("/Search");
     }
+    function handleClickUpload() {
+      navigate("/Upload");
+    }
     
     async function handleLogout() {
       try {
@@ -95,6 +98,13 @@ const HeaderProfile = () => {
 
         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             
+            <Button 
+                variant="contained"
+                style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
+                onClick={handleClickUpload}
+            >
+                업로드
+            </Button>
             <Button 
                 variant="contained"
                 style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
