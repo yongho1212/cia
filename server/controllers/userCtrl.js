@@ -13,7 +13,7 @@ const {CLIENT_URL} = process.env
 const userCtrl = {
     register: async (req, res) => {
         try {
-            const {displayName, email, password, uid} = req.body
+            const {displayName, email, role, uid, password, aboutme} = req.body
 
             const user = await Users.findOne({email})
             if(user) return res.status(400).json({msg: "This email already exists."})
@@ -25,7 +25,7 @@ const userCtrl = {
 
 
             const newUser = new Users({
-                displayName, uid, email, password: passwordHash
+                displayName, email, role, aboutme, uid, password: passwordHash
             })
             
             await newUser.save()
@@ -123,15 +123,18 @@ const userCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
-    getUserInfor: async (req, res) => {
+    getUserInfo: async (req, res) => {
         try {
-            const user = await Users.findById(req.user.id).select('-password');
-            console.log(user)
-            res.send(user)
+            const {uid} = req.query
+            const users = await Users.findOne({ uid: uid}).select('-password').exec()
+            res.send(users);
+            console.log(users);
+             
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
     },
+
     getUsersAllInfor: async (req, res) => {
         try {
             const users = await Users.find().select('-password')

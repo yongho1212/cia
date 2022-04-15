@@ -1,61 +1,49 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { registerInitiate } from "../../../redux/actions"
+import React, { useState, useEffect, useId } from "react";
 import "./Register.css";
-import { useNavigate } from "react-router-dom";
+
 import { Form, Alert } from "react-bootstrap";
-import axios from 'axios'
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
+
+import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
-  onAuthStateChanged,
-  signInWithPopup,
-  GoogleAuthProvider,
-  FacebookAuthProvider,
-  signOut,
-  deleteUser,
-  confirmPasswordReset,
-  reauthenticateWithCredential,
-  browserSessionPersistence,
-  browserLocalPersistence,
   getAuth,
   updateProfile
 } from "firebase/auth";
 
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from "../../../state/index";
+
 const theme = createTheme();
 
 const Signup = () => {
-  const { user } = useSelector((state) => ({ ...state.user }));
+  const state = useSelector((state) => state)
+  const dispatch = useDispatch();
+  const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
+  let navigate = useNavigate();
+  
+  const auth = getAuth();
+
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
-  const auth = getAuth();
-  const info = auth.currentUser;
-
-  let navigate = useNavigate();
-  const dispatch = useDispatch();
+  const [role, setRole] = useState("");
+  const [uid, setUid] = useState("");
 
   useEffect(() => {
-    if (user) {
+    if (state.loggedin) {
       navigate("/Main");
     }
-  }, [user, navigate]);
+  }, [state.loggedin, navigate]);
 
   function moveLogin() {
     navigate("/Login")
@@ -63,29 +51,33 @@ const Signup = () => {
 
   async function upLoadProfile() {
     try{
-    const uid = auth.currentUser.uid
-    const res = await axios.post('http://localhost:1212/user/register', 
-    {displayName, email, password, uid}
-      ).then((res) => {
-    console.log(displayName, email, password, uid)
+      const uid = auth.currentUser.uid
+      const res = await axios.post('/user/register', 
+      {displayName, email, role, uid, password})
+      .then(function(data){
+        console.log(data)
       })
+      console.log(displayName, email, role, uid, password)
+      loginUser(displayName, email, role, uid)
     } catch (err) {
       console.log('failed')
     }
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => { 
     e.preventDefault();
-    await createUserWithEmailAndPassword(auth, email,password)
+
+    await createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         updateProfile(auth.currentUser, {
           displayName,
         })
-      }).then(() => upLoadProfile())
-      .catch(console.log(e));
-    navigate('/Main');
-    console.log(displayName)
-    dispatch(registerInitiate())
+        console.log(auth.currentUser.uid, displayName, email, role)
+      })
+      .then(() => {
+        upLoadProfile()
+      })
+      navigate('/Main');     
 }
 
 
@@ -101,10 +93,6 @@ const Signup = () => {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-        
         <Form onSubmit={handleSubmit}>
         <Box className="mb-3" controlId="formBasicName">
             <TextField
@@ -128,6 +116,19 @@ const Signup = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </Box>
+
+
+          <FormControl>
+            <FormLabel id="demo-controlled-radio-buttons-group">ROLE</FormLabel>
+            <RadioGroup
+              aria-labelledby="demo-controlled-radio-buttons-group"
+              name="controlled-radio-buttons-group"
+              onChange={(e) => setRole(e.target.value)}
+            >
+              <FormControlLabel value="inflencer" control={<Radio />} label="INFLUENCER" />
+              <FormControlLabel value="advertiser" control={<Radio />} label="ADVERTISER" />
+            </RadioGroup>
+          </FormControl>
 
           
             <Button 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import './Main.css'
-import { useUserAuth } from "../../../context/UserAuthContext";
+
 import { reauthenticateWithCredential, EmailAuthProvider, deleteUser } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";

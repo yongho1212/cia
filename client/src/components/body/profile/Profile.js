@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useUserAuth } from "../../../context/UserAuthContext";
+
 import { reauthenticateWithCredential, EmailAuthProvider, deleteUser } from "firebase/auth";
 import {updateProfile} from 'firebase/auth'
 import { useNavigate } from "react-router";
@@ -11,29 +11,36 @@ import { InputLabel } from "@mui/material";
 import { Input } from "@mui/material";
 import { async } from "@firebase/util"
 import axios from 'axios';
-
-
+import { createStore } from 'redux';
+  
 
 
 const Profile = () => {
   const [userName, setUserName] = useState("")
   const [userEmail, setUserEmail] = useState("")
+  const [userRole, setUserRole] = useState("")
+  
   const [aboutMe, setAboutMe] = useState("")
   const { user } = useSelector((state) => ({ ...state.user }));
-
+  
   const navigate = useNavigate();
+
   
   useEffect(() => {
     const getUser = async() => {
       try{
         setUserName(user.displayName);
         setUserEmail(user.email);
+        setUserRole(user.role);
+        console.log(user.displayName);
+        console.log(user.email);
+        
       } catch(e){
         console.log(e)
       }
     } ;
     getUser();
-//    console.log(user)
+  console.log(user)
     
   },[userName, userEmail])
 
@@ -110,6 +117,8 @@ const editProfile = () => {
         {userName}<br/>
         {userEmail}<br/>
         aa{aboutMe}
+        {userRole}
+     
         
       </h3>
     }

@@ -12,7 +12,6 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {useNavigate} from "react-router-dom";
-import { useUserAuth } from '../../context/UserAuthContext'
 import { useDispatch, useSelector } from "react-redux";
 import { logOutInitiate } from "../../redux/actions"
 
@@ -25,10 +24,12 @@ const HeaderLogin = () => {
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { user } = useSelector((state) => ({ ...state.user }));
+  const state = useSelector((state) => state)
   const dispatch = useDispatch();
+  const uuid = state.auth.uid
+
   const handleAuth = () => {
-    if (user) {
+    if (uuid = false) {
       dispatch(logOutInitiate());
     }
   };
@@ -83,7 +84,7 @@ const HeaderLogin = () => {
     <AppBar position="static" style={{backgroundColor:'#000', zIndex:100}}>
       <Container maxWidth="xl" >
         <Toolbar disableGutters style={{justifyContent:'space-between'}}>
-        {!user &&
+        {!uuid &&
         <Box>
             <Button 
                 variant="contained"
@@ -96,7 +97,7 @@ const HeaderLogin = () => {
           </Button>
         </Box>
         }
-        {user &&
+        {uuid &&
         <Box>
             <Button 
                 variant="contained"
@@ -109,18 +110,7 @@ const HeaderLogin = () => {
           </Button>
         </Box>
         }
-        {user &&
-        <Box>
-            <Button 
-                variant="contained"
-                style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
-                onClick={handleClickUpload}
-            >
-               Upload
-          </Button>
-        </Box>
-        }
-        {!user &&
+        {!uuid &&
         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Button 
                 variant="contained"
@@ -138,7 +128,7 @@ const HeaderLogin = () => {
             </Button>
         </Box>  
 }
-{user &&
+{uuid &&
         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Button 
                 variant="contained"

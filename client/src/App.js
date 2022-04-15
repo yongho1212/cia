@@ -14,16 +14,32 @@ import Footer from './components/footer/Footer';
 import EditProfile from './components/body/editprofile.js/EditProfile';
 import ProtectedRoute from "./components/ProtectedRoute";
 import UserRoute from "./components/UserRoute";
-import { useDispatch, useSelector } from "react-redux";
-import { auth } from "./firebase";
-import { setuser } from "./redux/actions";
 import UploadProduct from './components/body/Product/uploadProduct';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from './state/index';
 
 function App() {
-  const { user } = useSelector((state) => ({ ...state.user }));
-
+  const state = useSelector((state) => state)
   const dispatch = useDispatch();
+  const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
+
+  const auth = getAuth();
+  const user = auth.currentUser
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      fbuser(true);
+    } else {
+      nofbuser(false);
+    }
+  });
+  console.log(state.loggedin)
+  console.log(user);
+  
+
+/*  const dispatch = useDispatch();
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
       if (authUser) {
@@ -33,21 +49,21 @@ function App() {
       }
     });
   }, [dispatch]);
+*/
+
   return (
     <BrowserRouter>
-    { user ?
+    { state.loggedin ?
       <HeaderProfile />
     : 
       <HeaderLogin />  
     }
         <Routes >
-          { !user ?
+          { !state.loggedin ?
             <Route path="/Home" element={<Home />}  />
           :
             <Route path="/Main/*" element={<Main />} />
           }
-          
-          
           <Route path="/Login/*" element={<Login />} />
           <Route path="/Signup/*" element={<Signup />} />
           <Route path="/Profile/*" element={<Profile />} />
