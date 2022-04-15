@@ -42,30 +42,26 @@ const Login = () => {
 
   useEffect(() => {});
 
-  async function getUserInfo() {
-    try {
-      const uid = auth.currentUser.uid;
-      const res = await axios
-        .get("http://localhost:1212/user/getUserInfo", { uid })
-        .then((res) => res.json())
-        .then((data) => console.log(data));
-    } catch (err) {
-      console.log("fail");
-    }
-    console.log(infor);
-  }
-
-  const getinfo = async() => {
+  const getinfo = async () => {
     const uid = auth.currentUser.uid;
-    console.log(uid)
-    const response = await axios.get("http://localhost:1212/user/getUserInfo", 
-          {params: {uid: uid }}
-        )     
-        .then((res) => { console.log(res.data); 
-       
-       }).catch(error => { console.log(error.response);
-       })
-}
+    console.log(uid);
+    const response = await axios
+      .get("http://localhost:1212/user/getUserInfo", { params: { uid: uid } })
+      .then((res) => {
+        console.log(res.data);
+        
+        const displayName = res.data.displayName
+        const uid = res.data.uid
+        const email = res.data.email
+        const role = res.data.role
+        loginUser({uid, displayName, role, email});
+        fbuser(true)
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+      
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

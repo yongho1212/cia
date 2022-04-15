@@ -13,7 +13,10 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logOutInitiate } from "../../redux/actions"
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../../state/index';
+import { getAuth, signOut } from "firebase/auth";
+
 
 
 const pages = ['Products', 'Pricing', 'Blog'];
@@ -27,6 +30,10 @@ const HeaderProfile = () => {
 
   const state = useSelector((state) => state)
   const dispatch = useDispatch();
+  const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
+
+  const auth = getAuth();
+
 
 /*  useEffect(() => {
     const getRole = async() => {
@@ -81,7 +88,9 @@ const HeaderProfile = () => {
     
     async function handleLogout() {
       try {
-        dispatch(logOutInitiate());
+        logoutUser();
+        nofbuser(false);;
+        signOut(auth);
         navigate('/Home')
         console.log('logout')
       } catch (err) {

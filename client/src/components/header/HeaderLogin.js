@@ -31,6 +31,7 @@ const HeaderLogin = () => {
   const handleAuth = () => {
     if (uuid = false) {
       dispatch(logOutInitiate());
+      
     }
   };
 
@@ -84,7 +85,7 @@ const HeaderLogin = () => {
     <AppBar position="static" style={{backgroundColor:'#000', zIndex:100}}>
       <Container maxWidth="xl" >
         <Toolbar disableGutters style={{justifyContent:'space-between'}}>
-        {!uuid &&
+        
         <Box>
             <Button 
                 variant="contained"
@@ -96,21 +97,11 @@ const HeaderLogin = () => {
           
           </Button>
         </Box>
-        }
-        {uuid &&
-        <Box>
-            <Button 
-                variant="contained"
-                style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
-                onClick={handleClickMain}
-            >
-               MAIN
-            
-          
-          </Button>
-        </Box>
-        }
-        {!uuid &&
+        
+      
+     
+        
+      
         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Button 
                 variant="contained"
@@ -127,25 +118,8 @@ const HeaderLogin = () => {
                 로그인
             </Button>
         </Box>  
-}
-{uuid &&
-        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Button 
-                variant="contained"
-                style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
-                onClick={handleClickProfile}
-            >
-                프로필
-            </Button>
-            <Button 
-                variant="contained"
-                style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
-                onClick={handleLogout}
-            >
-                로그아웃
-            </Button>
-        </Box>  
-}
+
+
 
 
          

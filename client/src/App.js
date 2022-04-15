@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Login from "./components/body/auth/Login";
 import Signup from "./components/body/auth/Signup";
 import Home from './components/body/home/Home'
@@ -28,6 +28,9 @@ function App() {
 
   const auth = getAuth();
   const user = auth.currentUser
+
+  
+
   onAuthStateChanged(auth, (user) => {
     if (user) {
       fbuser(true);
@@ -36,20 +39,8 @@ function App() {
     }
   });
   console.log(state.loggedin)
-  console.log(user);
   
-
-/*  const dispatch = useDispatch();
-  useEffect(() => {
-    auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        dispatch(setuser(authUser));
-      } else {
-        dispatch(setuser(null));
-      }
-    });
-  }, [dispatch]);
-*/
+  
 
   return (
     <BrowserRouter>
