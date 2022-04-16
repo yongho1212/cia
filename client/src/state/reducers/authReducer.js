@@ -1,15 +1,15 @@
 
 const initialState = {
-    displayName : '',
-    email : '',
-    role : '',
-    uid : '',
+    user: ''
+    
 }
 
 const reducer = ( state = initialState, action) => {
     switch(action.type) {
         case "LOGIN":
-            return state = action.payload;
+            return { ...state,
+                state : action.payload
+            }
         case "LOGOUT":
             return state = '';
         default:

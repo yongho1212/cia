@@ -47,15 +47,13 @@ const Login = () => {
     console.log(uid);
     const response = await axios
       .get("http://localhost:1212/user/getUserInfo", { params: { uid: uid } })
-      .then((res) => {
-        console.log(res.data);
-        
+      .then((res) => {        
         const displayName = res.data.displayName
         const uid = res.data.uid
         const email = res.data.email
         const role = res.data.role
         loginUser({uid, displayName, role, email});
-        fbuser(true)
+        fbuser(true);
       })
       .catch((error) => {
         console.log(error.response);
