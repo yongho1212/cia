@@ -1,6 +1,11 @@
 
 const initialState = {
-    user: ''
+    auth : {
+        displayName : '',
+        uid : '',
+        email : '',
+        role : ''
+    }
     
 }
 

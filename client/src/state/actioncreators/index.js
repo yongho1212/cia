@@ -1,10 +1,8 @@
-export const loginUser = ({email, displayName, role, uid}) =>{
+export const loginUser = (email, displayName, role, uid) =>{
     return (dispatch) => {
         dispatch({
             type : "LOGIN",
-            payload : {
-                user: {email, displayName,  role, uid}
-            }
+            payload: {email, displayName,  role, uid}
         })
     }
 }

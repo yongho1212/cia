@@ -28,7 +28,7 @@ function App() {
 
   const auth = getAuth();
   const user = auth.currentUser
-
+  console.log(state.auth)
   
 
   onAuthStateChanged(auth, (user) => {
