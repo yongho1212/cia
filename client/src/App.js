@@ -63,7 +63,7 @@ function App() {
           <Route path="/EditProfile/*" element={<EditProfile />} />
           <Route path="/Upload/" element={<UploadProduct />} />
         </Routes>
-      <Footer />
+      <Footer style={{display: 'flex'}}/>
     </BrowserRouter>
     
   );
