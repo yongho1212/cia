@@ -15,7 +15,7 @@ import { MdFingerprint } from 'react-icons/md';
 
 function Footer() {
   return (
-    <div className='footer-container'>
+    <div className='footer-container' style={{marginTop: 'auto'}}>
       
         
 
