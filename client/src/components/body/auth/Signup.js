@@ -58,7 +58,7 @@ const Signup = () => {
         console.log(data)
       })
       console.log(displayName, email, role, uid, password)
-      loginUser(displayName, email, role, uid)
+      loginUser(email, displayName, role, uid)
       fbuser(true)
     } catch (err) {
       console.log('failed')

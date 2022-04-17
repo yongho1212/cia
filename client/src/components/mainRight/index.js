@@ -9,6 +9,7 @@ const  MainRight = () => {
 
 
   const [product, setProduct] = useState();
+
   
   const products = 
   [{
@@ -75,9 +76,11 @@ const  MainRight = () => {
        const res = await axios.post('http://localhost:1212/products/getlist')
        .then((res) => { 
         console.log(res.data);
+
         setProduct(res.data);
         return 0;
       })
+
     } 
     catch (err) {
       console.log(err)

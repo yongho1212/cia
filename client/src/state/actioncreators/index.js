@@ -7,11 +7,11 @@ export const loginUser = (email, displayName, role, uid) =>{
     }
 }
 
-export const logoutUser = (displayName, email, role, uid) =>{
+export const logoutUser = ( email, displayName, role, uid) =>{
     return (dispatch) => {
         dispatch({
             type : "LOGOUT",
-            payload : {displayName, email, role, uid}
+            payload : { email, displayName, role, uid}
         })
     }
 }
