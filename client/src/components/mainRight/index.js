@@ -4,7 +4,7 @@ import axios from 'axios'
 const  MainRight = () => {
 
 
-  const [product, setProduct] = useState("");
+  const [product, setProduct] = useState([])
   
   
 
@@ -13,8 +13,9 @@ const  MainRight = () => {
        const res = await axios.post('http://localhost:1212/products/getlist')
        .then((res) => {
         console.log(res.data);
+        setProduct(JSON.stringify(res.data))
       })
-      setProduct(res.data.json());
+      
     } 
     catch (err) {
       console.log('fail')

@@ -1,10 +1,10 @@
 
 const initialState = {
     auth : {
-        displayName : '',
-        uid : '',
         email : '',
-        role : ''
+        displayName : '',
+        role : '',
+        uid : ''
     } 
     
 }
