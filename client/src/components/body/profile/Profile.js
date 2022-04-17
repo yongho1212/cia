@@ -112,8 +112,8 @@ const editProfile = () => {
     
     
       <h3>
-        {state.auth.email}<br/>
-        {userEmail}<br/>
+        
+        
         aa{aboutMe}
         {userRole}
      
