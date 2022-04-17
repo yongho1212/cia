@@ -12,9 +12,11 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {useNavigate} from "react-router-dom";
-import { useUserAuth } from '../../context/UserAuthContext'
 import { useDispatch, useSelector } from "react-redux";
-import { logOutInitiate } from "../../redux/actions"
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../../state/index';
+import { getAuth, signOut } from "firebase/auth";
+
 
 
 const pages = ['Products', 'Pricing', 'Blog'];
@@ -22,17 +24,38 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const HeaderProfile = () => {
 
-
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { user } = useSelector((state) => ({ ...state.user }));
+  const [userRole, setUserRole] = useState("");
+
+  const state = useSelector((state) => state)
   const dispatch = useDispatch();
+  const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
+
+  const auth = getAuth();
+
+
+/*  useEffect(() => {
+    const getRole = async() => {
+      try{
+        setUserRole(state);
+        console.log(state.auth.role)
+      } catch(e){
+        console.log(e)
+      }
+    } ;
+    getRole();
+
+    
+  },[])
+
+
   const handleAuth = () => {
     if (user) {
       dispatch(logOutInitiate());
     }
   };
-
+*/
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -65,7 +88,9 @@ const HeaderProfile = () => {
     
     async function handleLogout() {
       try {
-        dispatch(logOutInitiate());
+        logoutUser();
+        nofbuser(false);;
+        signOut(auth);
         navigate('/Home')
         console.log('logout')
       } catch (err) {
@@ -98,6 +123,8 @@ const HeaderProfile = () => {
 
         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             
+
+          
             <Button 
                 variant="contained"
                 style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
@@ -105,6 +132,7 @@ const HeaderProfile = () => {
             >
                 업로드
             </Button>
+       
             <Button 
                 variant="contained"
                 style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}

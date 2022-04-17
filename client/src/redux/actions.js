@@ -113,10 +113,20 @@ export const setBasketEmpty = () => ({
   type: types.SET_BASKET_EMPTY,
 });
 
-export const registerInitiate = (email, password, displayName) => {
+export const registerInitiate = (email, password, displayName, aboutme, uid) => {
   return function (dispatch) {
     dispatch(registerStart());
-    
+    const fetchUser = async() => {
+      const response = await axios('http://localhost:1212/user/register', {
+        displayName: displayName,
+        email: email,
+        aboutme: aboutme,
+        uid: uid
+      }).then(({ user }) => {
+        dispatch(registerSuccess({ user }));
+      })
+    console.log(uid)
+    /*
     createUserWithEmailAndPassword(auth, email,password)
       .then(({ user }) => {
          user.displayName = displayName;
@@ -127,18 +137,25 @@ export const registerInitiate = (email, password, displayName) => {
         dispatch(registerSuccess({ user, additionalData: { displayName } }));
       })
       .catch((error) => dispatch(registerError(error.message)));
-  };
+  };*/
+}}
 };
 
-export const loginInitiate = (email, password) => {
+export const loginInitiate = (email, password, displayName, aboutme, uid) => {
   return function (dispatch) {
     dispatch(loginStart());
-    signInWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
-        dispatch(loginSuccess(user));
+    const fetchUser = async() => {
+      const response = await axios('http://localhost:1212/user/register', {
+        displayName: displayName,
+        email: email,
+        aboutme: aboutme,
+        uid: uid
+      }).then(({ user }) => {
+        dispatch(loginSuccess({ user }));
       })
       .catch((error) => dispatch(loginError(error.message)));
   };
+}
 };
 
 export const googleSignInInitiate = () => {

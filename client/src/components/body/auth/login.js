@@ -1,56 +1,87 @@
 import React, { useState, useEffect } from "react";
-import {
-  fbSignInInitiate,
-  googleSignInInitiate,
-  loginInitiate,
-} from "../../../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
+
 import { useNavigate, Link } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 
+import {
+  signInWithEmailAndPassword,
+  getAuth,
+  updateProfile,
+} from "firebase/auth";
+
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../../../state/index";
+
 import "./Login.css";
+import axios from "axios";
 
 const Login = () => {
-  const { user } = useSelector((state) => ({ ...state.user }));
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const { loginUser, logoutUser, fbuser, nofbuser } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const auth = getAuth();
+
+  const [infor, setInfor] = useState("");
 
   useEffect(() => {
-    if (user) {
+    if (state.loggedin) {
       navigate("/Main");
     }
-  }, [user, navigate]);
+  }, [state.loggedin, navigate]);
 
+  useEffect(() => {});
 
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    try {
-      dispatch(loginInitiate(email, password));
-      
-    } catch (err) {
-      console.log(err)
+  const getinfo = async () => {
+    const uid = auth.currentUser.uid;
+    console.log(uid);
+    const response = await axios
+      .get("http://localhost:1212/user/getUserInfo", { params: { uid: uid } })
+      .then((res) => {        
+        const displayName = res.data.displayName
+        const uid = res.data.uid
+        const email = res.data.email
+        const role = res.data.role
+        console.log(uid, displayName, role, email)
+        loginUser(uid, displayName, role, email);
+        fbuser(true);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
       
   };
-}
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await signInWithEmailAndPassword(auth, email, password).then(() =>
+      getinfo()
+    );
+  };
 
   const handleGoogleSignIn = () => {
-    dispatch(googleSignInInitiate());
+    //    dispatch(googleSignInInitiate());
   };
 
   const handleFBSignIn = () => {
-    dispatch(fbSignInInitiate());
+    //dispatch(fbSignInInitiate());
   };
+
   return (
     <>
       <div className="p-4 box">
         <h2 className="mb-3">Firebase Auth Login</h2>
-        
+
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control
@@ -82,8 +113,8 @@ const Login = () => {
             onClick={handleGoogleSignIn}
           />
           <Button variant="primary" onClick={handleFBSignIn}>
-              FACEBOOK
-            </Button>
+            FACEBOOK
+          </Button>
         </div>
       </div>
       <div className="p-4 box mt-3 text-center">

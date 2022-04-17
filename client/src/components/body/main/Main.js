@@ -1,26 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import './Main.css'
-import { useUserAuth } from "../../../context/UserAuthContext";
+
 import { reauthenticateWithCredential, EmailAuthProvider, deleteUser } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import MainLeft from "../mainLeft";
 import MainRight from "../../mainRight";
 import Profile from "../profile/Profile";
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../../../state/index';
 
 
 
 
 const Main = () => {
-  const { user } = useSelector((state) => ({ ...state.user }));
-  const navigate = useNavigate();
+  const state = useSelector((state) => state)
   const dispatch = useDispatch();
+  const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
+
+  const navigate = useNavigate();
+  
   useEffect(() => {
-    if (!user) {
+    if (!fbuser) {
       navigate("/Home");
     }
-  }, [user, navigate]);
+  }, [state, navigate]);
 
 
 

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useUserAuth } from "../../../context/UserAuthContext";
+
 import { reauthenticateWithCredential, EmailAuthProvider, deleteUser } from "firebase/auth";
 import {updateProfile} from 'firebase/auth'
 import { useNavigate } from "react-router";
-import {useDispatch, useSelector} from 'react-redux'
+
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import { Form, Alert, Button } from "react-bootstrap";
@@ -12,32 +12,36 @@ import { Input } from "@mui/material";
 import { async } from "@firebase/util"
 import axios from 'axios';
 
-
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../../../state/index';
+  
 
 
 const Profile = () => {
   const [userName, setUserName] = useState("")
   const [userEmail, setUserEmail] = useState("")
+  const [userRole, setUserRole] = useState("")
   const [aboutMe, setAboutMe] = useState("")
-  const { user } = useSelector((state) => ({ ...state.user }));
 
-  const navigate = useNavigate();
+
   
-  useEffect(() => {
-    const getUser = async() => {
-      try{
-        console.log(user)
-        setUserName(user.displayName);
-        setUserEmail(user.email);
-      } catch(e){
-        console.log(e)
-      }
-    } ;
-    getUser();
-    console.log(user)
-    
-  },[userName, userEmail])
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state)
+  const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
+  
+  
+  const navigate = useNavigate();
 
+  useEffect(() =>{
+    if (!fbuser){
+      navigate("/Home")
+      console.log(state.auth.email)
+    }
+  })
+
+  console.log(state.auth)
+  
 const userAboutMeBtn = async(e) => {
   try {
     const res = await axios.post('http://localhost:1212/user/aboutme', 
@@ -105,15 +109,17 @@ const editProfile = () => {
     <div>
       
       <h1>Hello! It's profile page.</h1>	
-    {user !== null &&
+    
     
       <h3>
-        {userName}<br/>
-        {userEmail}<br/>
+        
+        
         aa{aboutMe}
+        {userRole}
+     
         
       </h3>
-    }
+    
       {/* <h3>Once you delete your profile, all your blogs will be deleted permanently.</h3>
                           <h5>In order to continue, please write your password again</h5>
                           <form onSubmit={deleteUserBtn}>
