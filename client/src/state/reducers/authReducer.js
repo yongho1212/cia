@@ -5,7 +5,7 @@ const initialState = {
         uid : '',
         email : '',
         role : ''
-    }
+    } 
     
 }
 
