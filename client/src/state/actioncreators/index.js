@@ -33,3 +33,21 @@ export const nofbuser = (checker) =>{
         })
     }
 }
+
+export const emailchecked = (emailchecker) =>{
+    return (dispatch) => {
+        dispatch({
+            type : "EMAILCHECKED",
+            payload : {emailchecker}
+        })
+    }
+}
+
+export const emailnotchecked = (emailchecker) =>{
+    return (dispatch) => {
+        dispatch({
+            type : "EMAILNOTCHECKED",
+            payload : {emailchecker}
+        })
+    }
+}
