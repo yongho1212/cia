@@ -10,13 +10,15 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
 
+
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 
 import {
   createUserWithEmailAndPassword,
   getAuth,
-  updateProfile
+  updateProfile,
+  sendEmailVerification
 } from "firebase/auth";
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -78,8 +80,12 @@ const Signup = () => {
       .then(() => {
         upLoadProfile()
       })
-      navigate('/Main');     
-}
+      .then(() => {
+        sendEmailVerification(auth.currentUser)
+      })
+      navigate('./Main')
+      }  
+         
 
 
   return (

@@ -19,10 +19,11 @@ import { actionCreators } from '../../../state/index';
 
 
 const Profile = () => {
-  const [userName, setUserName] = useState("")
-  const [userEmail, setUserEmail] = useState("")
-  const [userRole, setUserRole] = useState("")
-  const [aboutMe, setAboutMe] = useState("")
+  const [userData, setUserData] = useState({
+    email: '',
+    role: ''
+  })
+
 
 
   
@@ -36,13 +37,34 @@ const Profile = () => {
   useEffect(() =>{
     if (!fbuser){
       navigate("/Home")
-      console.log(state.auth.email)
+      console.log(state.auth)
+      
     }
   })
 
+  useEffect(() => {
+    fetching();
+  },[state])
+
+  const fetching = async(e) => {
+    try{
+    await setUserData({
+      email: state.auth.state.email,
+      role: state.auth.state.role 
+    })
+    }catch{
+      console.log(e)
+    }
+  }
+
+
+      
+
   console.log(state.auth)
   
-const userAboutMeBtn = async(e) => {
+  console.log(userData)
+  
+{/*const userAboutMeBtn = async(e) => {
   try {
     const res = await axios.post('http://localhost:1212/user/aboutme', 
     {aboutMe}
@@ -53,7 +75,7 @@ const userAboutMeBtn = async(e) => {
     console.log('failed')  
   };
 }
-
+*/}
 const editProfile = () => {
   navigate("/EditProfile")
 }
@@ -109,13 +131,18 @@ const editProfile = () => {
     <div>
       
       <h1>Hello! It's profile page.</h1>	
+      <div>
+      {userData.email}
+      {userData.role}
+      </div>
     
     
       <h3>
         
         
-        aa{aboutMe}
-        {userRole}
+        ANOUTME
+        
+        
      
         
       </h3>
@@ -127,12 +154,12 @@ const editProfile = () => {
                               <input type="password"/>
                               <button type="submit" className="btn btn-danger">Delete profile</button>
       </form>*/}
-      <Form sx={{ m: 1 }} variant="standard" onSubmit={userAboutMeBtn}>
+      <Form sx={{ m: 1 }} variant="standard" >
           <InputLabel htmlFor="standard-adornment-amount">About me</InputLabel>
           <Input
             id="standard-adornment-amount"
-            defaultValue={aboutMe}
-            onChange={(e) => setAboutMe(e.target.value)}
+            
+            
           />
           <Button variant="primary" 
             type="Submit"
