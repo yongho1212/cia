@@ -132,7 +132,7 @@ const editProfile = () => {
       
       <h1>Hello! It's profile page.</h1>	
       <div>
-      {userData.email}
+      {userData.email} <br/>
       {userData.role}
       </div>
     

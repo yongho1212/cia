@@ -6,7 +6,7 @@ import { reauthenticateWithCredential, EmailAuthProvider, deleteUser } from "fir
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import MainLeft from "../mainLeft";
-import MainRight from "../../mainRight";
+import MainRight from "../mainRight";
 import Profile from "../profile/Profile";
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../state/index';
