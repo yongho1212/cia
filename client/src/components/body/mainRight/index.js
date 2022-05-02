@@ -3,9 +3,9 @@ import { Button } from '@mui/material';
 import axios from 'axios'
 
 const  MainRight = () => {
-  const screenWidth = (window.innerWidth)/100*81
+  
 
-  console.log(screenWidth)
+  
 
 
   const [product, setProduct] = useState();
@@ -92,7 +92,7 @@ const  MainRight = () => {
   }, []);
 
   return (
-    <div className="main_Right_chan" style={{display: 'flex', flexWrap: 'warp', width: 800}}>
+    <div className="main_Right_chan" style={{display: 'flex', flexWrap: 'wrap'}}>
       {product ? product.map(item => {
         return (
           <div style={{ margin: '20px'}}>

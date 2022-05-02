@@ -85,6 +85,9 @@ const HeaderProfile = () => {
     function handleClickUpload() {
       navigate("/Upload");
     }
+    function handleClickInfprflist() {
+      navigate("/Influencerprflist");
+    }
     
     async function handleLogout() {
       try {
@@ -153,6 +156,13 @@ const HeaderProfile = () => {
                 onClick={handleClickProfile}
             >
                 프로필
+            </Button>
+            <Button 
+                variant="contained"
+                style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
+                onClick={handleClickInfprflist}
+            >
+                인플루언서 리스트
             </Button>
             <Button 
                 variant="contained"

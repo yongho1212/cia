@@ -9,6 +9,9 @@ import FormControl from '@mui/material/FormControl';
 import { Form, Alert, Button } from "react-bootstrap";
 import { InputLabel } from "@mui/material";
 import { Input } from "@mui/material";
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+
 import { async } from "@firebase/util"
 import axios from 'axios';
 
@@ -127,56 +130,34 @@ const editProfile = () => {
 
 
   return (
-    
-    <div>
+    <Box style={{backgroundColor:'#fff', display: 'flex', flexDirection: 'row' }}  sx={{ flexGrow: 1 }}>
       
-      <h1>Hello! It's profile page.</h1>	
-      <div>
-      {userData.email}
-      {userData.role}
-      </div>
+      <Grid style={{}} xs={8}>
+        <div style={{backgroundColor:'red', margin:'15px'}}> 
+          <h1>Hello! It's profile page.</h1>	
+          <div>
+          {userData.email} <br/>
+          {userData.role}
+          </div>
+        </div>
+        
+        <div style={{backgroundColor:'green', margin:'15px'}}> 
+          <h1>Hello! It's profile page.</h1>	
+          <div>
+          {userData.email} <br/>
+          {userData.role}
+          </div>
+        </div>
+      </Grid>
+
+      <Grid style={{backgroundColor:'blue'}}  xs={8}>
+        <h1>right</h1>
+        
+      </Grid>
+
+      
+    </Box>
     
-    
-      <h3>
-        
-        
-        ANOUTME
-        
-        
-     
-        
-      </h3>
-    
-      {/* <h3>Once you delete your profile, all your blogs will be deleted permanently.</h3>
-                          <h5>In order to continue, please write your password again</h5>
-                          <form onSubmit={deleteUserBtn}>
-                              <label>Password</label>
-                              <input type="password"/>
-                              <button type="submit" className="btn btn-danger">Delete profile</button>
-      </form>*/}
-      <Form sx={{ m: 1 }} variant="standard" >
-          <InputLabel htmlFor="standard-adornment-amount">About me</InputLabel>
-          <Input
-            id="standard-adornment-amount"
-            
-            
-          />
-          <Button variant="primary" 
-            type="Submit"
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            >
-              Save
-          </Button>
-          <Button variant="primary" 
-            onClick={editProfile}
-            
-            sx={{ mt: 3, mb: 2 }}
-            >
-              Edit Proifile
-          </Button>
-        </Form>
-    </div>
   )
 }
 
