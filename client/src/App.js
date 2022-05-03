@@ -10,6 +10,7 @@ import Chat from './components/body/chat/Chat';
 import Influencerprflist from './components/body/influencerprflist';
 import Search from './components/body/search/Search';
 import Profile from './components/body/profile/Profile';
+import DetailPage from './components/body/detailPage/detailPage';
 import Main from './components/body/main/Main';
 import Footer from './components/footer/Footer';
 import EditProfile from './components/body/editprofile/EditProfile';
@@ -54,9 +55,11 @@ function App() {
           { !state.loggedin ?
             <Route path="/Home" element={<Home />}  />
           :
-            <Route path="/Main/*" element={<Main />} />
+            <Route exact path="/Main/" element={<Main />} />
           }
+          <Route path="/Detail/:id" element={<DetailPage />} />
           <Route path="/Login/*" element={<Login />} />
+          {/* <Route path="/Detail/" element={<DetailPage />} /> */}
           <Route path="/Signup/*" element={<Signup />} />
           <Route path="/Profile/*" element={<Profile />} />
           <Route path="/Chat/*" element={<Chat />} />

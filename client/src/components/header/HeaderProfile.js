@@ -11,7 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../state/index';
@@ -113,13 +113,14 @@ const HeaderProfile = () => {
         
         <Box>
             
-               <Button 
+               {/* <Button 
                 variant="text"
                 style={{ backgroundColor:"#fff", color:"#000",fontSize:31,fontWeight:'bold', marginInline:10}}
                 onClick={handleClickMain}
                 >
                   Sway
-                </Button>
+                </Button> */}
+                <Link to="Main" style={{ backgroundColor:'#fff', color:'#000', fontSize:31, fontWeight:'bold', marginInline:10}}>Sway</Link>
         </Box>
         
         
