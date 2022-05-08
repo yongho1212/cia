@@ -54,7 +54,7 @@ const newproductSchema = new mongoose.Schema({
         required: [true, "Please enter duedate"]
     },
     photo: {
-        type: String,
+        type: String || undefined,
         required: [true, "Please enter duedate"]
     },
     mobile: {
