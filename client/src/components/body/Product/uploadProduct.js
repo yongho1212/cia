@@ -5,6 +5,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import {Button} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import AWS from "aws-sdk";
 
 const UploadProduct = () => {
     const [name, setName] = useState("");
@@ -21,7 +22,40 @@ const UploadProduct = () => {
     const [offersAndMissions, setOffersAndMissions] = useState("");
     const [photo, setPhoto] = useState("");
     const [mobile, setMobile] = useState("");
+    const [uploadedPhoto, setUploadedPhoto] = useState("");
     const navigate = useNavigate();
+
+    
+    AWS.config.update({
+        region: 'ap-northeast-2',
+        credentials: new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: 'ap-northeast-2:118bc61e-49a2-424d-a6d7-a98a1f6d4605',
+        })
+    })
+
+    const handleFileInput = e => {
+        const file = e.target.files[0];
+
+        const upload = new AWS.S3.ManagedUpload({
+            params: {
+                Bucket: "swaybucket",
+                Key: "테스트" + ".jpg",
+                Body: file,
+            },
+        })
+        const promise = upload.promise()
+
+        promise.then(
+            function (data) {
+                setUploadedPhoto(data.Location);
+                console.log('checkthephoto: ', data.Location)
+                alert("이미지 업로드에 성고했습니다.");
+            },
+            function (err) {
+                return alert("오류가 발생했습니다.", err.message);
+            }
+        )
+    }
 
     const handlePost = async (e) => {
         e.preventDefault();
@@ -47,6 +81,9 @@ const UploadProduct = () => {
 
     return (
         <div>
+            <input type="file" id="upload" className='image-upload' onChange={handleFileInput}/>
+            <label htmlFor='upload' className='image-upload-wrapper'>여기입니다.</label>
+                <img className='profile-img' src={uploadedPhoto} />
             <Form onSubmit={handlePost}>
                 <Form.Group className="mb-3" controlId="formBasicName">
                     <Form.Control
@@ -135,7 +172,7 @@ const UploadProduct = () => {
                 <Form.Group className="mb-3" controlId="formBasicName">
                     <Form.Control
                         type="photo"
-                        placeholder="Photo"
+                        placeholder={uploadedPhoto}
                         onChange={(e) => setPhoto(e.target.value)}
                     />
                 </Form.Group>
