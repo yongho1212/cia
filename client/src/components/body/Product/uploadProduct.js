@@ -49,7 +49,7 @@ const UploadProduct = () => {
             function (data) {
                 setUploadedPhoto(data.Location);
                 console.log('checkthephoto: ', data.Location)
-                alert("이미지 업로드에 성고했습니다.");
+                alert("이미지 업로드에 성공했습니다.");
             },
             function (err) {
                 return alert("오류가 발생했습니다.", err.message);
