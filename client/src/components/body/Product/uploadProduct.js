@@ -39,7 +39,7 @@ const UploadProduct = () => {
         const upload = new AWS.S3.ManagedUpload({
             params: {
                 Bucket: "swaybucket",
-                Key: "테스트" + ".jpg",
+                Key: "테스트2" + ".jpg",
                 Body: file,
             },
         })
@@ -47,11 +47,12 @@ const UploadProduct = () => {
 
         promise.then(
             function (data) {
-                setUploadedPhoto(data.Location);
+                setPhoto(data.Location.toString());
                 console.log('checkthephoto: ', data.Location)
-                alert("이미지 업로드에 성공했습니다.");
+                alert("이미지 업로드에 성고했습니다.");
+                console.log("data: ", photo, "data type: ", typeof (photo));
             },
-            function (err) {
+            function (err) {    
                 return alert("오류가 발생했습니다.", err.message);
             }
         )
@@ -83,7 +84,7 @@ const UploadProduct = () => {
         <div>
             <input type="file" id="upload" className='image-upload' onChange={handleFileInput}/>
             <label htmlFor='upload' className='image-upload-wrapper'>여기입니다.</label>
-                <img className='profile-img' src={uploadedPhoto} />
+                <img className='profile-img' src={photo} />
             <Form onSubmit={handlePost}>
                 <Form.Group className="mb-3" controlId="formBasicName">
                     <Form.Control
@@ -172,8 +173,8 @@ const UploadProduct = () => {
                 <Form.Group className="mb-3" controlId="formBasicName">
                     <Form.Control
                         type="photo"
-                        placeholder={uploadedPhoto}
-                        onChange={(e) => setPhoto(e.target.value)}
+                        placeholder="photo"
+                        value={photo}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicName">

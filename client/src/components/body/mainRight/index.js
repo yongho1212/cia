@@ -40,7 +40,8 @@ const  MainRight = ({ useParams }) => {
             <Link to={`/Detail/${item._id}`} style={{ color: 'black', display: 'flex', flexDirection: 'column', width: '200px', height: '280px', alignItems: 'flex-start' }}>
               {/* <Link to={`/Detail/${item.name}`} /> */}
               <div style={{ width: '200px', height: '200px', backgroundColor: 'red' }}>
-                여기에 사진 들어올 예정 
+                여기에 사진 들어올 예정
+                <img className='profile-img' src={item.photo} />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div style={{ fontSize: '20px' }}>
