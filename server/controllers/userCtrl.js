@@ -154,10 +154,12 @@ const userCtrl = {
     },
     updateUser: async (req, res) => {
         try {
-            const {name, avatar} = req.body
-            await Users.findOneAndUpdate({_id: req.user.id}, {
-                name, avatar
-            })
+            // const uid = req.body.uid
+            console.log("mongodb is connected fuck");
+            const { uid, name, tags, age, sex, date, insta, mobile, avatar} = req.body
+            await Users.findOneAndUpdate({uid: uid}, {$set: {
+                name: name, tags: tags, age: age, sex: sex, date: date, insta: insta, mobile: mobile, avatar: avatar
+            }})
 
             res.json({msg: "Update Success!"})
         } catch (err) {

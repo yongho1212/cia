@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "aws-sdk": "^2.1130.0"
+    "aws-sdk": "^2.1130.0",
+    "react-firebase-hooks": "^5.0.3"
   }
 }

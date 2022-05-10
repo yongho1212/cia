@@ -21,7 +21,7 @@ router.get('/all_infor',  userCtrl.getUsersAllInfor)
 
 router.get('/logout', userCtrl.logout)
 
-router.patch('/update', auth, userCtrl.updateUser)
+router.post('/update', userCtrl.updateUser)
 
 router.patch('/aboutme', auth, userCtrl.aboutMe)
 
