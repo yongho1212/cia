@@ -9,6 +9,7 @@ import HeaderProfile from './components/header/HeaderProfile';
 import Chat from './components/body/chat/Chat';
 import Influencerprflist from './components/body/influencerprflist';
 import Search from './components/body/search/Search';
+import UploadProfile from './components/body/profile/UploadProfile';
 import Profile from './components/body/profile/Profile';
 import DetailPage from './components/body/detailPage/detailPage';
 import Main from './components/body/main/Main';
@@ -57,6 +58,7 @@ function App() {
           :
             <Route exact path="/Main/" element={<Main />} />
           }
+          <Route path="/UploadProfile" element={<UploadProfile/>} />
           <Route path="/Detail/:id" element={<DetailPage />} />
           <Route path="/Login/*" element={<Login />} />
           {/* <Route path="/Detail/" element={<DetailPage />} /> */}
