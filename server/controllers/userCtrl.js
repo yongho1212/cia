@@ -202,6 +202,14 @@ const userCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
+    getlist: async (req, res) => {
+        try {
+            const post = await Users.find();
+            res.send(post)
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    }
 
 }
 
