@@ -14,6 +14,7 @@ import Profile from './components/body/profile/Profile';
 import DetailPage from './components/body/detailPage/detailPage';
 import Main from './components/body/main/Main';
 import Footer from './components/footer/Footer';
+import SearchResult from './components/body/search/SearchResult';
 import EditProfile from './components/body/editprofile/EditProfile';
 import ProtectedRoute from "./components/ProtectedRoute";
 import UserRoute from "./components/UserRoute";
@@ -58,6 +59,8 @@ function App() {
           :
             <Route exact path="/Main/" element={<Main />} />
           }
+          <Route path="/SearchResult/:text" element={<SearchResult />} />
+          {/* <Route path="/SearchResult" element={<Search />} /> */}
           <Route path="/UploadProfile" element={<UploadProfile/>} />
           <Route path="/Detail/:id" element={<DetailPage />} />
           <Route path="/Login/*" element={<Login />} />
