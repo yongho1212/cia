@@ -52,7 +52,7 @@ const DetailPage = () => {
                     {item.isCheck}    
                 </div>
                 <div>
-                    이건{item.photo}    
+                    {item.photo}    
                 </div>
                 <div>
                     {item.targetPlatform}    

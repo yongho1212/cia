@@ -72,6 +72,10 @@ const HeaderProfile = () => {
   };
 
   let navigate = useNavigate();
+
+    function handleUploadProfile() {
+      navigate("/UploadProfile");
+    }
     
     function handleClickMain() {
       navigate("/Main");
@@ -128,7 +132,13 @@ const HeaderProfile = () => {
         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             
 
-          
+            <Button 
+              variant="contained"
+              style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
+              onClick={handleUploadProfile}
+            >
+              업로드 프로필
+            </Button>
             <Button 
                 variant="contained"
                 style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}

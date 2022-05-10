@@ -21,9 +21,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter your password!"]
     },
-    aboutme: {
+    tags: {
         type: String,
-        default: 'About me'
+        default: 'tags'
     },
     role:{
         type: String,
@@ -31,7 +31,27 @@ const userSchema = new mongoose.Schema({
     avatar: {
         type: String,
         default: "https://res.cloudinary.com/devatchannel/image/upload/v1602752402/avatar/avatar_cugq40.png"
-    }
+    },
+    age: {
+        type: Number,
+        default: 20
+    },
+    sex: {
+        type: String,
+        default: 'male'
+    },
+    date: {
+        type: String,
+        default: '2022-05-09'
+    },
+    insta: {
+        type: String,
+        default: 'yongho1212'
+    },
+    mobile: {
+        type: String,
+        default: '010-0000-0000'
+    },
 }, {
     timestamps: true
 })
