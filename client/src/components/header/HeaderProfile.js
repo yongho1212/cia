@@ -2,6 +2,7 @@ import React, {useState,useEffect} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import { Input } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
@@ -9,6 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import Search from '../body/search/Search';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {useNavigate, Link} from "react-router-dom";
@@ -27,6 +29,7 @@ const HeaderProfile = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [userRole, setUserRole] = useState("");
+  const [text, setText] = React.useState('');
 
   const state = useSelector((state) => state)
   const dispatch = useDispatch();
@@ -72,6 +75,11 @@ const HeaderProfile = () => {
   };
 
   let navigate = useNavigate();
+  
+    function handleSearch() {
+      navigate("/SearchResult");
+      <Search value={text} />
+    }
 
     function handleUploadProfile() {
       navigate("/UploadProfile");
@@ -130,8 +138,18 @@ const HeaderProfile = () => {
         
 
         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            
-
+          <div style={{display: 'flex' }}>
+            <Input 
+              variant="contained"
+              placeholder='검색어'
+              style={{ width: '230px', display:'flex', color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000"}}
+              value={text}
+              onChange={(e) => {setText(e.target.value)}}
+            />
+            <Link to={`/SearchResult/${text}`} style={{ display:'flex', alignItems:'center', justifyContent:'center', color:'white', width: '50px', height: '50px', display:'flex',  backgroundColor: 'black' }} onClick={handleSearch}>
+              검색
+            </Link>
+          </div>
             <Button 
               variant="contained"
               style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}

@@ -94,7 +94,7 @@ const editProfile = () => {
         
       </Grid>
 
-      <FacebookLoginButton/>
+    {/* <FacebookLoginButton/> */}
     </Box>
     
   )

@@ -7,20 +7,18 @@ import {
   getAuth
 } from "firebase/auth";
 
-import ChatRoom from './ChatRoom/Chatroom';
+import Channel from './Channel';
 
 
 const Chat = () => {
 
-  const auth = getAuth();
 
-  const [user] = useAuthState(auth);
 
   return (
     <div>
       <div>Chat</div>
       <section>
-       <ChatRoom />
+       <Channel/>
       </section>
     </div>
   )
