@@ -52,7 +52,14 @@ const DetailPage = () => {
                     {item.isCheck}    
                 </div>
                 <div>
-                    {item.photo}    
+                    {item.photo}
+                    
+                    <img
+                        src={item.photo}
+                        width='100'
+                        height='100'
+                        alt='testA' />
+
                 </div>
                 <div>
                     {item.targetPlatform}    
