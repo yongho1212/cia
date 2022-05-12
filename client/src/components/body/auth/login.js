@@ -52,8 +52,9 @@ const Login = () => {
         const uid = res.data.uid
         const email = res.data.email
         const role = res.data.role
-        console.log( email, displayName,  role, uid)
-        loginUser(email, displayName,  role, uid );
+        const avatar = res.data.avatar
+        console.log( email, displayName,  role, uid ,avatar)
+        loginUser(email, displayName,  role, uid, avatar );
         fbuser(true);
       })
       .catch((error) => {

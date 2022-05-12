@@ -8,7 +8,7 @@ const productCtrl = {
         try {
             const {name, brand, targetPlatform, category, period, postType,
                 point, applicationConditions, qualification, isCheck,
-                detailPage, offersAndMissions, photo, mobile} = req.body
+                detailPage, offersAndMissions, photo, mobile, authorUid, authorEmail} = req.body
 
             const newProduct = new Product({
                 name,
@@ -24,7 +24,9 @@ const productCtrl = {
                 detailPage,
                 offersAndMissions,
                 photo,
-                mobile
+                mobile,
+                authorUid,
+                authorEmail
             })
             
             await newProduct.save()
@@ -41,7 +43,16 @@ const productCtrl = {
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
-    }
+    },
+    getListById: async (req, res) => {
+        try {
+            const {uid} = req.query
+            const post = await Product.find({authorUid: uid});
+            res.send(post)
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
 }
 
 module.exports = productCtrl

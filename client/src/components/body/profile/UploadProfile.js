@@ -39,7 +39,7 @@ const UploadProfile = () => {
         const upload = new AWS.S3.ManagedUpload({
             params: {
                 Bucket: "swaybucket",
-                Key: "테스트2" + ".jpg",
+                Key: "USERPRF"+ uid + ".jpg",
                 Body: file,
             },
         })
@@ -161,7 +161,7 @@ const UploadProfile = () => {
                         type="photo"
                         placeholder="photo"
                         value={avatar}
-                        readOnly
+                        
                     />
                 </Form.Group>
                 <div>

@@ -8,7 +8,7 @@ const Channel = () => {
     const [messages, setMessages] = useState([])
 
     useEffect(() => {
-        onSnapshot(collection(db, "messages"), (snapshot) => { 
+        onSnapshot(collection(db, "prdRoom"), (snapshot) => { 
             setMessages(snapshot.docs.map(doc => doc.data()))
         })
 
@@ -18,7 +18,7 @@ const Channel = () => {
       <div>
     <div>Channel</div>
     <div className="msgs">
-                {messages.map(({ id, text, photoURL, uid, displayName }) => (
+                {prdRoom.map(({ id, text, photoURL, uid, displayName }) => (
                     <div>
                         <div key={id} className={`msg ${uid === auth.currentUser.uid ? 'sent' : 'received'}`} 
                         style={{backgroundColor:'#ffa', borderRadius:100, paddingLeft:30}}>

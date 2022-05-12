@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
+import Avatar from'@mui/material/Avatar';
 import { Form, Alert, Button } from "react-bootstrap";
 import { InputLabel } from "@mui/material";
 import { Input } from "@mui/material";
@@ -25,7 +26,8 @@ import FacebookLoginButton from '../auth/Facebook'
 const Profile = () => {
   const [userData, setUserData] = useState({
     email: '',
-    role: ''
+    role: '',
+    avatar: ''
   })
 
   const dispatch = useDispatch();
@@ -39,7 +41,7 @@ const Profile = () => {
     if (!fbuser){
       navigate("/Home")
       console.log(state.auth)
-      
+      console.log(userData.avatar)
     }
   })
 
@@ -51,7 +53,8 @@ const Profile = () => {
     try{
     await setUserData({
       email: state.auth.state.email,
-      role: state.auth.state.role 
+      role: state.auth.state.role,
+      avatar: state.auth.state.avatar
     })
     }catch{
       console.log(e)
@@ -71,9 +74,14 @@ const editProfile = () => {
   return (
     <Box style={{backgroundColor:'#fff', display: 'flex', flexDirection: 'row' }}  sx={{ flexGrow: 1 }}>
       
-      <Grid style={{}} xs={8}>
+      <Grid style={{}}>
         <div style={{backgroundColor:'red', margin:'15px'}}> 
           <h1>Hello! It's profile page.</h1>	
+          <Avatar
+            alt="Remy Sharp"
+            src={userData.avatar}
+            sx={{ width: 100, height: 100 }}
+          />
           <div>
           {userData.email} <br/>
           {userData.role}
@@ -89,10 +97,7 @@ const editProfile = () => {
         </div>
       </Grid>
 
-      <Grid style={{backgroundColor:'blue'}}  xs={8}>
-        <h1>right</h1>
-        
-      </Grid>
+    
 
     {/* <FacebookLoginButton/> */}
     </Box>
