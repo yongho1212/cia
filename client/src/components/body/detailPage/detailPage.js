@@ -29,7 +29,7 @@ const DetailPage = () => {
     console.log(item)
 
     useEffect(() => {
-    getPostList();
+        getPostList();
     }, []);
 
     return (

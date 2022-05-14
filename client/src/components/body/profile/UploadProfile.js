@@ -4,13 +4,14 @@ import { useNavigate } from "react-router";
 import axios from 'axios';
 import {Button} from 'react-bootstrap';
 import AWS from "aws-sdk";
+import Avatar from'@mui/material/Avatar';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../state/index';
 
 const UploadProfile = () => {
-    const [uid, serUid] = useState("");
+    const [uid, setUid] = useState("");
     const [uidforSearch, setUidforSearch] = useState("");
     const [name, setName] = useState("");
     const [tags, setTags] = useState("");
@@ -20,6 +21,12 @@ const UploadProfile = () => {
     const [insta, setInsta] = useState("");
     const [avatar, setAvatar] = useState("");
     const [mobile, setMobile] = useState("");
+    const [displayUserData, setDiaplsyUserData] = useState({
+        disemail: '',
+        disrole: '',
+        disavatar: '',
+        disname: ''
+      })
 
     const dispatch = useDispatch();
     const state = useSelector((state) => state)
@@ -49,7 +56,7 @@ const UploadProfile = () => {
             function (data) {
                 setAvatar(data.Location.toString());
                 console.log('checkthephoto: ', data.Location)
-                alert("이미지 업로드에 성고했습니다.");
+                alert("이미지 업로드에 성공했습니다.");
                 console.log("data: ", avatar, "data type: ", typeof (avatar));
             },
             function (err) {
@@ -74,8 +81,13 @@ const UploadProfile = () => {
     
       const fetching = async(e) => {
         try{
-        await serUid(state.auth.state.uid);
-        console.log(uid);
+        await setUid(state.auth.state.uid);
+        await setDiaplsyUserData({
+            disemail: state.auth.state.email,
+            disrole: state.auth.state.role,
+            disavatar: state.auth.state.avatar,
+            disname: state.auth.state.displayName
+          })
         }catch{
           console.log(e)
         }
@@ -110,10 +122,11 @@ const UploadProfile = () => {
                 <Form.Group className="mb-3" controlId="formBasicName">
                     <Form.Control
                         type="name"
-                        placeholder="what is your name?"
+                        placeholder={displayUserData.disname}
                         onChange={(e) => setName(e.target.value)}
                     />
                 </Form.Group>
+                
                 <Form.Group className="mb-3" controlId="formBasicName">
                     <Form.Control
                         type="tags"
@@ -164,6 +177,11 @@ const UploadProfile = () => {
                         
                     />
                 </Form.Group>
+                <Avatar
+                    alt="Remy Sharp"
+                    src={displayUserData.avatar}
+                    sx={{ width: 100, height: 100 }}
+                />
                 <div>
                     <Button variant="primary" type="Submit">
                         Upload Please!

@@ -54,16 +54,20 @@ const Myprd = () => {
                 
                 <img className='profile-img' src={item.photo} />
               </div>
+              
               <div style={{ display: 'flex', flexDirection: 'column',  backgroundColor:'#fff' }}>
                 <div style={{ fontSize: '20px', }}>
+
                   <div>
                     {item.brand}
                   </div>
+                  </div>
+
+                  <div style={{ fontSize: '20px' }}>
+                    {item.name}
+                  </div>
+
                 </div>
-                <div style={{ fontSize: '20px' }}>
-                  {item.name}
-                </div>
-              </div>
               <div style={{ fontSize: '14px' }}>
                 {item.point}
               </div>
