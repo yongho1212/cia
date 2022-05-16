@@ -165,7 +165,7 @@ const HeaderProfile = () => {
                 style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
                 onClick={handleClickUpload}
             >
-                업로드
+                업로드product
             </Button>
        
             <Button 
