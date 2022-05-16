@@ -19,6 +19,8 @@ import EditProfile from './components/body/editprofile/EditProfile';
 import ProtectedRoute from "./components/ProtectedRoute";
 import UserRoute from "./components/UserRoute";
 import UploadProduct from './components/body/Product/uploadProduct';
+import Workspace from './components/body/workSpace/Workspace';
+
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -72,6 +74,7 @@ function App() {
           <Route path="/EditProfile/*" element={<EditProfile />} />
           <Route path="/Upload/" element={<UploadProduct />} />
           <Route path="/Influencerprflist/" element={<Influencerprflist />} />
+          <Route path="/Workspace/*" element={<Workspace />} />
         </Routes>
       <Footer style={{display: 'flex'}}/>
     </BrowserRouter>

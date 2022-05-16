@@ -9,7 +9,7 @@ const  MainRight = ({ useParams }) => {
   const [url, setUrl] = useState('');
   const [product, setProduct] = useState();
   const [productId, setProductId] = useState('');
-  console.log('!!chan!!');
+  
   console.log(product);
 
   const getPostList = async () => {
@@ -33,14 +33,14 @@ const  MainRight = ({ useParams }) => {
   }, []);
 
   return (
-    <div className="main_Right_chan" style={{display: 'flex', flexWrap: 'wrap'}}>
+    
+    <div className="main_Right_chan" style={{display: 'flex', flexWrap: 'wrap',justifyContent:'center'}}>
       {product ? product.map(item => {
         return (
-          <div style={{ margin: '20px'}}>
+          <div key={item._id} style={{ marginInline:'40px', marginTop:'40px'}}>
             <Link to={`/Detail/${item._id}`} style={{ color: 'black', display: 'flex', flexDirection: 'column', width: '200px', height: '280px', alignItems: 'flex-start' }}>
               {/* <Link to={`/Detail/${item.name}`} /> */}
               <div style={{ width: '200px', height: '200px', backgroundColor: 'red' }}>
-                여기에 사진 들어올 예정
                 <img className='profile-img' src={item.photo} />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -61,6 +61,7 @@ const  MainRight = ({ useParams }) => {
         )
       }) : ''}
     </div> 
+    
   );
 };
 

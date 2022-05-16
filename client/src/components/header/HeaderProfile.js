@@ -115,6 +115,9 @@ const HeaderProfile = () => {
     function handleClickProfile() {
       navigate("/Profile");
     }
+    function workSpace() {
+      navigate("/Workspace");
+    }
 
   
 
@@ -192,6 +195,13 @@ const HeaderProfile = () => {
                 onClick={handleClickInfprflist}
             >
                 인플루언서 리스트
+            </Button>
+            <Button 
+                variant="contained"
+                style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
+                onClick={workSpace}
+            >
+                WORK SPACE
             </Button>
             <Button 
                 variant="contained"

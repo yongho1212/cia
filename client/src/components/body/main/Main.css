@@ -1,8 +1,6 @@
 .screenall {
-    height: 100vh;
+    
     display: grid;
-    
-    
 }
 
 
@@ -16,4 +14,6 @@
 
   .rightScreen {
     border-left: solid 1px #aabbaa;
+    justify-content: 'center'
+    
   }

@@ -29,13 +29,14 @@ const DetailPage = () => {
     console.log(item)
 
     useEffect(() => {
-    getPostList();
+        getPostList();
     }, []);
 
     return (
         <div>
             {item ? 
             <div>
+                <h1> 편집</h1>
                 <div>
                     {item.name}    
                 </div>
@@ -52,7 +53,14 @@ const DetailPage = () => {
                     {item.isCheck}    
                 </div>
                 <div>
-                    {item.photo}    
+                    {item.photo}
+                    
+                    <img
+                        src={item.photo}
+                        width='100'
+                        height='100'
+                        alt='testA' />
+
                 </div>
                 <div>
                     {item.targetPlatform}    

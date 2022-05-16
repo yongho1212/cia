@@ -60,6 +60,12 @@ const newproductSchema = new mongoose.Schema({
     mobile: {
         type: String,
         require: [true, "Please enter your mobile"]
+    },
+    authorUid: {
+        type: String,
+    },
+    joinInf: {
+        type: Array,
     }
 }, {
     timestamps: true

@@ -4,7 +4,8 @@ const initialState = {
         email : '',
         displayName : '',
         role : '',
-        uid : ''
+        uid : '',
+        avatar : ''
     } 
     
 }

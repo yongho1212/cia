@@ -160,7 +160,6 @@ const userCtrl = {
             await Users.findOneAndUpdate({uid: uid}, {$set: {
                 name: name, tags: tags, age: age, sex: sex, date: date, insta: insta, mobile: mobile, avatar: avatar
             }})
-
             res.json({msg: "Update Success!"})
         } catch (err) {
             return res.status(500).json({msg: err.message})

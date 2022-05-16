@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { Form } from "react-bootstrap";
 import "./uploadProduct.css";
 import { useState } from 'react';
@@ -6,8 +6,21 @@ import axios from 'axios';
 import {Button} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import AWS from "aws-sdk";
+import { addDoc, setDoc, serverTimestamp, collection } from "firebase/firestore";
+import { db, auth } from '../../../firebase'
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../../../state/index";
 
 const UploadProduct = () => {
+
+    const state = useSelector((state) => state);
+    const dispatch = useDispatch();
+    const { loginUser, logoutUser, fbuser, nofbuser } = bindActionCreators(
+      actionCreators,
+      dispatch
+    );
+
     const [name, setName] = useState("");
     const [brand, setBrand] = useState("");
     const [targetPlatform, setTargetPlatform] = useState("");
@@ -24,6 +37,34 @@ const UploadProduct = () => {
     const [mobile, setMobile] = useState("");
     const [uploadedPhoto, setUploadedPhoto] = useState("");
     const navigate = useNavigate();
+   
+
+    const [authorEmail, setAuthorEmail] = useState("");
+    const [authorUid, setAuthorUid] = useState("");
+
+      useEffect(() => {
+        fetching();
+      },[state])
+
+    const fetching = async(e) => {
+        try{
+        await setAuthorUid(state.auth.state.uid)
+        .then(setAuthorEmail(state.auth.state.email))
+        }catch{
+          console.log(e)
+        }
+      }  
+
+    const addNewPrdChannel = async() => {
+        await addDoc(collection(db, 'prdRoom'),{
+            name: {name},
+            writer: {authorUid},
+            createdAt: serverTimestamp(),
+        })
+    }
+    
+      
+      
 
     
     AWS.config.update({
@@ -34,12 +75,14 @@ const UploadProduct = () => {
     })
 
     const handleFileInput = e => {
+        var today = new Date(); 
+        var date = today.toDateString();
         const file = e.target.files[0];
 
         const upload = new AWS.S3.ManagedUpload({
             params: {
                 Bucket: "swaybucket",
-                Key: "테스트2" + ".jpg",
+                Key: authorUid + date + ".jpg",
                 Body: file,
             },
         })
@@ -49,10 +92,10 @@ const UploadProduct = () => {
             function (data) {
                 setPhoto(data.Location.toString());
                 console.log('checkthephoto: ', data.Location)
-                alert("이미지 업로드에 성고했습니다.");
+                alert("이미지 업로드에 성공했습니다.");
                 console.log("data: ", photo, "data type: ", typeof (photo));
             },
-            function (err) {
+            function (err) {    
                 return alert("오류가 발생했습니다.", err.message);
             }
         )
@@ -64,8 +107,9 @@ const UploadProduct = () => {
             const res = await axios.post('/products/upload',
                 {name, brand, targetPlatform, category, period, postType,
                 point, applicationConditions, qualification, isCheck,
-                detailPage, offersAndMissions, photo, mobile}
+                detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid}
             ).then((res) => {
+                addNewPrdChannel();
                 console.log('success')
             })
             console.log(name, brand, targetPlatform, category, period, postType,
@@ -175,6 +219,7 @@ const UploadProduct = () => {
                         type="photo"
                         placeholder="photo"
                         value={photo}
+                        // readOnly
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicName">
