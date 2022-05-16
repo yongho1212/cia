@@ -77,13 +77,13 @@ const UploadProduct = () => {
 
     const handleFileInput = e => {
         var today = new Date(); 
-        var date = today.toDateString();
+        
         const file = e.target.files[0];
 
         const upload = new AWS.S3.ManagedUpload({
             params: {
                 Bucket: "swaybucket",
-                Key: authorUid + date + ".jpg",
+                Key: authorUid + today + ".jpg",
                 Body: file,
             },
         })
