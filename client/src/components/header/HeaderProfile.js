@@ -158,7 +158,7 @@ const HeaderProfile = () => {
               style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
               onClick={handleUploadProfile}
             >
-              업로드 프로필
+              업로드 프로필2
             </Button>
             <Button 
                 variant="contained"
