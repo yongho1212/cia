@@ -66,6 +66,7 @@ const UploadProduct = () => {
       
       
 
+    console.log(authorUid);
     
     AWS.config.update({
         region: 'ap-northeast-2',
@@ -126,6 +127,7 @@ const UploadProduct = () => {
 
     return (
         <div>
+            <div>{authorUid}가 있나?</div>
             <input type="file" id="upload" className='image-upload' onChange={handleFileInput}/>
             <label htmlFor='upload' className='image-upload-wrapper'>여기입니다.</label>
                 <img className='profile-img' src={photo} />
@@ -219,7 +221,7 @@ const UploadProduct = () => {
                         type="photo"
                         placeholder="photo"
                         value={photo}
-                        // readOnly
+                        defaultValue="사진을 선택하세요"
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicName">

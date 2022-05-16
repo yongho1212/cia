@@ -35,7 +35,8 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "util": "^0.12.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yarn": "^1.22.18"
   },
   "scripts": {
     "start": "react-scripts start",
