@@ -36,7 +36,7 @@ const Prdlistitems = () => {
     console.log(uid)
     try {
        const res = await axios.get('http://localhost:1212/products/getlistbyid', 
-       { params: { authorUid: uid } })
+       { params: { uid } })
        .then((res) => { 
         console.log(res.data);
         setProduct(res.data);
