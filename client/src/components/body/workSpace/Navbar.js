@@ -74,7 +74,7 @@ const Navbar = () => {
             {mainListItems}
             <Divider sx={{ my: 1 }} />
             <Typography>
-                My Product Lists
+            My Product Lists
             </Typography>
             <Prdlistitems />
           </List>

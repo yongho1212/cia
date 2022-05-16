@@ -40,6 +40,7 @@ const Prdlistitems = () => {
        .then((res) => { 
         console.log(res.data);
         setProduct(res.data);
+        console.log(product)
         return 0;
       })
     } 
