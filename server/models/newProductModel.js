@@ -63,9 +63,10 @@ const newproductSchema = new mongoose.Schema({
     },
     authorUid: {
         type: String,
-        
     },
-    
+    joinInf: {
+        type: Array,
+    }
 }, {
     timestamps: true
 })

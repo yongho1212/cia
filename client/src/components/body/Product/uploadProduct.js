@@ -6,7 +6,8 @@ import axios from 'axios';
 import {Button} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import AWS from "aws-sdk";
-
+import { addDoc, setDoc, serverTimestamp, collection } from "firebase/firestore";
+import { db, auth } from '../../../firebase'
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../../state/index";
@@ -36,6 +37,7 @@ const UploadProduct = () => {
     const [mobile, setMobile] = useState("");
     const [uploadedPhoto, setUploadedPhoto] = useState("");
     const navigate = useNavigate();
+   
 
     const [authorEmail, setAuthorEmail] = useState("");
     const [authorUid, setAuthorUid] = useState("");
@@ -53,9 +55,15 @@ const UploadProduct = () => {
         }
       }  
 
-      const newID = Math.random().toString(36).substr(2, 16);
+    const addNewPrdChannel = async() => {
+        await addDoc(collection(db, 'prdRoom'),{
+            name: {name},
+            writer: {authorUid},
+            createdAt: serverTimestamp(),
+        })
+    }
+    
       
-
       
 
     
@@ -101,6 +109,7 @@ const UploadProduct = () => {
                 point, applicationConditions, qualification, isCheck,
                 detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid}
             ).then((res) => {
+                addNewPrdChannel();
                 console.log('success')
             })
             console.log(name, brand, targetPlatform, category, period, postType,

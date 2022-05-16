@@ -74,7 +74,7 @@ function App() {
           <Route path="/EditProfile/*" element={<EditProfile />} />
           <Route path="/Upload/" element={<UploadProduct />} />
           <Route path="/Influencerprflist/" element={<Influencerprflist />} />
-          <Route path="/Workspace/" element={<Workspace />} />
+          <Route path="/Workspace/*" element={<Workspace />} />
         </Routes>
       <Footer style={{display: 'flex'}}/>
     </BrowserRouter>

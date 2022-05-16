@@ -36,6 +36,7 @@ const DetailPage = () => {
         <div>
             {item ? 
             <div>
+                <h1> 편집</h1>
                 <div>
                     {item.name}    
                 </div>
