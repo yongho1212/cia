@@ -11,7 +11,6 @@ const Channel = () => {
         onSnapshot(collection(db, "messages"), (snapshot) => { 
             setMessages(snapshot.docs.map(doc => doc.data()))
         })
-
     },[])
 
   return (

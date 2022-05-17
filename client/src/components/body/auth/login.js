@@ -21,7 +21,7 @@ import axios from "axios";
 const Login = () => {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
-  const { loginUser, logoutUser, fbuser, nofbuser } = bindActionCreators(
+  const { loginUser, logoutUser, fbuser, nofbuser, prependprd} = bindActionCreators(
     actionCreators,
     dispatch
   );
@@ -40,7 +40,6 @@ const Login = () => {
     }
   }, [state.loggedin, navigate]);
 
-  useEffect(() => {});
 
   const getinfo = async () => {
     const uid = auth.currentUser.uid;
@@ -56,12 +55,31 @@ const Login = () => {
         console.log( email, displayName,  role, uid ,avatar)
         loginUser(email, displayName,  role, uid, avatar );
         fbuser(true);
+        getListById();
       })
       .catch((error) => {
         console.log(error.response);
-      });
-      
+    });
   };
+
+  const getListById = async () => {
+    const uid = auth.currentUser.uid
+    console.log(uid)
+    try {
+       const res = await axios.get('http://localhost:1212/products/getlistbyid', 
+       { params: { uid } })
+       .then((res) => { 
+        console.log(res.data);
+        prependprd(res.data);
+        console.log(state.myprd)
+        return 0;
+      })
+    } 
+    catch (err) {
+      console.log(err)
+    }
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
