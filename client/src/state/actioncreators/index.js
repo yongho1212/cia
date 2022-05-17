@@ -51,3 +51,21 @@ export const emailnotchecked = (emailchecker) =>{
         })
     }
 }
+
+export const prependprd = (prddata) =>{
+    return (dispatch) => {
+        dispatch({
+            type : "PREPEND_PRD",
+            payload : {prddata}
+        })
+    }
+}
+
+export const appendprd = (prddata) =>{
+    return (dispatch) => {
+        dispatch({
+            type : "APPEND_PRD",
+            payload : {prddata}
+        })
+    }
+}

@@ -11,6 +11,7 @@ import { db, auth } from '../../../firebase'
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../../state/index";
+import { appendprd } from '../../../state/actioncreators';
 
 const UploadProduct = () => {
 
@@ -63,6 +64,9 @@ const UploadProduct = () => {
         })
     }
     
+    const data = {name, brand, targetPlatform, category, period, postType,
+        point, applicationConditions, qualification, isCheck,
+        detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid}
       
       
 
@@ -122,7 +126,10 @@ const UploadProduct = () => {
                 point, applicationConditions, qualification, isCheck,
                 detailPage, offersAndMissions, photo, mobile);
         }
+        appendprd(data);
         navigate("/Main");
+        
+        console.log(state.myprd)
     };
 
     return (
