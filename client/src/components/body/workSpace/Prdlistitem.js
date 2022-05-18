@@ -31,8 +31,10 @@ const Prdlistitems = () => {
   const state = useSelector((state) => state)
   const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
 
+  const uid = state.auth.state.uid
+
   const getListById = async () => {
-    const uid = auth.currentUser.uid
+    
     console.log(uid)
     try {
        const res = await axios.get('http://localhost:1212/products/getlistbyid', 
