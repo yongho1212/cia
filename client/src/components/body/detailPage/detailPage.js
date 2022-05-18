@@ -27,6 +27,7 @@ const DetailPage = () => {
 
     const item = product.find(e => e._id === id);
     console.log(item)
+    console.log(item.authorUid)
 
     useEffect(() => {
         getPostList();
@@ -66,6 +67,8 @@ const DetailPage = () => {
                     {item.targetPlatform}    
                 </div> 
             </div> : <div>찬휘</div>}
+
+            <div>신청하기</div>
         </div>
     );
 

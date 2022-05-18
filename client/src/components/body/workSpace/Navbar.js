@@ -15,6 +15,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
+import Drawer from '@mui/material/Drawer';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
@@ -31,6 +32,7 @@ const mdTheme = createTheme();
 
 const Navbar = () => {
   const [open, setOpen] = React.useState(true);
+  const [draweOpen, setDrawerOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -79,11 +81,30 @@ const Navbar = () => {
             <Prdlistitems />
           </List>
           </Box>
+          <IconButton 
+            size='large' 
+            edge='start'
+            onClick={() => setDrawerOpen(true)}>
+            <MenuIcon/>
+          </IconButton>
+          <Drawer
+          anchor='left'
+          PaperProps={{ style: { height: "90vh", marginTop:'50px' } }}
+          open={draweOpen}
+          onClose={() => setDrawerOpen(false)}>
+            <Box width='200px' >
+              <Typography>
+                drawer
+              </Typography>
+            </Box>
+          </Drawer>
 
          
           <DashMain/>
       </Box>
+      
       </Box>
+      
     </ThemeProvider>
   );
 }
