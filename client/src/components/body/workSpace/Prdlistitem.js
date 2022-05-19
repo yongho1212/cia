@@ -21,7 +21,7 @@ import {
   getAuth
 } from "firebase/auth";
 
-const Prdlistitems = ({getlistopen, data}) => {
+const Prdlistitems = ({getlistopen}) => {
 
   const auth = getAuth();
 
@@ -57,7 +57,6 @@ const Prdlistitems = ({getlistopen, data}) => {
 
 
   useEffect(() => {
-    
     getListById();
   }, []);
   

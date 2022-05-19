@@ -1,4 +1,4 @@
-import * as React from "react";
+import React,{useState, useEffect} from 'react'
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -29,16 +29,19 @@ import Prdlistitems from "./Prdlistitem";
 const mdTheme = createTheme();
 
 const Navbar = () => {
-  const [open, setOpen] = React.useState(true);
-  const [draweOpen, setDrawerOpen] = React.useState(false);
-  const [openList, setOpenList] = React.useState(false);
+  const [open, setOpen] = useState(true);
+  const [draweOpen, setDrawerOpen] = useState(false);
+  const [openInfList, setOpenInfList] = useState(false);
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
   const getlistopen = (data) => {
-    setOpenList(data)
+    setOpenInfList(data)
   }
+
+  console.log(openInfList)
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -72,26 +75,27 @@ const Navbar = () => {
 
         <Box sx={{ display: "flex" }}>
           <Divider />
-{ !openList ?
+          { !openInfList ?
           <Box style={{ width: "200px" }}>
             <List component="nav">
               {mainListItems}
               <Divider sx={{ my: 1 }} />
               <Typography>My Product Lists</Typography>
-              <Prdlistitems />
+              <Prdlistitems getlistopen={getlistopen}/>
             </List>
           </Box>
-:
-          <Box style={{ width: "200px" }}>
-            <IconButton
-            size="large"
-            edge="start"
-            onClick={() => openList(true)}
-            >
-              <MenuIcon />
-            </IconButton>
-          </Box>
-}
+          :
+          // <Box style={{ width: "200px" }}>
+          //   <IconButton
+          //   size="large"
+          //   edge="start"
+          //   onClick={setOpenInfList(true)}
+          //   >
+          //     <MenuIcon />
+          //   </IconButton>
+          // </Box>
+          console.log(openInfList)
+          }
           
           {/* <IconButton
             size="large"
