@@ -27,7 +27,7 @@ const DetailPage = () => {
 
     const item = product.find(e => e._id === id);
     console.log(item)
-    console.log(item.authorUid)
+    
 
     useEffect(() => {
         getPostList();
