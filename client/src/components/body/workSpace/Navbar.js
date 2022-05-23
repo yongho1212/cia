@@ -115,7 +115,7 @@ const Navbar = () => {
             </Box>
           </Drawer> */}
 
-          <DashMain />
+          {/* <DashMain /> */}
         </Box>
       </Box>
     </ThemeProvider>

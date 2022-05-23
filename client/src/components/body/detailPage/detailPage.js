@@ -3,27 +3,26 @@ import axios from 'axios'
 import {useNavigate, useParams} from "react-router-dom";
 import { Button } from '@mui/material';
 import { NavItem } from 'react-bootstrap';
-import { addDoc, setDoc, serverTimestamp, collection } from "firebase/firestore";
-import { db, auth } from '../../../firebase'
-import { useDispatch, useSelector } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../../../state/index";
-import { appendprd } from '../../../state/actioncreators';
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../../../state/index';
 
 const DetailPage = () => {
     const [product, setProduct] = useState([]);
     const { id } = useParams();
-    const state = useSelector((state) => state);
+    const nid = String(id);
+    console.log('nid', nid);
+    const [uid, setUid] = useState("");
+    const [displayUserData, setDiaplsyUserData] = useState({
+        disemail: '',
+        disrole: '',
+        disavatar: '',
+        disname: ''
+      })
+
     const dispatch = useDispatch();
-    const { loginUser, logoutUser, fbuser, nofbuser } = bindActionCreators(
-      actionCreators,
-      dispatch
-    );
-
-    const name = state.auth.state.name;
-    const infuni = state.auth.state.uid;
-
-    
+    const state = useSelector((state) => state);
+    const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
 
     const getPostList = async () => {
         try {
@@ -39,22 +38,54 @@ const DetailPage = () => {
           console.log(err)
         }
       }
-
-
+    
+    const appliyCampaign = async (e) => {
+        e.preventDefault();
+        try {
+            console.log('test for push', uid, id);
+            const res = await axios.post('http://localhost:1212/products/appliyCampaign',
+            {uid, id}).then((res) => {
+                console.log('Applied Success!');
+            })
+        }
+        catch (err) {
+            console.log('Applied failed');
+            console.log(uid);
+        }
+    };
 
 
     const item = product.find(e => e._id === id);
-    console.log(item)
-    
 
     useEffect(() => {
         getPostList();
     }, []);
 
+    useEffect(() => {
+        fetching();
+      },[state])
+    
+      const fetching = async(e) => {
+        try{
+        await setUid(state.auth.state.uid);
+        await setDiaplsyUserData({
+            disemail: state.auth.state.email,
+            disrole: state.auth.state.role,
+            disavatar: state.auth.state.avatar,
+            disname: state.auth.state.displayName
+          })
+        }catch{
+          console.log(e)
+        }
+      }
+
     return (
         <div>
+            <div>{uid}</div>
+            {/* <div>{item._id}</div> */}
             {item ? 
             <div>
+                <div>{item._id}</div>
                 <h1> 편집</h1>
                 <div>
                     {item.name}    
@@ -86,6 +117,11 @@ const DetailPage = () => {
                 </div> 
             </div> : <div>찬휘</div>}
 
+            <div>
+                <Button onClick={appliyCampaign}>
+                    신청하기
+                </Button>
+            </div>
         </div>
     );
 

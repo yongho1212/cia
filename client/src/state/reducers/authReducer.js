@@ -3,7 +3,7 @@ const initialState = {
     auth : {
         email : '',
         displayName : '',
-        role : '',
+        role : 'notsure',
         uid : '',
         avatar : ''
     } 

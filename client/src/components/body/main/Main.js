@@ -5,7 +5,7 @@ import './Main.css'
 import { reauthenticateWithCredential, EmailAuthProvider, deleteUser } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import MainLeft from "../mainLeft";
+
 import MainRight from "../mainRight";
 import Profile from "../profile/Profile";
 import { bindActionCreators } from 'redux';
@@ -34,17 +34,13 @@ const Main = () => {
     <>
       <div className="screenall">
         <div className="splitScreen">
-          <div className="leftScreen">
-            <Profile/>
-          </div>
+          {/* <div className="leftScreen">
+          씨발
+          </div> */}
           <div className="rightScreen">
             <MainRight/>
           </div>
         </div>
-       
-       
-       
-        
        
       </div>
       

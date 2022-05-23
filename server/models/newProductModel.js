@@ -64,6 +64,9 @@ const newproductSchema = new mongoose.Schema({
     authorUid: {
         type: String,
     },
+    applicant: {
+        type: Array,
+    },
     joinInf: {
         type: Array,
     }

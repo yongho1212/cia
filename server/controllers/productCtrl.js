@@ -53,6 +53,16 @@ const productCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
+    appliyCampaign: async (req, res) => {
+        console.log(req);
+        try {
+            const {uid, id} = req.body;
+            await Product.findOneAndUpdate({_id: id}, {$addToSet: {applicant: uid}})
+            res.json({msg: "Push Success!"});
+        } catch (err) {
+            return res.status(500).json({msg: err.message});
+        }
+    },
 
     updatePrd: async (req, res) => {
         try {
