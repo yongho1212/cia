@@ -56,9 +56,6 @@ const DetailPage = () => {
 
 
     const item = product.find(e => e._id === id);
-    console.log('debug now');
-    console.log(item);
-    console.log(id);
 
     useEffect(() => {
         getPostList();
