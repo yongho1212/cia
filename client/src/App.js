@@ -26,6 +26,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from './state/index';
+import EditDetailpage from './components/body/detailPage/EditDetailPage';
 
 function App() {
   const state = useSelector((state) => state)
@@ -66,6 +67,7 @@ function App() {
           <Route path="/UploadProfile" element={<UploadProfile/>} />
           <Route path="/Detail/:id" element={<DetailPage />} />
           <Route path="/Login/*" element={<Login />} />
+          <Route path="/EditDetailPage/:id" element={<EditDetailpage />} />
           {/* <Route path="/Detail/" element={<DetailPage />} /> */}
           <Route path="/Signup/*" element={<Signup />} />
           <Route path="/Profile/*" element={<Profile />} />
@@ -74,7 +76,7 @@ function App() {
           <Route path="/EditProfile/*" element={<EditProfile />} />
           <Route path="/Upload/" element={<UploadProduct />} />
           <Route path="/Influencerprflist/" element={<Influencerprflist />} />
-          <Route path="/Workspace/*" element={<Workspace />} />
+          <Route path="/Workspace/" element={<Workspace />} />
         </Routes>
       <Footer style={{display: 'flex'}}/>
     </BrowserRouter>

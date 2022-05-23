@@ -63,6 +63,27 @@ const productCtrl = {
             return res.status(500).json({msg: err.message});
         }
     },
+    acceptApplicant: async (req, res) => {
+        console.log(req);
+        try {
+            const {k, id} = req.body;
+            await Product.findOneAndUpdate({_id: id}, {$addToSet: {joinInf: k}})
+            await Product.findOneAndUpdate({_id: id}, {$pull: {applicant: k}})
+            res.json({msg: "Push Success!"});
+        } catch (err) {
+            return res.status(500).json({msg: err.message});
+        }
+    },
+    declineApplicant: async (req, res) => {
+        console.log(req);
+        try {
+            const {k, id} = req.body;
+            await Product.findOneAndUpdate({_id: id}, {$pull: {applicant: k}})
+            res.json({msg: "Pull Success!"});
+        } catch (err) {
+            return res.status(500).json({msg: err.message});
+        }
+    },
 
     updatePrd: async (req, res) => {
         try {
