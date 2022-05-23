@@ -21,7 +21,7 @@ import {
   getAuth
 } from "firebase/auth";
 
-const Prdlistitems = () => {
+const Prdlistitems = ({getlistopen}) => {
 
   const auth = getAuth();
 
@@ -51,8 +51,12 @@ const Prdlistitems = () => {
     }
   }
 
+  const ctrldrawer = () => {
+    getlistopen(true);
+  }
+
+
   useEffect(() => {
-    
     getListById();
   }, []);
   
@@ -64,16 +68,18 @@ const Prdlistitems = () => {
             
           <div key={item._id}>
               
-            <Link to={`/Detail/${item._id}`} style={{ color: 'black', alignItems: 'flex-start' }}>
+            {/* <Link to={`/Detail/${item._id}`} style={{ color: 'black', alignItems: 'flex-start' }}> */}
               {/* <Link to={`/Detail/${item.name}`} /> */}
                 
-                <ListItemButton>
+                <ListItemButton 
+                onClick={ctrldrawer}
+                >
                     <ListItemIcon>
                         <AssignmentIcon />
                     </ListItemIcon>
                     <ListItemText primary={item.name} />
                 </ListItemButton>
-            </Link>
+            {/* </Link> */}
           </div>
         )
       }) : ''}
