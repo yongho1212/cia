@@ -50,7 +50,7 @@ const Myprd = () => {
       {product ? product.map(item => {
         return (
           <div key={item._id} style={{ margin: '20px'}}>
-            <Link to={`/Detail/${item._id}`} style={{ color: 'black', display: 'flex', flexDirection: 'column', width: '200px', height: '280px', alignItems: 'flex-start' }}>
+            <Link to={`/EditDetailPage/${item._id}`} style={{ color: 'black', display: 'flex', flexDirection: 'column', width: '200px', height: '280px', alignItems: 'flex-start' }}>
               {/* <Link to={`/Detail/${item.name}`} /> */}
               <div style={{ width: '200px', height: '200px', backgroundColor: 'red' }}>
                 
