@@ -3,10 +3,27 @@ import axios from 'axios'
 import {useNavigate, useParams} from "react-router-dom";
 import { Button } from '@mui/material';
 import { NavItem } from 'react-bootstrap';
+import { addDoc, setDoc, serverTimestamp, collection } from "firebase/firestore";
+import { db, auth } from '../../../firebase'
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../../../state/index";
+import { appendprd } from '../../../state/actioncreators';
 
 const DetailPage = () => {
     const [product, setProduct] = useState([]);
     const { id } = useParams();
+    const state = useSelector((state) => state);
+    const dispatch = useDispatch();
+    const { loginUser, logoutUser, fbuser, nofbuser } = bindActionCreators(
+      actionCreators,
+      dispatch
+    );
+
+    const name = state.auth.state.name;
+    const infuni = state.auth.state.uid;
+
+    
 
     const getPostList = async () => {
         try {
@@ -22,7 +39,8 @@ const DetailPage = () => {
           console.log(err)
         }
       }
-    
+
+
 
 
     const item = product.find(e => e._id === id);
@@ -68,7 +86,6 @@ const DetailPage = () => {
                 </div> 
             </div> : <div>찬휘</div>}
 
-            <div>신청하기</div>
         </div>
     );
 

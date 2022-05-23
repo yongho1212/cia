@@ -36,6 +36,7 @@ function App() {
   const user = auth.currentUser
   console.log(state.auth)
   
+  
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
