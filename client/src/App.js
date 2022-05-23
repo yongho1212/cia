@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Login from "./components/body/auth/Login";
@@ -20,6 +20,10 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import UserRoute from "./components/UserRoute";
 import UploadProduct from './components/body/Product/uploadProduct';
 import Workspace from './components/body/workSpace/Workspace';
+import Navbar from './components/body/workSpace/Navbar';
+import InfNavBar from './components/navbar/InfNavBar';
+import AdNavBar from './components/navbar/AdNavBar';
+import HomeNavBar from './components/navbar/HomeNavBar';
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -29,13 +33,25 @@ import { actionCreators } from './state/index';
 import EditDetailpage from './components/body/detailPage/EditDetailPage';
 
 function App() {
+
+  const [userRole, setUserRole] = useState('')
+
   const state = useSelector((state) => state)
   const dispatch = useDispatch();
   const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
 
   const auth = getAuth();
-  const user = auth.currentUser
-  console.log(state.auth)
+  const user = auth.currentUser;
+
+  const role = state.auth.role
+
+  const searchRole = () => {
+    setUserRole(state.auth.role)
+  }
+  
+  useEffect(() => {
+    searchRole();
+  }, [])
   
 
   onAuthStateChanged(auth, (user) => {
@@ -54,8 +70,17 @@ function App() {
     { state.loggedin ?
       <HeaderProfile />
     : 
-      <HeaderLogin />  
+      <HeaderLogin />
     }
+    { state.loggedin === false
+      ? <HomeNavBar />
+    : ( 
+      userRole === 'influencer'
+      ? <InfNavBar />
+      : <AdNavBar />
+    )
+    }
+    
         <Routes >
           { !state.loggedin ?
             <Route path="/Home" element={<Home />}  />

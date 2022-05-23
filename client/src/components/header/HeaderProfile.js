@@ -145,7 +145,7 @@ const HeaderProfile = () => {
             <Input 
               variant="contained"
               placeholder='검색어'
-              style={{ width: '230px', display:'flex', color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000"}}
+              style={{ width: '230px', display:'flex', color:"#03ff95", backgroundColor:"#03ff95", color:"#000"}}
               value={text}
               onChange={(e) => {setText(e.target.value)}}
             />
@@ -155,14 +155,14 @@ const HeaderProfile = () => {
           </div>
             <Button 
               variant="contained"
-              style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
+              style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
               onClick={handleUploadProfile}
             >
               업로드 프로필2
             </Button>
             <Button 
                 variant="contained"
-                style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
+                style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
                 onClick={handleClickUpload}
             >
                 업로드product
@@ -170,42 +170,42 @@ const HeaderProfile = () => {
        
             <Button 
                 variant="contained"
-                style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
+                style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
                 onClick={handleClickSearch}
             >
                 검색
             </Button>
             <Button 
                 variant="contained"
-                style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
+                style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
                 onClick={handleClickChat}
             >
                 채팅
             </Button>
             <Button 
                 variant="contained"
-                style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
+                style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
                 onClick={handleClickProfile}
             >
                 프로필
             </Button>
             <Button 
                 variant="contained"
-                style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
+                style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
                 onClick={handleClickInfprflist}
             >
                 인플루언서 리스트
             </Button>
             <Button 
                 variant="contained"
-                style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
+                style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
                 onClick={workSpace}
             >
                 WORK SPACE
             </Button>
             <Button 
                 variant="contained"
-                style={{color:"#75fb9f", backgroundColor:"#75fb9f", color:"#000", marginInline:10}}
+                style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
                 onClick={handleLogout}
             >
                 로그아웃
