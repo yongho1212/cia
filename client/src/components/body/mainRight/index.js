@@ -34,7 +34,7 @@ const  MainRight = ({ useParams }) => {
 
   return (
     
-    <div className="main_Right_chan" style={{display: 'flex', flexWrap: 'wrap',justifyContent:'center'}}>
+    <div className="main_Right_chan" style={{display: 'flex', flexWrap: 'wrap', width:'80vw',  }}>
       {product ? product.map(item => {
         return (
           <div key={item._id} style={{ marginInline:'40px', marginTop:'40px'}}>

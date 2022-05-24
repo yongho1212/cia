@@ -31,20 +31,14 @@ const Main = () => {
 
 
   return (
-    <>
-      <div className="screenall">
-        <div className="splitScreen">
-          {/* <div className="leftScreen">
-          씨발
-          </div> */}
-          <div className="rightScreen">
-            <MainRight/>
-          </div>
-        </div>
-       
-      </div>
+    
       
-    </>
+      <div style={{ backgroundColor:'blue', display:'inline-block', flexDirection:'row', justifyContent:'flex-end'}}>
+            <MainRight/>
+      </div>
+  
+      
+    
   );
 };
 
