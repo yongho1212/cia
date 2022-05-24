@@ -73,14 +73,7 @@ function App() {
     : 
       <HeaderLogin />
     }
-    { state.loggedin === false
-      ? <HomeNavBar />
-    : ( 
-      userRole === 'influencer'
-      ? <InfNavBar />
-      : <AdNavBar />
-    )
-    }
+
     
         <Routes >
         { !state.loggedin ?
@@ -90,7 +83,7 @@ function App() {
             <Route path="/Signup" element={<Signup />} />
           </>  
           :
-        <Route path="" element={<Layout />}>
+        <Route  element={<Layout />}>
           <Route path="/Main/*" element={<Main />} />
           <Route path="/SearchResult/:text" element={<SearchResult />} />
           {/* <Route path="/SearchResult" element={<Search />} /> */}
