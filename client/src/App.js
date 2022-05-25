@@ -24,6 +24,8 @@ import Navbar from './components/body/workSpace/Navbar';
 import InfNavBar from './components/navbar/InfNavBar';
 import AdNavBar from './components/navbar/AdNavBar';
 import HomeNavBar from './components/navbar/HomeNavBar';
+import DashMain from './components/body/workSpace/Dashmain';
+import Layout from './layout/Layout'
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -72,36 +74,34 @@ function App() {
     : 
       <HeaderLogin />
     }
-    { state.loggedin === false
-      ? <HomeNavBar />
-    : ( 
-      userRole === 'influencer'
-      ? <InfNavBar />
-      : <AdNavBar />
-    )
-    }
+
     
         <Routes >
-          { !state.loggedin ?
+        { !state.loggedin ?
+          <>
             <Route path="/Home" element={<Home />}  />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/Signup" element={<Signup />} />
+          </>  
           :
-            <Route exact path="/Main/" element={<Main />} />
+          <Route  element={<Layout />}>
+            <Route path="/Main/*" element={<Main />} />
+            <Route path="/SearchResult/:text" element={<SearchResult />} />
+            {/* <Route path="/SearchResult" element={<Search />} /> */}
+            <Route path="/UploadProfile" element={<UploadProfile/>} />
+            <Route path="/Detail/:id" element={<DetailPage />} />
+            <Route path="/EditDetailPage/:id" element={<EditDetailpage />} />
+            {/* <Route path="/Detail/" element={<DetailPage />} /> */}
+            <Route path="/Profile/*" element={<Profile />} />
+            <Route path="/Chat/*" element={<Chat />} />
+            <Route path="/Search/*" element={<Search />} />
+            <Route path="/EditProfile/*" element={<EditProfile />} />
+            <Route path="/Upload/" element={<UploadProduct />} />
+            <Route path="/Influencerprflist/" element={<Influencerprflist />} />
+            <Route path="/Workspace/" element={<Workspace />} />
+            <Route path="/DashMain/" element={<DashMain />} />
+          </Route>
           }
-          <Route path="/SearchResult/:text" element={<SearchResult />} />
-          {/* <Route path="/SearchResult" element={<Search />} /> */}
-          <Route path="/UploadProfile" element={<UploadProfile/>} />
-          <Route path="/Detail/:id" element={<DetailPage />} />
-          <Route path="/Login/*" element={<Login />} />
-          <Route path="/EditDetailPage/:id" element={<EditDetailpage />} />
-          {/* <Route path="/Detail/" element={<DetailPage />} /> */}
-          <Route path="/Signup/*" element={<Signup />} />
-          <Route path="/Profile/*" element={<Profile />} />
-          <Route path="/Chat/*" element={<Chat />} />
-          <Route path="/Search/*" element={<Search />} />
-          <Route path="/EditProfile/*" element={<EditProfile />} />
-          <Route path="/Upload/" element={<UploadProduct />} />
-          <Route path="/Influencerprflist/" element={<Influencerprflist />} />
-          <Route path="/Workspace/" element={<Workspace />} />
         </Routes>
       <Footer style={{display: 'flex'}}/>
     </BrowserRouter>

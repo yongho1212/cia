@@ -68,9 +68,8 @@ const Prdlistitems = ({getlistopen}) => {
             
           <div key={item._id}>
               
-            {/* <Link to={`/Detail/${item._id}`} style={{ color: 'black', alignItems: 'flex-start' }}> */}
-              {/* <Link to={`/Detail/${item.name}`} /> */}
-                
+            <Link to={`/Detail/${item._id}`} style={{ color: 'black', alignItems: 'flex-start' }}>
+              {/* <Link to={`/Detail/${item.name}`} />                 */}
                 <ListItemButton 
                 onClick={ctrldrawer}
                 >
@@ -79,7 +78,7 @@ const Prdlistitems = ({getlistopen}) => {
                     </ListItemIcon>
                     <ListItemText primary={item.name} />
                 </ListItemButton>
-            {/* </Link> */}
+            </Link>
           </div>
         )
       }) : ''}

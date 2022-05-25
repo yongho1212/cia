@@ -9,40 +9,50 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import ChatIcon from '@mui/icons-material/Chat';
+import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
+import { Link } from 'react-router-dom'; 
 
 
 export const mainListItems = (
   <React.Fragment>
+    <Link to= '/DashMain' className="DashMain">
+      <ListItemButton >
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="Dashboard" />
+      </ListItemButton>
+    </Link>
+
     <ListItemButton>
       <ListItemIcon>
-        <DashboardIcon />
+        <ChatIcon />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary="ChatIcon" />
     </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Orders" />
-    </ListItemButton>
+
     <ListItemButton>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Customers" />
     </ListItemButton>
+
     <ListItemButton>
       <ListItemIcon>
-        <BarChartIcon />
+        <CreateNewFolderIcon />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
+      <ListItemText primary="New Product" />
     </ListItemButton>
+
     <ListItemButton>
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
       <ListItemText primary="Integrations" />
     </ListItemButton>
+
   </React.Fragment>
 );
 
