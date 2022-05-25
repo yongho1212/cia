@@ -24,6 +24,7 @@ import Navbar from './components/body/workSpace/Navbar';
 import InfNavBar from './components/navbar/InfNavBar';
 import AdNavBar from './components/navbar/AdNavBar';
 import HomeNavBar from './components/navbar/HomeNavBar';
+import DashMain from './components/body/workSpace/Dashmain';
 import Layout from './layout/Layout'
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -98,6 +99,7 @@ function App() {
             <Route path="/Upload/" element={<UploadProduct />} />
             <Route path="/Influencerprflist/" element={<Influencerprflist />} />
             <Route path="/Workspace/" element={<Workspace />} />
+            <Route path="/DashMain/" element={<DashMain />} />
           </Route>
           }
         </Routes>
