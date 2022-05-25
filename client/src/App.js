@@ -33,6 +33,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from './state/index';
 import EditDetailpage from './components/body/detailPage/EditDetailPage';
+import InfluencerProfile from './components/body/profile/InfluencerProfile';
 
 function App() {
 
@@ -100,6 +101,7 @@ function App() {
             <Route path="/Influencerprflist/" element={<InfluencerList />} />
             <Route path="/Workspace/" element={<Workspace />} />
             <Route path="/DashMain/" element={<DashMain />} />
+            <Route path="/InfluencerProfile/:id" element={<InfluencerProfile />} />
           </Route>
           }
         </Routes>
