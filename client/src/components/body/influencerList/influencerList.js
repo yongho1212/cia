@@ -36,7 +36,7 @@ const  InfluencerList = ({ useParams }) => {
       {list ? list.map(item => {
         return (
           <div key={item._id} style={{ marginInline:'40px', marginTop:'40px'}}>
-            {/* <Link to={`/Detail/${item._id}`} style={{ color: 'black', display: 'flex', flexDirection: 'column', width: '200px', height: '280px', alignItems: 'flex-start' }}> */}
+            <Link to={`/InfluencerProfile/${item._id}`} style={{ color: 'black', display: 'flex', flexDirection: 'column', width: '200px', height: '280px', alignItems: 'flex-start' }}>
               {/* <Link to={`/Detail/${item.name}`} /> */}
               <div style={{ width: '200px', height: '200px', backgroundColor: 'red' }}>
                 <img className='profile-img' src={item.avatar} width='200px' height='200px'/>
@@ -54,7 +54,7 @@ const  InfluencerList = ({ useParams }) => {
               <div style={{ fontSize: '14px' }}>
                 {item.sex}
               </div>
-            {/* </Link> */}
+            </Link>
           </div>
         )
       }) : ''}

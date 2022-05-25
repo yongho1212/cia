@@ -7,12 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../state/index';
 
-const DetailPage = () => {
-    const [product, setProduct] = useState([]); // 제품 정보
+const InfluencerProfile = () => {
+    const [influencer, setInfluencer] = useState([]); // 제품 정보
     const [applicant, setApplicant] = useState([]); // 지원자 목록
     const { id } = useParams();
-    const nid = String(id);
-    console.log('nid', nid);
     const [uid, setUid] = useState("");
     const [displayUserData, setDiaplsyUserData] = useState({
         disemail: '',
@@ -25,12 +23,12 @@ const DetailPage = () => {
     const state = useSelector((state) => state);
     const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
 
-    const getPostList = async () => {
+    const getInfluencerList = async () => {
         try {
-           const res = await axios.post('http://localhost:1212/products/getlist')
+           const res = await axios.post('http://localhost:1212/user/getlist')
            .then((res) => {
             console.log(res.data)
-            setProduct(res.data); 
+            setInfluencer(res.data); 
             return 0;
           })
     
@@ -40,26 +38,26 @@ const DetailPage = () => {
         }
       }
     
-    const appliyCampaign = async (e) => {
-        e.preventDefault();
-        try {
-            console.log('test for push', uid, id);
-            const res = await axios.post('http://localhost:1212/products/appliyCampaign',
-            {uid, id}).then((res) => {
-                console.log('Applied Success!');
-            })
-        }
-        catch (err) {
-            console.log('Applied failed');
-            console.log(uid);
-        }
-    };
+    // const appliyCampaign = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         console.log('test for push', uid, id);
+    //         const res = await axios.post('http://localhost:1212/products/appliyCampaign',
+    //         {uid, id}).then((res) => {
+    //             console.log('Applied Success!');
+    //         })
+    //     }
+    //     catch (err) {
+    //         console.log('Applied failed');
+    //         console.log(uid);
+    //     }
+    // };
 
 
-    const item = product.find(e => e._id === id);
+    const item = influencer.find(e => e._id === id);
 
     useEffect(() => {
-        getPostList();
+        getInfluencerList();
     }, []);
 
     useEffect(() => {
@@ -82,29 +80,32 @@ const DetailPage = () => {
 
     return (
         <div>
-            <div>{uid}</div>
+            <div>접속한 유저 {uid}</div>
             {/* <div>{item._id}</div> */}
             {item ? 
             <div>
-                <div>{item._id}</div>
-                <h1>상품 상세 페이지</h1>
+                <div>인플루언서{item._id}</div>
+                <h1>여기는 {item.displayName}의 프로필입니다.</h1>
                 <div>
-                    상품명 {item.name}    
+                    제 이름은 {item.displayName}    
                 </div>
                 <div>
-                    브랜드 {item.brand}    
+                    제 나이는 {item.age}    
                 </div>
                 <div>
-                    카테고리 {item.category}    
+                    제 성별은 {item.sex}    
                 </div>
                 <div>
-                    전화번호 {item.mobile}    
+                    제 핸드폰번호는 {item.mobile}    
                 </div>
                 <div>
-                    확인 여부 {item.isCheck}    
+                    제 인스타 계정은 {item.insta}    
                 </div>
                 <div>
-                    상품 사진 {item.photo}
+                    제 이메일은 {item.email}    
+                </div>
+                <div>
+                    내 사진 {item.photo}
                     
                     <img
                         src={item.photo}
@@ -113,26 +114,28 @@ const DetailPage = () => {
                         alt='testA' />
 
                 </div>
-                <div>
-                    타겟 플랫폼 {item.targetPlatform}    
-                </div> 
-                {item ? item.applicant.map(e => {
+                {/* {item ? item.applicant.map(e => {
                     return (
                         <div key={e}>
                             {e}
                         </div>
                     )
-                }) : <></>}
+                }) : <></>} */}
             </div> : <div>찬휘</div>}
 
             <div>
+                <Button>
+                    신청하기 (아직 기능 X)
+                </Button>
+            </div>
+            {/* <div>
                 <Button onClick={appliyCampaign}>
                     신청하기
                 </Button>
-            </div>
+            </div> */}
         </div>
     );
 
 };
 
-export default DetailPage;
+export default InfluencerProfile;
