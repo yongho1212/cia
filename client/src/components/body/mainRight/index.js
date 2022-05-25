@@ -38,8 +38,8 @@ const  MainRight = ({ useParams }) => {
           <div key={item._id} style={{ marginInline:'40px', marginTop:'40px'}}>
             <Link to={`/Detail/${item._id}`} style={{ color: 'black', display: 'flex', flexDirection: 'column', width: '200px', height: '280px', alignItems: 'flex-start' }}>
               {/* <Link to={`/Detail/${item.name}`} /> */}
-              <div style={{ width: '200px', overflow: 'hidden', height: '200px', backgroundColor: 'red' }}>
-                <img className='profile-img' src={item.photo} />
+              <div style={{ width: '200px', height: '200px', backgroundColor: 'red' }}>
+                <img className='profile-img' src={item.photo} width='200px' height='200px'/>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div style={{ fontSize: '20px' }}>
