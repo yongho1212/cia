@@ -66,9 +66,9 @@ const productCtrl = {
     acceptApplicant: async (req, res) => {
         console.log(req);
         try {
-            const {k, id} = req.body;
-            await Product.findOneAndUpdate({_id: id}, {$addToSet: {joinInf: k}})
-            await Product.findOneAndUpdate({_id: id}, {$pull: {applicant: k}})
+            const {applicant_id, id} = req.body;
+            await Product.findOneAndUpdate({_id: id}, {$addToSet: {joinInf: applicant_id}})
+            await Product.findOneAndUpdate({_id: id}, {$pull: {applicant: applicant_id}})
             res.json({msg: "Push Success!"});
         } catch (err) {
             return res.status(500).json({msg: err.message});
@@ -77,8 +77,8 @@ const productCtrl = {
     declineApplicant: async (req, res) => {
         console.log(req);
         try {
-            const {k, id} = req.body;
-            await Product.findOneAndUpdate({_id: id}, {$pull: {applicant: k}})
+            const {applicant_id, id} = req.body;
+            await Product.findOneAndUpdate({_id: id}, {$pull: {applicant: applicant_id}})
             res.json({msg: "Pull Success!"});
         } catch (err) {
             return res.status(500).json({msg: err.message});
