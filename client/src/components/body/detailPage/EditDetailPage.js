@@ -11,8 +11,6 @@ import { actionCreators } from '../../../state/index';
     const [product, setProduct] = useState([]); // 제품 정보
     const [applicant, setApplicant] = useState([]); // 지원자 목록
     const { id } = useParams();
-    const nid = String(id);
-    console.log('nid', nid);
     const [uid, setUid] = useState("");
     const [displayUserData, setDiaplsyUserData] = useState({
         disemail: '',
@@ -21,12 +19,12 @@ import { actionCreators } from '../../../state/index';
         disname: ''
       })
 
-    const onAcceptHandle = async (k) => {
+    const onAcceptHandle = async (applicant_id) => {
         // console.log(e);
         try {
             console.log('accept try');
             const res = await axios.post('http://localhost:1212/products/acceptApplicant',
-            {k, id}).then((res) => {
+            {applicant_id, id}).then((res) => {
                 console.log('Accept Success!');
             })
         }
@@ -130,14 +128,14 @@ import { actionCreators } from '../../../state/index';
                 <div>
                     {item.targetPlatform}    
                 </div> 
-                {item ? item.applicant.map(k => {
+                {item ? item.applicant.map(applicant_id => {
                     return (
                         <div>
                             <div>
-                                {k}
+                                {applicant_id}
                             </div>
-                            <Button className='accept' onClick={e => {e.preventDefault(); onAcceptHandle(k)}}>수락</Button>
-                            <Button className='decline' onClick={e => {e.preventDefault(); onDeclineHandle(k)}}>거절</Button>
+                            <Button className='accept' onClick={e => {e.preventDefault(); onAcceptHandle(applicant_id)}}>수락</Button>
+                            <Button className='decline' onClick={e => {e.preventDefault(); onDeclineHandle(applicant_id)}}>거절</Button>
                         </div>
                     )
                 }) : <></>}

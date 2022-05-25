@@ -6,9 +6,7 @@ import { Link } from "react-router-dom";
 import DetailPage from '../detailPage/detailPage';
 
 const  MainRight = ({ useParams }) => {
-  const [url, setUrl] = useState('');
   const [product, setProduct] = useState();
-  const [productId, setProductId] = useState('');
   
   console.log(product);
 
@@ -40,7 +38,7 @@ const  MainRight = ({ useParams }) => {
           <div key={item._id} style={{ marginInline:'40px', marginTop:'40px'}}>
             <Link to={`/Detail/${item._id}`} style={{ color: 'black', display: 'flex', flexDirection: 'column', width: '200px', height: '280px', alignItems: 'flex-start' }}>
               {/* <Link to={`/Detail/${item.name}`} /> */}
-              <div style={{ width: '200px', height: '200px', backgroundColor: 'red' }}>
+              <div style={{ width: '200px', overflow: 'hidden', height: '200px', backgroundColor: 'red' }}>
                 <img className='profile-img' src={item.photo} />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
