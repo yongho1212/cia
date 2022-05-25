@@ -19,6 +19,7 @@
   .main {
     grid-area: 2 / 2 / 3 / 3;
     background-color: darkred;
+    
   }
   
   .footer {

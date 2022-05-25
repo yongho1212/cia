@@ -47,7 +47,6 @@ const Navbar = () => {
     <ThemeProvider theme={mdTheme}>
       <Box>
         <CssBaseline />
-
         <Box style={{ width: "100%", backgroundColor: "#0f0" }}>
           <Toolbar
             sx={{
@@ -55,7 +54,6 @@ const Navbar = () => {
             }}
           >
             <MenuIcon />
-
             <Typography
               component="h1"
               variant="h6"
@@ -72,7 +70,6 @@ const Navbar = () => {
             </IconButton>
           </Toolbar>
         </Box>
-
         <Box sx={{ display: "flex" }}>
           <Divider />
           { !openInfList ?
