@@ -7,7 +7,7 @@ import Home from './components/body/home/Home'
 import HeaderLogin  from './components/header/HeaderLogin';
 import HeaderProfile from './components/header/HeaderProfile';
 import Chat from './components/body/chat/Chat';
-import Influencerprflist from './components/body/influencerprflist';
+import InfluencerList from './components/body/influencerList/InfluencerList';
 import Search from './components/body/search/Search';
 import UploadProfile from './components/body/profile/UploadProfile';
 import Profile from './components/body/profile/Profile';
@@ -97,7 +97,7 @@ function App() {
             <Route path="/Search/*" element={<Search />} />
             <Route path="/EditProfile/*" element={<EditProfile />} />
             <Route path="/Upload/" element={<UploadProduct />} />
-            <Route path="/Influencerprflist/" element={<Influencerprflist />} />
+            <Route path="/Influencerprflist/" element={<InfluencerList />} />
             <Route path="/Workspace/" element={<Workspace />} />
             <Route path="/DashMain/" element={<DashMain />} />
           </Route>
