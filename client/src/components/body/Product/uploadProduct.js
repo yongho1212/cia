@@ -13,6 +13,7 @@ import { bindActionCreators } from "redux";
 import { actionCreators } from "../../../state/index";
 import { appendprd } from '../../../state/actioncreators';
 
+
 const UploadProduct = () => {
 
     const state = useSelector((state) => state);
@@ -57,11 +58,12 @@ const UploadProduct = () => {
       }  
 
     const addNewPrdChannel = async() => {
-        await addDoc(collection(db, 'prdRoom'),{
+        const prdfsid = await addDoc(collection(db, 'prdRoom'),{
             name: {name},
             writer: {authorUid},
             createdAt: serverTimestamp(),
         })
+        console.log(prdfsid.id)
     }
     
     const data = {name, brand, targetPlatform, category, period, postType,
@@ -70,7 +72,7 @@ const UploadProduct = () => {
       
       
 
-    console.log(authorUid);
+
     
     AWS.config.update({
         region: 'ap-northeast-2',
@@ -114,6 +116,7 @@ const UploadProduct = () => {
                 point, applicationConditions, qualification, isCheck,
                 detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid}
             ).then((res) => {
+                console.log(res)
                 addNewPrdChannel();
                 console.log('success')
             })

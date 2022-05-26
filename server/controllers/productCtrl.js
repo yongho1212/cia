@@ -30,7 +30,7 @@ const productCtrl = {
             })
             
             await newProduct.save()
-
+            
             res.json({msg: "new product is uploaded!"})
         } catch (err) {
             return res.status(500).json({msg: err.message})
