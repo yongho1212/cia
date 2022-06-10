@@ -8,29 +8,16 @@ const productCtrl = {
         try {
             const {name, brand, targetPlatform, category, period, postType,
                 point, applicationConditions, qualification, isCheck,
-                detailPage, offersAndMissions, photo, mobile, authorUid, authorEmail} = req.body
+                detailPage, offersAndMissions, photo, mobile, prdfsidDb} = req.body
 
             const newProduct = new Product({
-                name,
-                brand,
-                targetPlatform,
-                category,
-                period,
-                postType,
-                point,
-                applicationConditions,
-                qualification,
-                isCheck,
-                detailPage,
-                offersAndMissions,
-                photo,
-                mobile,
-                authorUid,
-                authorEmail
+                name, brand, targetPlatform, category, period, postType,
+                    point, applicationConditions, qualification, isCheck,
+                    detailPage, offersAndMissions, photo, mobile, prdfsidDb
             })
             
             await newProduct.save()
-            
+
             res.json({msg: "new product is uploaded!"})
         } catch (err) {
             return res.status(500).json({msg: err.message})

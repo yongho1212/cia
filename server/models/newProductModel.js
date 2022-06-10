@@ -69,6 +69,12 @@ const newproductSchema = new mongoose.Schema({
     },
     joinInf: {
         type: Array,
+    },
+    authorEmail:{
+        type: Array,
+    },
+    prdfsidDb:{
+        type: String,
     }
 }, {
     timestamps: true
