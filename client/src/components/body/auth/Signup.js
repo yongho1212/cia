@@ -57,7 +57,8 @@ const Signup = () => {
       const res = await axios.post('/user/register', 
       {displayName, email, role, uid, password})
       .then(function(data){
-        console.log(data)
+        console.log("해당 상풍 데이터" + data)
+        console.log("해당 상풍 아이디" + res)
       })
       console.log(displayName, email, role, uid, password)
       loginUser(email, displayName, role, uid)

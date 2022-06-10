@@ -6,6 +6,8 @@ import { NavItem } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../state/index';
+import { doc, getDocFromCache } from "firebase/firestore";
+import { db, auth } from '../../../firebase'
 
  const EditDetailpage = () => {
     const [product, setProduct] = useState([]); // 제품 정보
@@ -18,6 +20,7 @@ import { actionCreators } from '../../../state/index';
         disavatar: '',
         disname: ''
       })
+    const docRef = doc(db, "prdRoom", "SF");
 
     const onAcceptHandle = async (applicant_id) => {
         // console.log(e);
@@ -134,8 +137,8 @@ import { actionCreators } from '../../../state/index';
                             <div>
                                 {applicant_id}
                             </div>
-                            <Button className='accept' onClick={e => {e.preventDefault(); onAcceptHandle(applicant_id)}}>수락</Button>
-                            <Button className='decline' onClick={e => {e.preventDefault(); onDeclineHandle(applicant_id)}}>거절</Button>
+                            <Button className='accept' onClick={e => {e.preventDefault(); onAcceptHandle(applicant_id);  }}>수락</Button>
+                            <Button className='decline' onClick={e => {e.preventDefault(); onDeclineHandle(applicant_id); }}>거절</Button>
                         </div>
                     )
                 }) : <></>}

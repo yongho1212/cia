@@ -13,6 +13,7 @@ import { bindActionCreators } from "redux";
 import { actionCreators } from "../../../state/index";
 import { appendprd } from '../../../state/actioncreators';
 
+
 const UploadProduct = () => {
 
     const state = useSelector((state) => state);
@@ -37,6 +38,8 @@ const UploadProduct = () => {
     const [photo, setPhoto] = useState("");
     const [mobile, setMobile] = useState("");
     const [uploadedPhoto, setUploadedPhoto] = useState("");
+ //   const [prdfsidDb, setPrdfsidDb] = useState("");
+
     const navigate = useNavigate();
    
 
@@ -57,20 +60,22 @@ const UploadProduct = () => {
       }  
 
     const addNewPrdChannel = async() => {
-        await addDoc(collection(db, 'prdRoom'),{
+        const prdfsid = await addDoc(collection(db, 'prdRoom'),{
             name: {name},
             writer: {authorUid},
             createdAt: serverTimestamp(),
         })
+ //       console.log(prdfsid.id);
+        const fff = prdfsid.id;
+   //     console.log(fff);
+  //      setPrdfsidDb(fff);
+        return fff;
     }
     
     const data = {name, brand, targetPlatform, category, period, postType,
         point, applicationConditions, qualification, isCheck,
         detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid}
       
-      
-
-    console.log(authorUid);
     
     AWS.config.update({
         region: 'ap-northeast-2',
@@ -105,30 +110,36 @@ const UploadProduct = () => {
             }
         )
     }
+    
+
 
     const handlePost = async (e) => {
         e.preventDefault();
+        const qqq = await addNewPrdChannel();
         try {
-            const res = await axios.post('/products/upload',
+            const prdfsidDb = qqq
+            console.log('before')
+            const res = await axios.post('products/upload',
                 {name, brand, targetPlatform, category, period, postType,
-                point, applicationConditions, qualification, isCheck,
-                detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid}
+                    point, applicationConditions, qualification, isCheck,
+                    detailPage, offersAndMissions, photo, mobile, prdfsidDb}
             ).then((res) => {
-                addNewPrdChannel();
+                console.log(res)
                 console.log('success')
             })
             console.log(name, brand, targetPlatform, category, period, postType,
                 point, applicationConditions, qualification, isCheck,
-                detailPage, offersAndMissions, photo, mobile);
+                detailPage, offersAndMissions, photo, mobile, prdfsidDb);
         } catch (err) {
+            const prdfsidDb = qqq
+            console.log(err)
             console.log('failed');
             console.log(name, brand, targetPlatform, category, period, postType,
                 point, applicationConditions, qualification, isCheck,
-                detailPage, offersAndMissions, photo, mobile);
+                detailPage, offersAndMissions, photo, mobile, prdfsidDb);
         }
         appendprd(data);
         navigate("/Main");
-        
         console.log(state.myprd)
     };
 
