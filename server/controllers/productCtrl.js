@@ -8,12 +8,12 @@ const productCtrl = {
         try {
             const {name, brand, targetPlatform, category, period, postType,
                 point, applicationConditions, qualification, isCheck,
-                detailPage, offersAndMissions, photo, mobile, prdfsidDb} = req.body
+                detailPage, offersAndMissions, photo, mobile,authorEmail, authorUid, prdfsidDb} = req.body
 
             const newProduct = new Product({
                 name, brand, targetPlatform, category, period, postType,
                     point, applicationConditions, qualification, isCheck,
-                    detailPage, offersAndMissions, photo, mobile, prdfsidDb
+                    detailPage, offersAndMissions, photo, mobile,authorEmail, authorUid, prdfsidDb
             })
             
             await newProduct.save()
@@ -36,6 +36,17 @@ const productCtrl = {
             const {uid} = req.query
             const post = await Product.find({authorUid: uid});
             res.send(post)
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    getPrdInfo: async (req, res) => {
+        try {
+            const {id} = req.body
+            const prdinfo = await Product.findOne({_id: id}).exec()
+            res.send(prdinfo);
+            console.log(prdinfo);
+             
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }

@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../state/index';
 import { doc, getDocFromCache } from "firebase/firestore";
 import { db, auth } from '../../../firebase'
+import { async } from '@firebase/util';
 
  const EditDetailpage = () => {
     const [product, setProduct] = useState([]); // 제품 정보
@@ -20,7 +21,13 @@ import { db, auth } from '../../../firebase'
         disavatar: '',
         disname: ''
       })
-    const docRef = doc(db, "prdRoom", "SF");
+    const prdidd = id;
+    console.log(id);
+    console.log(prdidd);
+    
+    const dispatch = useDispatch();
+    const state = useSelector((state) => state);
+    const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
 
     const onAcceptHandle = async (applicant_id) => {
         // console.log(e);
@@ -51,9 +58,7 @@ import { db, auth } from '../../../firebase'
         }
     }
 
-    const dispatch = useDispatch();
-    const state = useSelector((state) => state);
-    const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
+    
 
     const getPostList = async () => {
         try {
@@ -73,9 +78,27 @@ import { db, auth } from '../../../firebase'
 
     const item = product.find(e => e._id === id);
 
+    const getprdInfo = async() => {
+        const id = prdidd
+        console.log(id)
+        const res = await axios.post("http://localhost:1212/products/getprdinfo", { id })
+        .then((res) => {
+            const prddata = res.data
+            console.log(prddata)
+            console.log(prddata.prdfsidDb)
+        })
+    }
+
     useEffect(() => {
         getPostList();
+        
     }, []);
+
+    useEffect(() => {
+        getprdInfo();
+        
+    }, []);
+
 
     useEffect(() => {
         fetching();
@@ -97,10 +120,12 @@ import { db, auth } from '../../../firebase'
 
     return (
         <div>
+            <div>uid</div>
             <div>{uid}</div>
             {/* <div>{item._id}</div> */}
             {item ? 
             <div>
+                <div>item id</div>
                 <div>{item._id}</div>
                 <h1> 편집중입니다</h1>
                 <div>

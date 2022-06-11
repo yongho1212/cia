@@ -122,21 +122,21 @@ const UploadProduct = () => {
             const res = await axios.post('products/upload',
                 {name, brand, targetPlatform, category, period, postType,
                     point, applicationConditions, qualification, isCheck,
-                    detailPage, offersAndMissions, photo, mobile, prdfsidDb}
+                    detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid, prdfsidDb}
             ).then((res) => {
                 console.log(res)
                 console.log('success')
             })
             console.log(name, brand, targetPlatform, category, period, postType,
                 point, applicationConditions, qualification, isCheck,
-                detailPage, offersAndMissions, photo, mobile, prdfsidDb);
+                detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid, prdfsidDb);
         } catch (err) {
             const prdfsidDb = qqq
             console.log(err)
             console.log('failed');
             console.log(name, brand, targetPlatform, category, period, postType,
                 point, applicationConditions, qualification, isCheck,
-                detailPage, offersAndMissions, photo, mobile, prdfsidDb);
+                detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid, prdfsidDb);
         }
         appendprd(data);
         navigate("/Main");

@@ -14,7 +14,7 @@ const  MainRight = ({ useParams }) => {
     try {
        const res = await axios.post('http://localhost:1212/products/getlist')
        .then((res) => { 
-        console.log(res.data);
+       // console.log(res.data);
 
         setProduct(res.data);
         return 0;
