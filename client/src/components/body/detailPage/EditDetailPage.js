@@ -6,7 +6,7 @@ import { NavItem } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../state/index';
-import { doc, getDocFromCache } from "firebase/firestore";
+import { doc, getDocFromCache, setDoc, addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, auth } from '../../../firebase'
 import { async } from '@firebase/util';
 
@@ -15,6 +15,7 @@ import { async } from '@firebase/util';
     const [applicant, setApplicant] = useState([]); // 지원자 목록
     const { id } = useParams();
     const [uid, setUid] = useState("");
+    const [prdfsid, setPrdfsid] = useState("")
     const [displayUserData, setDiaplsyUserData] = useState({
         disemail: '',
         disrole: '',
@@ -22,8 +23,6 @@ import { async } from '@firebase/util';
         disname: ''
       })
     const prdidd = id;
-    console.log(id);
-    console.log(prdidd);
     
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
@@ -58,6 +57,13 @@ import { async } from '@firebase/util';
         }
     }
 
+    const addNewChannel = async() => {
+        const newChannel = await addDoc(collection(db, 'prdRoom', prdfsid, 'chatroom'),{
+            createdAt: serverTimestamp(),
+            id: prdfsid
+        })
+    }
+
     
 
     const getPostList = async () => {
@@ -86,23 +92,23 @@ import { async } from '@firebase/util';
             const prddata = res.data
             console.log(prddata)
             console.log(prddata.prdfsidDb)
+            setPrdfsid(prddata.prdfsidDb)
+            console.log(prdfsid)
         })
     }
 
     useEffect(() => {
         getPostList();
-        
     }, []);
 
     useEffect(() => {
         getprdInfo();
-        
     }, []);
-
 
     useEffect(() => {
         fetching();
     },[state])
+
     
     const fetching = async(e) => {
         try{
@@ -162,7 +168,7 @@ import { async } from '@firebase/util';
                             <div>
                                 {applicant_id}
                             </div>
-                            <Button className='accept' onClick={e => {e.preventDefault(); onAcceptHandle(applicant_id);  }}>수락</Button>
+                            <Button className='accept' onClick={e => {e.preventDefault(); onAcceptHandle(applicant_id); addNewChannel(); }}>수락</Button>
                             <Button className='decline' onClick={e => {e.preventDefault(); onDeclineHandle(applicant_id); }}>거절</Button>
                         </div>
                     )
