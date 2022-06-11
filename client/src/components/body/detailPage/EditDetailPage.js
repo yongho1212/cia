@@ -6,21 +6,27 @@ import { NavItem } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../state/index';
-import { doc, getDocFromCache } from "firebase/firestore";
+import { doc, getDocFromCache, setDoc, addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, auth } from '../../../firebase'
+import { async } from '@firebase/util';
 
  const EditDetailpage = () => {
     const [product, setProduct] = useState([]); // 제품 정보
     const [applicant, setApplicant] = useState([]); // 지원자 목록
     const { id } = useParams();
     const [uid, setUid] = useState("");
+    const [prdfsid, setPrdfsid] = useState("")
     const [displayUserData, setDiaplsyUserData] = useState({
         disemail: '',
         disrole: '',
         disavatar: '',
         disname: ''
       })
-    const docRef = doc(db, "prdRoom", "SF");
+    const prdidd = id;
+    
+    const dispatch = useDispatch();
+    const state = useSelector((state) => state);
+    const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
 
     const onAcceptHandle = async (applicant_id) => {
         // console.log(e);
@@ -51,11 +57,17 @@ import { db, auth } from '../../../firebase'
         }
     }
 
-    const dispatch = useDispatch();
-    const state = useSelector((state) => state);
-    const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
+    const addNewChannel = async(applicant_id) => {
+        const docRef = await doc(db, `prdRoom/${prdfsid}/inflist/${applicant_id}`)
+        const newChannel = await setDoc(docRef, {
+            name: {applicant_id},
+            createdAt: serverTimestamp(),
+        })
+        console.log(newChannel);
+    }
 
-    const getPostList = async () => {
+
+    const getPostList = async (applicant_id) => {
         try {
             const res = await axios.post('http://localhost:1212/products/getlist')
             .then((res) => {
@@ -73,13 +85,31 @@ import { db, auth } from '../../../firebase'
 
     const item = product.find(e => e._id === id);
 
+    const getprdInfo = async() => {
+        const id = prdidd
+        console.log(id)
+        const res = await axios.post("http://localhost:1212/products/getprdinfo", { id })
+        .then((res) => {
+            const prddata = res.data
+            console.log(prddata)
+            console.log(prddata.prdfsidDb)
+            setPrdfsid(prddata.prdfsidDb)
+            console.log(prdfsid)
+        })
+    }
+
     useEffect(() => {
         getPostList();
     }, []);
 
     useEffect(() => {
+        getprdInfo();
+    }, []);
+
+    useEffect(() => {
         fetching();
     },[state])
+
     
     const fetching = async(e) => {
         try{
@@ -97,10 +127,12 @@ import { db, auth } from '../../../firebase'
 
     return (
         <div>
+            <div>uid</div>
             <div>{uid}</div>
             {/* <div>{item._id}</div> */}
             {item ? 
             <div>
+                <div>item id</div>
                 <div>{item._id}</div>
                 <h1> 편집중입니다</h1>
                 <div>
@@ -137,7 +169,7 @@ import { db, auth } from '../../../firebase'
                             <div>
                                 {applicant_id}
                             </div>
-                            <Button className='accept' onClick={e => {e.preventDefault(); onAcceptHandle(applicant_id);  }}>수락</Button>
+                            <Button className='accept' onClick={e => {e.preventDefault(); onAcceptHandle(applicant_id); addNewChannel(applicant_id); }}>수락</Button>
                             <Button className='decline' onClick={e => {e.preventDefault(); onDeclineHandle(applicant_id); }}>거절</Button>
                         </div>
                     )
