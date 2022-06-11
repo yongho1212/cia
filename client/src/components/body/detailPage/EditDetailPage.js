@@ -57,16 +57,17 @@ import { async } from '@firebase/util';
         }
     }
 
-    const addNewChannel = async() => {
-        const newChannel = await addDoc(collection(db, 'prdRoom', prdfsid, 'chatroom'),{
+    const addNewChannel = async(applicant_id) => {
+        const docRef = await doc(db, `prdRoom/${prdfsid}/inflist/${applicant_id}`)
+        const newChannel = await setDoc(docRef, {
+            name: {applicant_id},
             createdAt: serverTimestamp(),
-            id: prdfsid
         })
+        console.log(newChannel);
     }
 
-    
 
-    const getPostList = async () => {
+    const getPostList = async (applicant_id) => {
         try {
             const res = await axios.post('http://localhost:1212/products/getlist')
             .then((res) => {
@@ -168,7 +169,7 @@ import { async } from '@firebase/util';
                             <div>
                                 {applicant_id}
                             </div>
-                            <Button className='accept' onClick={e => {e.preventDefault(); onAcceptHandle(applicant_id); addNewChannel(); }}>수락</Button>
+                            <Button className='accept' onClick={e => {e.preventDefault(); onAcceptHandle(applicant_id); addNewChannel(applicant_id); }}>수락</Button>
                             <Button className='decline' onClick={e => {e.preventDefault(); onDeclineHandle(applicant_id); }}>거절</Button>
                         </div>
                     )
