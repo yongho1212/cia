@@ -52,8 +52,8 @@ const UploadProduct = () => {
 
     const fetching = async(e) => {
         try{
-        await setAuthorUid(state.auth.state.uid)
-        .then(setAuthorEmail(state.auth.state.email))
+        setAuthorUid(state.auth.state.uid);
+        setAuthorEmail(state.auth.state.email);
         }catch{
           console.log(e)
         }
@@ -124,7 +124,7 @@ const UploadProduct = () => {
                     point, applicationConditions, qualification, isCheck,
                     detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid, prdfsidDb}
             ).then((res) => {
-                console.log(res)
+                console.log(res.data)
                 console.log('success')
             })
             console.log(name, brand, targetPlatform, category, period, postType,
@@ -136,7 +136,7 @@ const UploadProduct = () => {
             console.log('failed');
             console.log(name, brand, targetPlatform, category, period, postType,
                 point, applicationConditions, qualification, isCheck,
-                detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid, prdfsidDb);
+                detailPage, offersAndMissions, photo, mobile, authorUid, authorEmail,  prdfsidDb);
         }
         appendprd(data);
         navigate("/Main");

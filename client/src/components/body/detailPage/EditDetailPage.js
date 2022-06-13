@@ -57,14 +57,22 @@ import { async } from '@firebase/util';
         }
     }
 
-    const addNewChannel = async(applicant_id) => {
+    const addNewInf = async(applicant_id) => {
         const docRef = await doc(db, `prdRoom/${prdfsid}/inflist/${applicant_id}`)
+        const chatRef = await doc(db, `prdRoom/${prdfsid}/inflist/${applicant_id}/messages`)
         const newChannel = await setDoc(docRef, {
             name: {applicant_id},
+            Aduid: {uid},
+            Infuid: {applicant_id},
             createdAt: serverTimestamp(),
+        })
+        const newChat = await addDoc(chatRef,{
+
         })
         console.log(newChannel);
     }
+
+  
 
 
     const getPostList = async (applicant_id) => {
@@ -169,7 +177,7 @@ import { async } from '@firebase/util';
                             <div>
                                 {applicant_id}
                             </div>
-                            <Button className='accept' onClick={e => {e.preventDefault(); onAcceptHandle(applicant_id); addNewChannel(applicant_id); }}>수락</Button>
+                            <Button className='accept' onClick={e => {e.preventDefault(); onAcceptHandle(applicant_id); addNewInf(applicant_id); }}>수락</Button>
                             <Button className='decline' onClick={e => {e.preventDefault(); onDeclineHandle(applicant_id); }}>거절</Button>
                         </div>
                     )
