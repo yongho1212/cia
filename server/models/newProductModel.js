@@ -9,6 +9,7 @@ const newproductSchema = new mongoose.Schema({
     brand: {
         type: String,
         required: [true, "Please enter your brand!"],
+        unique: false
     },
     targetPlatform: {
         type: String,
