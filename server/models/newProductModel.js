@@ -5,13 +5,10 @@ const newproductSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, "Please enter your name!"],
-        trim: true
     },
     brand: {
         type: String,
         required: [true, "Please enter your brand!"],
-        trim: true,
-        unique: true
     },
     targetPlatform: {
         type: String,
