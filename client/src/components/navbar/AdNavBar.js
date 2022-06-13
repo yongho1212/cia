@@ -21,6 +21,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems, secondaryListItems } from '../body/workSpace/listItems';
 import Prdlistitems from '../body/workSpace/Prdlistitem';
 import ChatMain from '../../components/body/chatMain/ChatMain'
+import Button from "@mui/material/Button";
 
 const mdTheme = createTheme();
 
@@ -28,6 +29,8 @@ const AdNavBar = () => {
   const [open, setOpen] = useState(true);
   const [draweOpen, setDrawerOpen] = useState(false);
   const [openInfList, setOpenInfList] = useState(false);
+  const [chatListOpen, setChatListOpen] = useState(false);
+  const [chatData, setChatData] = useState("");
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -35,6 +38,15 @@ const AdNavBar = () => {
 
   const getlistopen = (data) => {
     setOpenInfList(data)
+  }
+
+  const chatlistopen = (data) => {
+    setChatListOpen(data);
+  }
+
+  const getChatData = (data) => {
+    console.log('debugnow', data);
+    setChatData(data);
   }
 
   console.log(openInfList)
@@ -45,7 +57,28 @@ const AdNavBar = () => {
 
 
   return (
-    <ThemeProvider theme={mdTheme}>
+    <>
+    {chatListOpen ? 
+      (
+      <>
+        <ThemeProvider theme={mdTheme}>
+          <Box>
+            <CssBaseline />
+            <IconButton onClick={() => {
+              setChatListOpen(false);
+            }}>뒤로가기</IconButton>
+            <Box style={{ width: "200px" }}>
+            <List component="nav">
+              <Link to="/ChatMain" style={{ color: 'black', alignItems: 'flex-start' }}>
+                {chatData}
+              </Link>
+            </List>
+          </Box>
+          </Box>
+        </ThemeProvider>
+      </>
+      ) : (
+      <ThemeProvider theme={mdTheme}>
       <Box>
         <CssBaseline />
         
@@ -57,44 +90,17 @@ const AdNavBar = () => {
               {mainListItems}
               <Divider sx={{ my: 1 }} />
               <Typography>My Product Lists</Typography>
-              <Prdlistitems getlistopen={getlistopen} />
+              <Prdlistitems chatlistopen={chatlistopen} getlistopen={getlistopen} getChatData={getChatData}/>
             </List>
           </Box>
           :
-          // <Box style={{ width: "200px" }}>
-          //   <IconButton
-          //   size="large"
-          //   edge="start"
-          //   onClick={setOpenInfList(true)}
-          //   >
-          //     <MenuIcon />
-          //   </IconButton>
-          // </Box>
           console.log(openInfList)
           }
-          
-          {/* <IconButton
-            size="large"
-            edge="start"
-            onClick={() => setDrawerOpen(true)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Drawer
-            anchor="left"
-            PaperProps={{ style: { height: "90vh", marginTop: "50px" } }}
-            open={draweOpen}
-            onClose={() => setDrawerOpen(false)}
-          >
-            <Box width="200px">
-              <Typography>drawer</Typography>
-            </Box>
-          </Drawer> */}
-
-          {/* <DashMain /> */}
         </Box>
       </Box>
     </ThemeProvider>
+    )}
+    </>
   )
 }
 
