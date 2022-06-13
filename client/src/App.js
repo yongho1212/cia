@@ -26,6 +26,7 @@ import AdNavBar from './components/navbar/AdNavBar';
 import HomeNavBar from './components/navbar/HomeNavBar';
 import DashMain from './components/body/workSpace/Dashmain';
 import Layout from './layout/Layout'
+import ChatMain from './components/body/chatMain/ChatMain'
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -95,6 +96,7 @@ function App() {
             {/* <Route path="/Detail/" element={<DetailPage />} /> */}
             <Route path="/Profile/*" element={<Profile />} />
             <Route path="/Chat/*" element={<Chat />} />
+            <Route path="/ChatMain/*" element={<ChatMain />} />
             <Route path="/Search/*" element={<Search />} />
             <Route path="/EditProfile/*" element={<EditProfile />} />
             <Route path="/Upload/" element={<UploadProduct />} />

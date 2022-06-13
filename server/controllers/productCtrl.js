@@ -13,7 +13,7 @@ const productCtrl = {
             const newProduct = new Product({
                 name, brand, targetPlatform, category, period, postType,
                     point, applicationConditions, qualification, isCheck,
-                    detailPage, offersAndMissions, photo, mobile,authorEmail, authorUid, prdfsidDb
+                    detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid, prdfsidDb
             })
             
             await newProduct.save()
