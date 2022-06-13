@@ -11,7 +11,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter your brand!"],
         trim: true,
-        unique: true
+
     },
     date: {
         type: String,

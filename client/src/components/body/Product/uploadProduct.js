@@ -117,6 +117,7 @@ const UploadProduct = () => {
         e.preventDefault();
         const qqq = await addNewPrdChannel();
         try {
+            console.log(qqq);
             const prdfsidDb = qqq
             console.log('before')
             const res = await axios.post('products/upload',
