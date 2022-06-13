@@ -16,16 +16,19 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../state/index';
+import Popper from '@mui/material/Popper';
 
 import {
   getAuth
 } from "firebase/auth";
 
-const Prdlistitems = ({getlistopen}) => {
+const Prdlistitems = ({chatlistopen, getlistopen, getChatData}) => {
 
   const auth = getAuth();
 
   const [product, setProduct] = useState();
+  const [isOpen, setIsOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const dispatch = useDispatch();
   const state = useSelector((state) => state)
@@ -51,8 +54,10 @@ const Prdlistitems = ({getlistopen}) => {
     }
   }
 
-  const ctrldrawer = () => {
-    getlistopen(true);
+  const ctrldrawer = (event) => {
+    // getlistopen(true);
+    // chatlistopen(true);
+    setAnchorEl(event.currentTarget);
   }
 
 
@@ -71,7 +76,11 @@ const Prdlistitems = ({getlistopen}) => {
             <Link to={`/Detail/${item._id}`} style={{ color: 'black', alignItems: 'flex-start' }}>
               {/* <Link to={`/Detail/${item.name}`} />                 */}
                 <ListItemButton 
-                onClick={ctrldrawer}
+                onClick={() => {
+                  getlistopen(true);
+                  chatlistopen(true);
+                  getChatData(item.joinInf);
+                }}
                 >
                     <ListItemIcon>
                         <AssignmentIcon />

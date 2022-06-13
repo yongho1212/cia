@@ -8,14 +8,21 @@ import AdNavBar from '../components/navbar/AdNavBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../state/index';
+import {
+  getAuth
+} from "firebase/auth";
 
 const Layout = () => {
 
   const [userRole, setUserRole] = useState('')
+  const auth = getAuth();
+  
+  
 
   const state = useSelector((state) => state)
   const dispatch = useDispatch();
   const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
+  const uid = state.auth.state.uid
 
   const role = state.auth.role
 
@@ -39,7 +46,7 @@ const Layout = () => {
   return (
     <div className="layout">
     <header className="header">
-      Header
+      {uid}
     </header>
     <aside className="aside">
     {

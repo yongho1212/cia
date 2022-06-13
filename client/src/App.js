@@ -92,6 +92,7 @@ function App() {
             {/* <Route path="/SearchResult" element={<Search />} /> */}
             <Route path="/UploadProfile" element={<UploadProfile/>} />
             <Route path="/Detail/:id" element={<DetailPage />} />
+            {/* <Route path="/Chatt/*" element={<ChatMain />} /> */}
             <Route path="/EditDetailPage/:id" element={<EditDetailpage />} />
             {/* <Route path="/Detail/" element={<DetailPage />} /> */}
             <Route path="/Profile/*" element={<Profile />} />
