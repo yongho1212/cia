@@ -165,6 +165,32 @@ const userCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
+    addChatChannelAD: async (req, res) => {
+        try {
+            // const uid = req.body.uid
+            console.log("mongodb is connected fuck");
+            const { uid, joinedChannel } = req.body
+            await Users.findOneAndUpdate({uid: uid}, {$push: {
+                joinedChannel: joinedChannel
+            }})
+            res.json({msg: "Update Success!"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    addChatChannelINF: async (req, res) => {
+        try {
+            // const uid = req.body.uid
+            console.log("mongodb is connected fuck");
+            const { applicant_id, joinedChannel } = req.body
+            await Users.findOneAndUpdate({uid: applicant_id}, {$push: {
+                joinedChannel: joinedChannel
+            }})
+            res.json({msg: "Update Success!"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
     updateUsersRole: async (req, res) => {
         try {
             const {role} = req.body

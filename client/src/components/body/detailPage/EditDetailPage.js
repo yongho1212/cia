@@ -58,19 +58,51 @@ import { async } from '@firebase/util';
     }
 
     const addNewInf = async(applicant_id) => {
-        const docRef = await doc(db, `prdRoom/${prdfsid}/inflist/${applicant_id}`)
-        const chatRef = await doc(db, `prdRoom/${prdfsid}/inflist/${applicant_id}/messages`)
-        const newChannel = await setDoc(docRef, {
+        const docRef = await collection(db, `prdRoom/${prdfsid}/inflist/`)
+        const newChannel = await addDoc(docRef, {
             name: {applicant_id},
             Aduid: {uid},
             Infuid: {applicant_id},
             createdAt: serverTimestamp(),
         })
-        const newChat = await addDoc(chatRef,{
-
-        })
-        console.log(newChannel);
+       
+        console.log(newChannel.id);
+        const joinedChannel = newChannel.id
+        try {
+            const resad = await axios.post('http://localhost:1212/user/addchannelad',
+                {uid, joinedChannel}
+            ).then((resad) => {
+                console.log('success')
+                console.log(resad.data)
+            })
+            const resinf = await axios.post('http://localhost:1212/user/addchannelinf',
+                {applicant_id, joinedChannel}
+            ).then((resinf) => {
+                console.log('success')
+                console.log(resinf.data)
+            })
+            console.log(uid, joinedChannel);
+        } catch (err) {
+            console.log(err)
+            console.log('failed updateProfile');
+            console.log(uid, joinedChannel);
+        }
+        
     }
+
+    // const addChannel = async (joinedChannel) => {
+    //     try {
+    //         const res = await axios.post('http://localhost:1212/user/addchannel',
+    //             {joinedChannel}
+    //         ).then((res) => {
+    //             console.log('success')
+    //         })
+    //         console.log(joinedChannel);
+    //     } catch (err) {
+    //         console.log('failed updateProfile');
+    //         console.log(joinedChannel);
+    //     }
+    // };
 
   
 

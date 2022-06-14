@@ -52,6 +52,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: '010-0000-0000'
     },
+    joinedChannel: {
+        type: Array
+    }
 }, {
     timestamps: true
 })

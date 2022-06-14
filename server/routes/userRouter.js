@@ -23,6 +23,10 @@ router.get('/logout', userCtrl.logout)
 
 router.post('/update', userCtrl.updateUser)
 
+router.post('/addchannelad', userCtrl.addChatChannelAD)
+
+router.post('/addchannelinf', userCtrl.addChatChannelINF)
+
 router.patch('/aboutme', auth, userCtrl.aboutMe)
 
 router.patch('/update_role/:id', auth, authAdmin, userCtrl.updateUsersRole)
