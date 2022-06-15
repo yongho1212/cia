@@ -6,6 +6,7 @@ import Signup from "./components/body/auth/Signup";
 import Home from './components/body/home/Home'
 import HeaderLogin  from './components/header/HeaderLogin';
 import HeaderProfile from './components/header/HeaderProfile';
+import Chatlist from './components/body/chat/Chatlist';
 import Chat from './components/body/chat/Chat';
 import InfluencerList from './components/body/influencerList/InfluencerList';
 import Search from './components/body/search/Search';
@@ -96,7 +97,8 @@ function App() {
             <Route path="/EditDetailPage/:id" element={<EditDetailpage />} />
             {/* <Route path="/Detail/" element={<DetailPage />} /> */}
             <Route path="/Profile/*" element={<Profile />} />
-            <Route path="/Chat/*" element={<Chat />} />
+            <Route path="/Chatlist/*" element={<Chatlist />} />
+            <Route path="/Chat/:id" element={<Chat />} />
             <Route path="/ChatMain/*" element={<ChatMain />} />
             <Route path="/Search/*" element={<Search />} />
             <Route path="/EditProfile/*" element={<EditProfile />} />

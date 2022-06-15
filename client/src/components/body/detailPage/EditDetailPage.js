@@ -26,7 +26,9 @@ import { async } from '@firebase/util';
     
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
-    const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
+    const {loginUser, logoutUser, fbuser, nofbuser, addchannel} = bindActionCreators(actionCreators, dispatch);
+
+    
 
     const onAcceptHandle = async (applicant_id) => {
         // console.log(e);
@@ -68,7 +70,14 @@ import { async } from '@firebase/util';
        
         console.log(newChannel.id);
         const joinedChannel = newChannel.id
+        const joinedPrd = prdfsid
         try {
+            const resprdinf = await axios.post('http://localhost:1212/user/addprdinf',
+                {applicant_id, joinedPrd}
+            ).then((resprdinf) => {
+                console.log('success')
+                console.log(resprdinf.data)
+            })
             const resad = await axios.post('http://localhost:1212/user/addchannelad',
                 {uid, joinedChannel}
             ).then((resad) => {
@@ -87,6 +96,7 @@ import { async } from '@firebase/util';
             console.log('failed updateProfile');
             console.log(uid, joinedChannel);
         }
+        addchannel(joinedChannel)
         
     }
 
@@ -146,9 +156,6 @@ import { async } from '@firebase/util';
         getprdInfo();
     }, []);
 
-    useEffect(() => {
-        fetching();
-    },[state])
 
     
     const fetching = async(e) => {

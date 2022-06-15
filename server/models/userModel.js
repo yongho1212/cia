@@ -52,9 +52,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: '010-0000-0000'
     },
+    joinedPrd:{
+        type: Array
+    },
     joinedChannel: {
         type: Array
     }
+    
 }, {
     timestamps: true
 })

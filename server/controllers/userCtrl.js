@@ -191,6 +191,32 @@ const userCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
+    addPrdINF: async (req, res) => {
+        try {
+            // const uid = req.body.uid
+            console.log("mongodb is connected fuck");
+            const { applicant_id, joinedPrd } = req.body
+            await Users.findOneAndUpdate({uid: applicant_id}, {$push: {
+                joinedPrd: joinedPrd
+            }})
+            res.json({msg: "Update Success!"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    addPrdAD: async (req, res) => {
+        try {
+            // const uid = req.body.uid
+            console.log("mongodb is connected fuck");
+            const { uid, joinedPrd } = req.body
+            await Users.findOneAndUpdate({uid: uid}, {$push: {
+                joinedPrd: joinedPrd
+            }})
+            res.json({msg: "Update Success!"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
     updateUsersRole: async (req, res) => {
         try {
             const {role} = req.body

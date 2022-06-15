@@ -89,7 +89,7 @@ const HeaderProfile = () => {
       navigate("/Main");
     }
     function handleClickChat() {
-      navigate("/Chat");
+      navigate("/Chatlist");
     }
     function handleClickSearch() {
       navigate("/Search");

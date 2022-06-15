@@ -13,17 +13,18 @@ const DetailPage = () => {
     const { id } = useParams();
     const nid = String(id);
     console.log('nid', nid);
-    const [uid, setUid] = useState("");
-    const [displayUserData, setDiaplsyUserData] = useState({
-        disemail: '',
-        disrole: '',
-        disavatar: '',
-        disname: ''
-      })
+    
+    
 
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
     const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
+
+    const uid = state.auth.state.loginData.uid;
+    const disemail = state.auth.state.loginData.emial
+    const disrole = state.auth.state.loginData.uiroled
+    const disavatar = state.auth.state.loginData.avatart
+    const disname =  state.auth.state.loginData.displayName
 
     const getPostList = async () => {
         try {
@@ -62,23 +63,6 @@ const DetailPage = () => {
         getPostList();
     }, []);
 
-    useEffect(() => {
-        fetching();
-      },[state])
-    
-      const fetching = async(e) => {
-        try{
-        await setUid(state.auth.state.uid);
-        await setDiaplsyUserData({
-            disemail: state.auth.state.email,
-            disrole: state.auth.state.role,
-            disavatar: state.auth.state.avatar,
-            disname: state.auth.state.displayName
-          })
-        }catch{
-          console.log(e)
-        }
-      }
 
     return (
         <div>

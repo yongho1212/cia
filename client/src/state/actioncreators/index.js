@@ -15,6 +15,15 @@ export const editInfo = (userinfo) =>{
     }
 }
 
+export const addchannel = (channel) =>{
+    return (dispatch) => {
+        dispatch({
+            type : "ADDCHANNEL",
+            payload: {channel}
+        })
+    }
+}
+
 export const logoutUser = ( uid, name, tags, age, sex, date, insta, mobile, avatar) =>{
     return (dispatch) => {
         dispatch({

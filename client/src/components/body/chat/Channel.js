@@ -2,10 +2,37 @@ import React, { useState, useEffect, useRef } from 'react'
 import {db, auth} from '../../../firebase';
 import { onSnapshot, collection, doc } from 'firebase/firestore';
 import SendMessage from './Sendmessage';
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../../../state/index';
+import axios from "axios";
+import { useParams } from 'react-router';
 
 const Channel = () => {
     const scroll = useRef()
     const [messages, setMessages] = useState([])
+
+    const dispatch = useDispatch();
+    const state = useSelector((state) => state)
+    const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
+
+    const uid = state.auth.state.loginData.uid
+
+
+    const getinfo = async () => {
+        console.log(uid);
+        const response = await axios
+          .get("http://localhost:1212/user/getUserInfo", { params: { uid: uid } })
+          .then((res) => {        
+            console.log(res.data)
+            const loginData = res.data 
+          })
+          .catch((error) => {
+            console.log(error.response);
+        });
+      };
+
+      
 
     useEffect(() => {
         onSnapshot(collection(db, "messages"), (snapshot) => { 

@@ -41,23 +41,10 @@ const UploadProduct = () => {
  //   const [prdfsidDb, setPrdfsidDb] = useState("");
 
     const navigate = useNavigate();
-   
+    
 
-    const [authorEmail, setAuthorEmail] = useState("");
-    const [authorUid, setAuthorUid] = useState("");
-
-      useEffect(() => {
-        fetching();
-      },[state])
-
-    const fetching = async(e) => {
-        try{
-        setAuthorUid(state.auth.state.uid);
-        setAuthorEmail(state.auth.state.email);
-        }catch{
-          console.log(e)
-        }
-      }  
+    const authorUid = state.auth.state.loginData.uid
+    const authorEmail = state.auth.state.loginData.email
 
     const addNewPrdChannel = async() => {
         const prdfsid = await addDoc(collection(db, 'prdRoom'),{
@@ -116,10 +103,10 @@ const UploadProduct = () => {
         e.preventDefault();
         const qqq = await addNewPrdChannel();
         const prdfsidDb = qqq
+        const uid = authorUid
+        const joinedPrd = qqq
         try {
             console.log(qqq);
-            
-            console.log('before')
             const res = await axios.post('products/upload',
                 {name, brand, targetPlatform, category, period, postType,
                     point, applicationConditions, qualification, isCheck,
@@ -127,6 +114,12 @@ const UploadProduct = () => {
             ).then((res) => {
                 console.log(res.data)
                 console.log('success')
+            })
+            const resprdad = await axios.post('http://localhost:1212/user/addprdad',
+                {uid, joinedPrd}
+            ).then((resprdad) => {
+                console.log('success')
+                console.log(resprdad.data)
             })
             console.log(name, brand, targetPlatform, category, period, postType,
                 point, applicationConditions, qualification, isCheck,

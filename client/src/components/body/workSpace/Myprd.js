@@ -21,7 +21,7 @@ const Myprd = () => {
   const state = useSelector((state) => state)
   const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
 
-  const uid = state.auth.state.uid
+  const uid = state.auth.state.loginData.uid;
 
   const getListById = async () => {
     
