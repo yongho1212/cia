@@ -6,7 +6,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../state/index';
-import { useParams } from 'react-router';
+import { useParams } from "react-router-dom";
 
 import {
   getAuth
@@ -23,10 +23,19 @@ const Chat = () => {
   const [messages, setMessages] = useState([])
 
   const uid = state.auth.state.loginData.uid
-  const {channelId} = useParams()
+  const id = useParams();
 
-  // 채널 이름을 타고 들어오기는 하는데
-  // 파이어 스토어에서 상품이름을 찾을 방법이 없음
+  console.log(id.id)
+
+  const getchatInfo = async() => {
+    const channelid = id.id
+    const res = await axios.get("http://localhost:1212/chat/getchat", { params: { channelid: channelid } })
+    .then((res) => {
+        const chatdata = res.data
+        console.log(chatdata)
+    })
+    
+}
 
   const getinfo = async () => {
     console.log(uid);
@@ -43,14 +52,16 @@ const Chat = () => {
 
   useEffect(() =>{
     getinfo();
+    getchatInfo();
   },[])
 
-  useEffect(() => {
-    const docRef = await collection(db, `prdRoom/${prdfsid}/inflist/${channelId}`)
-      onSnapshot(collection(db, "prdRoom"), (snapshot) => { 
-          setMessages(snapshot.docs.map(doc => doc.data()))
-      })
-  },[])
+  // useEffect(() => {
+    
+  //   const docRef = collection(db, `prdRoom/${prdfsid}/inflist/${channelId}`)
+  //     onSnapshot(collection(db, "prdRoom"), (snapshot) => { 
+  //         setMessages(snapshot.docs.map(doc => doc.data()))
+  //     })
+  // },[])
 
 
   return (

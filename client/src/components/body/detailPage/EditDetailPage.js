@@ -14,20 +14,20 @@ import { async } from '@firebase/util';
     const [product, setProduct] = useState([]); // 제품 정보
     const [applicant, setApplicant] = useState([]); // 지원자 목록
     const { id } = useParams();
-    const [uid, setUid] = useState("");
+    
     const [prdfsid, setPrdfsid] = useState("")
-    const [displayUserData, setDiaplsyUserData] = useState({
-        disemail: '',
-        disrole: '',
-        disavatar: '',
-        disname: ''
-      })
+    const [prdname, setPrdname] = useState("")
+
     const prdidd = id;
     
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
     const {loginUser, logoutUser, fbuser, nofbuser, addchannel} = bindActionCreators(actionCreators, dispatch);
 
+    const uid = state.auth.state.loginData.uid
+    const disrole = state.auth.state.loginData.role
+    const disavatar = state.auth.state.loginData.avatar
+    const disname = state.auth.state.loginData.displayName
     
 
     const onAcceptHandle = async (applicant_id) => {
@@ -71,6 +71,12 @@ import { async } from '@firebase/util';
         console.log(newChannel.id);
         const joinedChannel = newChannel.id
         const joinedPrd = prdfsid
+        const aduid = uid
+        const infuid = applicant_id
+        
+        const channelid = joinedChannel
+
+
         try {
             const resprdinf = await axios.post('http://localhost:1212/user/addprdinf',
                 {applicant_id, joinedPrd}
@@ -89,6 +95,12 @@ import { async } from '@firebase/util';
             ).then((resinf) => {
                 console.log('success')
                 console.log(resinf.data)
+            })
+            const chdb = await axios.post('http://localhost:1212/chat/addchat',
+                {aduid, infuid, prdname, prdfsid, channelid}
+            ).then((chdb) => {
+                console.log('success')
+                console.log(chdb.data)
             })
             console.log(uid, joinedChannel);
         } catch (err) {
@@ -143,7 +155,8 @@ import { async } from '@firebase/util';
             const prddata = res.data
             console.log(prddata)
             console.log(prddata.prdfsidDb)
-            setPrdfsid(prddata.prdfsidDb)
+            setPrdfsid(prddata.prdfsidDb);
+            setPrdname(prddata.name);
             console.log(prdfsid)
         })
     }
@@ -158,20 +171,6 @@ import { async } from '@firebase/util';
 
 
     
-    const fetching = async(e) => {
-        try{
-        await setUid(state.auth.state.uid);
-        await setDiaplsyUserData({
-            disemail: state.auth.state.email,
-            disrole: state.auth.state.role,
-            disavatar: state.auth.state.avatar,
-            disname: state.auth.state.displayName
-        })
-        }catch{
-        console.log(e)
-        }
-    }
-
     return (
         <div>
             <div>uid</div>

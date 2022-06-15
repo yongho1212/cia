@@ -12,26 +12,33 @@ import { actionCreators } from '../../../state/index';
 
 const Chatlist = (props) => {
 
+  const [channels, setChannels] = useState('')
+
   const dispatch = useDispatch();
   const state = useSelector((state) => state)
   const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
   const navigate = useNavigate();
 
-  const channels = state.auth.state.loginData.joinedChannel
-  const lists = channels.map((chat) => 
-    <div key={chat._id}>
-        <Link to={`/Chat/${chat._id}`} style={{ color: 'black', alignItems: 'flex-start' }}>
-            <li>{chat}</li>
-        </Link>
-    </div>
-    )
+  const chatinfo = state.auth.state.loginData.joinedChannel
+
+  useEffect(()=> {
+    setChannels(chatinfo);
+  })
+
 
   console.log(state.auth.state.loginData.joinedChannel)
 
   return (
     <div>
       <h1>My Chat list</h1>
-    {lists}
+      <ul>
+              
+                {channels && channels.map(item => 
+                <li key={item}>
+                    <Link to={`/Chat/${item}`}>{item}</Link>
+                </li>)
+                }
+            </ul>
     
     </div>
     

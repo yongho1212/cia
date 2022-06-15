@@ -30,7 +30,7 @@ const reducer = ( state = initialState, action) => {
         case "ADDCHANNEL" :
             return {
                 ...state,
-                joinedChannel : [...state.joinedChannel, action.newItem]
+                joinedChannel : action.newItem
             }
         case "LOGOUT":
             return state = '';
