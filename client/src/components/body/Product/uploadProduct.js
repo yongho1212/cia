@@ -72,9 +72,8 @@ const UploadProduct = () => {
         return fff;
     }
     
-    const data = {name, brand, targetPlatform, category, period, postType,
-        point, applicationConditions, qualification, isCheck,
-        detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid}
+    
+
       
     
     AWS.config.update({
@@ -116,9 +115,10 @@ const UploadProduct = () => {
     const handlePost = async (e) => {
         e.preventDefault();
         const qqq = await addNewPrdChannel();
+        const prdfsidDb = qqq
         try {
             console.log(qqq);
-            const prdfsidDb = qqq
+            
             console.log('before')
             const res = await axios.post('products/upload',
                 {name, brand, targetPlatform, category, period, postType,
@@ -132,13 +132,16 @@ const UploadProduct = () => {
                 point, applicationConditions, qualification, isCheck,
                 detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid, prdfsidDb);
         } catch (err) {
-            const prdfsidDb = qqq
+            
             console.log(err)
             console.log('failed');
             console.log(name, brand, targetPlatform, category, period, postType,
                 point, applicationConditions, qualification, isCheck,
                 detailPage, offersAndMissions, photo, mobile, authorUid, authorEmail,  prdfsidDb);
         }
+        const data = {name, brand, targetPlatform, category, period, postType,
+            point, applicationConditions, qualification, isCheck,
+            detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid, prdfsidDb}
         appendprd(data);
         navigate("/Main");
         console.log(state.myprd)

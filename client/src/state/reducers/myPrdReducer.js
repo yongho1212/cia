@@ -20,6 +20,8 @@ const initialState = {
         joinInf:[],
         createdAt:"",
         updatedAt:"",
+        prdfsidDb:"",
+
         }
     ]
     

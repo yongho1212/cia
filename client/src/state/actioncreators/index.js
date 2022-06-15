@@ -1,17 +1,25 @@
-export const loginUser = (email, displayName, role, uid, avatar) =>{
+export const loginUser = (loginData) =>{
     return (dispatch) => {
         dispatch({
             type : "LOGIN",
-            payload: {email, displayName,  role, uid, avatar}
+            payload: {loginData}
+        })
+    }
+}
+export const editInfo = (userinfo) =>{
+    return (dispatch) => {
+        dispatch({
+            type : "EDITINFO",
+            payload: {userinfo}
         })
     }
 }
 
-export const logoutUser = ( email, displayName, role, uid, avatar) =>{
+export const logoutUser = ( uid, name, tags, age, sex, date, insta, mobile, avatar) =>{
     return (dispatch) => {
         dispatch({
             type : "LOGOUT",
-            payload : { email, displayName, role, uid, avatar}
+            payload : { uid, name, tags, age, sex, date, insta, mobile, avatar}
         })
     }
 }

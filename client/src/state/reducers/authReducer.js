@@ -1,11 +1,17 @@
 
 const initialState = {
     auth : {
-        email : '',
-        displayName : '',
-        role : 'notsure',
-        uid : '',
-        avatar : ''
+        age: "",
+        avatar: "",
+        displayName: "",
+        email: "",
+        insta: "",
+        joinedChannel: [],
+        mobile: "",
+        role: "" ,
+        sex: "",
+        tags: "",
+        uid: ""
     } 
     
 }
@@ -14,6 +20,16 @@ const reducer = ( state = initialState, action) => {
     switch(action.type) {
         case "LOGIN":
             return { ...state,
+                state : action.payload
+            }
+        case "EDITINFO" :
+            return {
+                ...state,
+                auth :  action.payload
+            }
+        case "ADDROOM" :
+            return {
+                ...state,
                 state : action.payload
             }
         case "LOGOUT":

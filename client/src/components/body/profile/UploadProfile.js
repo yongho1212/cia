@@ -10,27 +10,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../state/index';
 
+
+
 const UploadProfile = () => {
-    const [uid, setUid] = useState("");
-    const [uidforSearch, setUidforSearch] = useState("");
-    const [name, setName] = useState("");
-    const [tags, setTags] = useState("");
-    const [age, setAge] = useState(0);
-    const [sex, setSex] = useState("");
-    const [date, setDate] = useState("");
-    const [insta, setInsta] = useState("");
-    const [avatar, setAvatar] = useState("");
-    const [mobile, setMobile] = useState("");
-    const [displayUserData, setDiaplsyUserData] = useState({
-        disemail: '',
-        disrole: '',
-        disavatar: '',
-        disname: ''
-      })
 
     const dispatch = useDispatch();
     const state = useSelector((state) => state)
-    const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
+    const {loginUser, logoutUser, fbuser, nofbuser, editInfo} = bindActionCreators(actionCreators, dispatch);
+
+    const [uid, setUid] = useState("");
+    const [uidforSearch, setUidforSearch] = useState("");
+    const [name, setName] = useState(state.auth.state.loginData.displayName);
+    const [tags, setTags] = useState(state.auth.state.loginData.tags);
+    const [age, setAge] = useState(state.auth.state.loginData.age);
+    const [sex, setSex] = useState(state.auth.state.loginData.sex);
+    const [date, setDate] = useState(state.auth.state.loginData.date);
+    const [insta, setInsta] = useState(state.auth.state.loginData.insta);
+    const [avatar, setAvatar] = useState(state.auth.state.loginData.avatar);
+    const [mobile, setMobile] = useState(state.auth.state.loginData.mobile);
+
+
+
 
 
     AWS.config.update({
@@ -69,31 +69,11 @@ const UploadProfile = () => {
 
     useEffect(() =>{
         if (!fbuser){
-          navigate("/Home")
-          console.log(state.auth)
-          
+          navigate("/Home")          
         }
       })
-    
-      useEffect(() => {
-        fetching();
-      },[state])
-    
-      const fetching = async(e) => {
-        try{
-        await setUid(state.auth.state.uid);
-        await setDiaplsyUserData({
-            disemail: state.auth.state.email,
-            disrole: state.auth.state.role,
-            disavatar: state.auth.state.avatar,
-            disname: state.auth.state.displayName
-          })
-        }catch{
-          console.log(e)
-        }
-      }
 
-      const handlePost = async (e) => {
+    const handlePost = async (e) => {
         e.preventDefault();
         try {
             const res = await axios.post('http://localhost:1212/user/update',
@@ -109,6 +89,8 @@ const UploadProfile = () => {
             console.log(uid, name, tags, age, sex, date,
                 insta, mobile, avatar);
         }
+        const userinfo = {uid, name, tags, age, sex, date, insta, mobile, avatar}
+        loginUser(userinfo)
         navigate("/Main");
     };
     
@@ -118,13 +100,17 @@ const UploadProfile = () => {
             <input type="file" id="upload" className='image-upload' onChange={handleFileInput}/>
             <label htmlFor='upload' className='image-upload-wrapper'>여기입니다.</label>
                 <img className='profile-img' src={avatar} />
+
+            <div> 안녕하세요 {state.auth.state.loginData.displayName} 님</div>
             <Form onSubmit={handlePost}>
                 <Form.Group className="mb-3" controlId="formBasicName">
                     <Form.Control
                         type="name"
-                        placeholder={displayUserData.disname}
+                        placeholder={name}
                         onChange={(e) => setName(e.target.value)}
+                        defaultValue={state.auth.state.loginData.displayName}
                     />
+                    
                 </Form.Group>
                 
                 <Form.Group className="mb-3" controlId="formBasicName">
@@ -132,6 +118,7 @@ const UploadProfile = () => {
                         type="tags"
                         placeholder="choose Tag!"
                         onChange={(e) => setTags(e.target.value)}
+                        defaultValue={state.auth.state.loginData.tags}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicName">
@@ -139,6 +126,7 @@ const UploadProfile = () => {
                         type="age"
                         placeholder="how old?"
                         onChange={(e) => setAge(e.target.value)}
+                        defaultValue={state.auth.state.loginData.age}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicName">
@@ -146,6 +134,7 @@ const UploadProfile = () => {
                         type="sex"
                         placeholder="male or female"
                         onChange={(e) => setSex(e.target.value)}
+                        defaultValue={state.auth.state.loginData.sex}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicName">
@@ -158,8 +147,9 @@ const UploadProfile = () => {
                 <Form.Group className="mb-3" controlId="formBasicName">
                     <Form.Control
                         type="InstaId"
-                        placeholder="your Instagram Id"
+                        placeholder={state.auth.state.loginData.insta}
                         onChange={(e) => setInsta(e.target.value)}
+                        defaultValue={state.auth.state.loginData.insta}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicName">
@@ -167,19 +157,20 @@ const UploadProfile = () => {
                         type="mobile"
                         placeholder="your Mobile Number"
                         onChange={(e) => setMobile(e.target.value)}
+                        defaultValue={state.auth.state.loginData.mobile}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicName">
                     <Form.Control
                         type="photo"
-                        placeholder="photo"
+                        placeholder={state.auth.state.loginData.avatar}
                         value={avatar}
                         
                     />
                 </Form.Group>
                 <Avatar
                     alt="Remy Sharp"
-                    src={displayUserData.avatar}
+                    src={state.auth.state.loginData.avatar}
                     sx={{ width: 100, height: 100 }}
                 />
                 <div>
