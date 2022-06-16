@@ -22,9 +22,7 @@ const Layout = () => {
   const state = useSelector((state) => state)
   const dispatch = useDispatch();
   const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
-  const uid = state.auth.state.uid
 
-  const role = state.auth.role
 
   const searchRole = () => {
     setUserRole(state.auth.role)
@@ -46,7 +44,7 @@ const Layout = () => {
   return (
     <div className="layout">
     <header className="header">
-      {uid}
+      
     </header>
     <aside className="aside">
     {

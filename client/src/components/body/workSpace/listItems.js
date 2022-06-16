@@ -25,12 +25,14 @@ export const mainListItems = (
       </ListItemButton>
     </Link>
 
+    <Link to= '/Search' className="Search">
     <ListItemButton>
       <ListItemIcon>
         <ChatIcon />
       </ListItemIcon>
       <ListItemText primary="ChatIcon" />
     </ListItemButton>
+    </Link>
 
     <ListItemButton>
       <ListItemIcon>

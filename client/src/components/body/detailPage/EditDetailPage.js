@@ -14,19 +14,21 @@ import { async } from '@firebase/util';
     const [product, setProduct] = useState([]); // 제품 정보
     const [applicant, setApplicant] = useState([]); // 지원자 목록
     const { id } = useParams();
-    const [uid, setUid] = useState("");
+    
     const [prdfsid, setPrdfsid] = useState("")
-    const [displayUserData, setDiaplsyUserData] = useState({
-        disemail: '',
-        disrole: '',
-        disavatar: '',
-        disname: ''
-      })
+    const [prdname, setPrdname] = useState("")
+
     const prdidd = id;
     
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
-    const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
+    const {loginUser, logoutUser, fbuser, nofbuser, addchannel} = bindActionCreators(actionCreators, dispatch);
+
+    const uid = state.auth.state.loginData.uid
+    const disrole = state.auth.state.loginData.role
+    const disavatar = state.auth.state.loginData.avatar
+    const disname = state.auth.state.loginData.displayName
+    
 
     const onAcceptHandle = async (applicant_id) => {
         // console.log(e);
@@ -58,19 +60,71 @@ import { async } from '@firebase/util';
     }
 
     const addNewInf = async(applicant_id) => {
-        const docRef = await doc(db, `prdRoom/${prdfsid}/inflist/${applicant_id}`)
-        const chatRef = await doc(db, `prdRoom/${prdfsid}/inflist/${applicant_id}/messages`)
-        const newChannel = await setDoc(docRef, {
+        const docRef = await collection(db, `prdRoom/${prdfsid}/inflist/`)
+        const newChannel = await addDoc(docRef, {
             name: {applicant_id},
             Aduid: {uid},
             Infuid: {applicant_id},
             createdAt: serverTimestamp(),
         })
-        const newChat = await addDoc(chatRef,{
+       
+        console.log(newChannel.id);
+        const joinedChannel = newChannel.id
+        const joinedPrd = prdfsid
+        const aduid = uid
+        const infuid = applicant_id
+        
+        const channelid = joinedChannel
 
-        })
-        console.log(newChannel);
+
+        try {
+            const resprdinf = await axios.post('http://localhost:1212/user/addprdinf',
+                {applicant_id, joinedPrd}
+            ).then((resprdinf) => {
+                console.log('success')
+                console.log(resprdinf.data)
+            })
+            const resad = await axios.post('http://localhost:1212/user/addchannelad',
+                {uid, joinedChannel}
+            ).then((resad) => {
+                console.log('success')
+                console.log(resad.data)
+            })
+            const resinf = await axios.post('http://localhost:1212/user/addchannelinf',
+                {applicant_id, joinedChannel}
+            ).then((resinf) => {
+                console.log('success')
+                console.log(resinf.data)
+            })
+            const chdb = await axios.post('http://localhost:1212/chat/addchat',
+                {aduid, infuid, prdname, prdfsid, channelid}
+            ).then((chdb) => {
+                console.log('success')
+                console.log(chdb.data)
+            })
+            console.log(uid, joinedChannel);
+        } catch (err) {
+            console.log(err)
+            console.log('failed updateProfile');
+            console.log(uid, joinedChannel);
+        }
+        addchannel(joinedChannel)
+        
     }
+
+    // const addChannel = async (joinedChannel) => {
+    //     try {
+    //         const res = await axios.post('http://localhost:1212/user/addchannel',
+    //             {joinedChannel}
+    //         ).then((res) => {
+    //             console.log('success')
+    //         })
+    //         console.log(joinedChannel);
+    //     } catch (err) {
+    //         console.log('failed updateProfile');
+    //         console.log(joinedChannel);
+    //     }
+    // };
 
   
 
@@ -101,7 +155,8 @@ import { async } from '@firebase/util';
             const prddata = res.data
             console.log(prddata)
             console.log(prddata.prdfsidDb)
-            setPrdfsid(prddata.prdfsidDb)
+            setPrdfsid(prddata.prdfsidDb);
+            setPrdname(prddata.name);
             console.log(prdfsid)
         })
     }
@@ -114,25 +169,8 @@ import { async } from '@firebase/util';
         getprdInfo();
     }, []);
 
-    useEffect(() => {
-        fetching();
-    },[state])
 
     
-    const fetching = async(e) => {
-        try{
-        await setUid(state.auth.state.uid);
-        await setDiaplsyUserData({
-            disemail: state.auth.state.email,
-            disrole: state.auth.state.role,
-            disavatar: state.auth.state.avatar,
-            disname: state.auth.state.displayName
-        })
-        }catch{
-        console.log(e)
-        }
-    }
-
     return (
         <div>
             <div>uid</div>

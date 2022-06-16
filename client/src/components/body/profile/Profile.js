@@ -24,46 +24,47 @@ import FacebookLoginButton from '../auth/Facebook'
 
 
 const Profile = () => {
+
   const [userData, setUserData] = useState({
-    email: '',
-    role: '',
-    avatar: ''
+    email : '',
+    displayName : '',
+    role : 'notsure',
+    uid : '',
+    avatar : '',
+    tags:'',
+    age:'',
+    sex:'',
+    insta:'',
+    mobile:'',
+    joinedChannel:[]
   })
 
   const dispatch = useDispatch();
   const state = useSelector((state) => state)
   const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
-  
-  
   const navigate = useNavigate();
 
+  console.log(state.auth)
+  console.log(state.auth.state.loginData.age)
+  console.log(state.auth.state.loginData.avatar)
+  console.log(state.auth.state.loginData.displayName)
+  console.log(state.auth.state.loginData.email)
+  console.log(state.auth.state.loginData.insta)
+  console.log(state.auth.state.loginData.joinedChannel)
+  console.log(state.auth.state.loginData.mobile)
+  console.log(state.auth.state.loginData.sex)
+  console.log(state.auth.state.loginData.tags)
+
+
+  
   useEffect(() =>{
     if (!fbuser){
       navigate("/Home")
-      console.log(state.auth)
-      console.log(userData.avatar)
+
     }
   })
 
-  useEffect(() => {
-    fetching();
-  },[state])
-
-  const fetching = async(e) => {
-    try{
-    await setUserData({
-      email: state.auth.state.email,
-      role: state.auth.state.role,
-      avatar: state.auth.state.avatar
-    })
-    }catch{
-      console.log(e)
-    }
-  }  
-
-  console.log(state.auth)
-  
-  console.log(userData)
+ 
   
 const editProfile = () => {
   navigate("/EditProfile")
@@ -79,20 +80,28 @@ const editProfile = () => {
           <h1>Hello! It's profile page.</h1>	
           <Avatar
             alt="Remy Sharp"
-            src={userData.avatar}
+            src={state.auth.state.loginData.joinedChannel}
             sx={{ width: 100, height: 100 }}
           />
           <div>
-          {userData.email} <br/>
-          {userData.role}
+          {state.auth.state.loginData.role} <br/>
+
+          {state.auth.state.loginData.age}<br/>
+          {state.auth.state.loginData.avatar}<br/>
+          {state.auth.state.loginData.displayName}<br/>
+          {state.auth.state.loginData.email}<br/>
+          {state.auth.state.loginData.insta}<br/>
+          {state.auth.state.loginData.joinedChannel}<br/>
+          {state.auth.state.loginData.mobile}<br/>
+          {state.auth.state.loginData.sex}<br/>
+          {state.auth.state.loginData.tags}<br/>
           </div>
         </div>
         
         <div style={{backgroundColor:'green', margin:'15px'}}> 
           <h1>Hello! It's profile page.</h1>	
           <div>
-          {userData.email} <br/>
-          {userData.role}
+
           </div>
         </div>
       </Grid>

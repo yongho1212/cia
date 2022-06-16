@@ -1,11 +1,17 @@
 
 const initialState = {
     auth : {
-        email : '',
-        displayName : '',
-        role : 'notsure',
-        uid : '',
-        avatar : ''
+        age: "",
+        avatar: "",
+        displayName: "",
+        email: "",
+        insta: "",
+        joinedChannel: [],
+        mobile: "",
+        role: "" ,
+        sex: "",
+        tags: "",
+        uid: ""
     } 
     
 }
@@ -15,6 +21,16 @@ const reducer = ( state = initialState, action) => {
         case "LOGIN":
             return { ...state,
                 state : action.payload
+            }
+        case "EDITINFO" :
+            return {
+                ...state,
+                auth :  action.payload
+            }
+        case "ADDCHANNEL" :
+            return {
+                ...state,
+                joinedChannel : action.newItem
             }
         case "LOGOUT":
             return state = '';

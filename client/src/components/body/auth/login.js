@@ -47,13 +47,20 @@ const Login = () => {
     const response = await axios
       .get("http://localhost:1212/user/getUserInfo", { params: { uid: uid } })
       .then((res) => {        
-        const displayName = res.data.displayName
-        const uid = res.data.uid
-        const email = res.data.email
-        const role = res.data.role
-        const avatar = res.data.avatar
-        console.log( email, displayName,  role, uid ,avatar)
-        loginUser(email, displayName,  role, uid, avatar );
+        // const displayName = res.data.displayName
+        // const uid = res.data.uid
+        // const email = res.data.email
+        // const role = res.data.role
+        // const avatar = res.data.avatar
+        // const tags = res.data.tags
+        // const age = res.data.age
+        // const sex = res.data.sex
+        // const insta = res.data.insta
+        // const mobile = res.data.mobile
+        // const joinedChannel = res.data.joinedChannel
+        console.log(res.data)
+        const loginData = res.data
+        loginUser(loginData);
         fbuser(true);
         getListById();
       })

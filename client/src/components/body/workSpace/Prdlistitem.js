@@ -38,7 +38,7 @@ const Prdlistitems = ({chatlistopen, getlistopen, getChatData}) => {
 
   const getListById = async () => {
     
-    const uid = state.auth.state.uid
+    const uid = state.auth.state.loginData.uid
     try {
        const res = await axios.get('http://localhost:1212/products/getlistbyid', 
        { params: { uid } })

@@ -4,7 +4,7 @@ import { Input, Button } from '@material-ui/core'
 import { collection, addDoc,serverTimestamp } from 'firebase/firestore'
 
 
-function SendMessage({ scroll }) {
+function SendMessage({ scroll, prdfsid, channelid }) {
     const [msg, setMsg] = useState('')
   
 
@@ -12,7 +12,8 @@ function SendMessage({ scroll }) {
         e.preventDefault()
         const { uid, photoURL,displayName } = auth.currentUser
 
-        await addDoc(collection(db, 'messages'),{
+        const docRef = await collection(db, `prdRoom/${prdfsid}/inflist/${channelid}/messages`)
+        await addDoc(docRef,{
             text: msg,
             photoURL,
             uid,
