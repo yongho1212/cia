@@ -13,6 +13,7 @@ import {
 } from "firebase/auth";
 
 import Channel from './Channel';
+import { async } from '@firebase/util';
 
 
 const Chat = () => {
@@ -25,14 +26,27 @@ const Chat = () => {
   const uid = state.auth.state.loginData.uid
   const id = useParams();
 
+  const [prdfsid, setPrdfsid] = useState('')
+  const [channelid, setChannelid] = useState('')
+
   console.log(id.id)
+  
 
   const getchatInfo = async() => {
     const channelid = id.id
+    console.log(channelid)
     const res = await axios.get("http://localhost:1212/chat/getchat", { params: { channelid: channelid } })
     .then((res) => {
         const chatdata = res.data
-        console.log(chatdata)
+        console.log(res.data)
+        console.log(chatdata[0])
+        console.log(chatdata[0].prdfsid)
+        console.log(chatdata[0].channelid)
+        const prdfsid = chatdata[0].prdfsid
+        const channelid = chatdata[0].channelid
+        setPrdfsid(prdfsid);
+        setChannelid(channelid);
+        getmsgs({prdfsid, channelid})
     })
     
 }
@@ -50,18 +64,24 @@ const Chat = () => {
     });
   };
 
-  useEffect(() =>{
-    getinfo();
-    getchatInfo();
-  },[])
+  useEffect(() => {
+    getchatInfo()
+    getinfo()
+},[])
 
-  // useEffect(() => {
-    
-  //   const docRef = collection(db, `prdRoom/${prdfsid}/inflist/${channelId}`)
-  //     onSnapshot(collection(db, "prdRoom"), (snapshot) => { 
-  //         setMessages(snapshot.docs.map(doc => doc.data()))
-  //     })
-  // },[])
+// useEffect(()=> {
+//   getmsgs();
+// }, [])
+
+
+
+const getmsgs = ({prdfsid,channelid}) => {
+  onSnapshot(collection(db, "prdRoom", prdfsid, "inflist", channelid, "messages"), (snapshot) => { 
+    setMessages(snapshot.docs.map(doc => doc.data()))
+    }
+  )
+}
+
 
 
   return (
@@ -70,6 +90,8 @@ const Chat = () => {
       <section>
       <div>
     <div>Channel</div>
+    {channelid}
+    <div>Who is here?</div>
     <div className="msgs">
                 {messages.map(({ id, text, photoURL, uid, displayName }) => (
                     <div>
@@ -84,7 +106,7 @@ const Chat = () => {
                     </div>
                 ))}
             </div>
-            <SendMessage scroll={scroll} />
+            <SendMessage scroll={scroll} prdfsid={prdfsid} channelid={channelid} />
             <div ref={scroll}></div>
     </div>
       </section>

@@ -56,12 +56,13 @@ const Signup = () => {
       const uid = auth.currentUser.uid
       const res = await axios.post('/user/register', 
       {displayName, email, role, uid, password})
-      .then(function(data){
-        console.log("해당 상풍 데이터" + data)
+      .then(function(res){
+        
         console.log("해당 상풍 아이디" + res)
+        console.log(res.data)
       })
-      console.log(displayName, email, role, uid, password)
-      loginUser(email, displayName, role, uid)
+      const loginData = {displayName, email, role, uid, password}
+      loginUser(loginData)
       fbuser(true)
     } catch (err) {
       console.log('failed')
