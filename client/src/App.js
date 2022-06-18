@@ -28,6 +28,7 @@ import HomeNavBar from './components/navbar/HomeNavBar';
 import DashMain from './components/body/workSpace/Dashmain';
 import Layout from './layout/Layout'
 import ChatMain from './components/body/chatMain/ChatMain'
+import Emailverify from './components/body/auth/Emailverify'
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -36,6 +37,8 @@ import { bindActionCreators } from 'redux';
 import { actionCreators } from './state/index';
 import EditDetailpage from './components/body/detailPage/EditDetailPage';
 import InfluencerProfile from './components/body/profile/InfluencerProfile';
+
+
 
 function App() {
 
@@ -85,10 +88,13 @@ function App() {
             <Route path="/Home" element={<Home />}  />
             <Route path="/Login" element={<Login />} />
             <Route path="/Signup" element={<Signup />} />
+            
+
           </>  
           :
           <Route  element={<Layout />}>
             <Route path="/Main/*" element={<Main />} />
+            <Route path="/Emailverify" element={<Emailverify />} />
             <Route path="/SearchResult/:text" element={<SearchResult />} />
             {/* <Route path="/SearchResult" element={<Search />} /> */}
             <Route path="/UploadProfile" element={<UploadProfile/>} />

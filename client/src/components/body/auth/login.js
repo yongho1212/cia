@@ -41,8 +41,12 @@ const Login = () => {
   }, [state.loggedin, navigate]);
 
 
+
+
+
   const getinfo = async () => {
     const uid = auth.currentUser.uid;
+    console.log(auth.currentUser)
     console.log(uid);
     const response = await axios
       .get("http://localhost:1212/user/getUserInfo", { params: { uid: uid } })

@@ -11,6 +11,11 @@ import Profile from "../profile/Profile";
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../state/index';
 
+import {
+  signInWithEmailAndPassword,
+  getAuth,
+  updateProfile,
+} from "firebase/auth";
 
 
 
@@ -20,12 +25,24 @@ const Main = () => {
   const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
 
   const navigate = useNavigate();
+  const auth = getAuth();
+
+  console.log(auth.currentUser.emailVerified)
   
   useEffect(() => {
     if (!fbuser) {
       navigate("/Home");
     }
   }, [state, navigate]);
+
+
+  useEffect(() => {
+    if (!auth.currentUser.emailVerified) {
+      navigate("/Emailverify");
+    } else{
+      navigate("/Main");
+    }
+  }, []);
 
 
 
