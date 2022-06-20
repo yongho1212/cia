@@ -99,7 +99,7 @@ function moveMain() {
       })
     } 
     catch (err) {
-      console.log(err)
+      alert('비밀번호 혹은 이메일이 일치하지 않습니다. 다시 시도하세요')
     }
   }
 
@@ -132,6 +132,9 @@ function moveMain() {
     })
     .then(() => {
       getinfo();
+    })
+    .then(() =>{
+      moveMain();
     })
   };
 
