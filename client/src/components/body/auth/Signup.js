@@ -43,12 +43,16 @@ const Signup = () => {
 
   useEffect(() => {
     if (state.loggedin) {
-      navigate("/Main");
+      navigate("/Emailverify");
     }
   }, [state.loggedin, navigate]);
 
   function moveLogin() {
     navigate("/Login")
+  };
+
+  function moveEmail() {
+    navigate("/Emailverify")
   };
 
   async function upLoadProfile() {
@@ -71,7 +75,6 @@ const Signup = () => {
 
   const handleSubmit = async (e) => { 
     e.preventDefault();
-
     await createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         updateProfile(auth.currentUser, {
@@ -85,7 +88,7 @@ const Signup = () => {
       .then(() => {
         sendEmailVerification(auth.currentUser)
       })
-      navigate('./Main')
+      moveEmail();
       }  
          
 

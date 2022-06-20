@@ -6,7 +6,8 @@ import {
     signInWithEmailAndPassword,
     getAuth,
     updateProfile,
-    sendEmailVerification
+    sendEmailVerification,
+    onAuthStateChanged
   } from "firebase/auth";
 
 
@@ -15,13 +16,23 @@ const Emailverify = () => {
 
     const navigate = useNavigate();
     const auth = getAuth();
+    
+
+    
 
     useEffect(() => {
-        console.log(auth.currentUser.emailVerified)
-        if (auth.currentUser.emailVerified) {
-          navigate("/Main");
+      onAuthStateChanged(auth, (user) => {
+        console.log(user.emailVerified)
+        if (user) {
+          const emailVerified = user.emailVerified;
+        } else {
         }
+      });
+
       }, []);
+
+
+
 
 const resendvfmail = () =>{
     sendEmailVerification(auth.currentUser)

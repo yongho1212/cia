@@ -27,8 +27,8 @@ const Main = () => {
   const navigate = useNavigate();
   const auth = getAuth();
 
-  console.log(auth.currentUser.emailVerified)
-  
+  // console.log(auth.currentUser.emailVerified)
+
   useEffect(() => {
     if (!fbuser) {
       navigate("/Home");
@@ -36,13 +36,13 @@ const Main = () => {
   }, [state, navigate]);
 
 
-  useEffect(() => {
-    if (!auth.currentUser.emailVerified) {
-      navigate("/Emailverify");
-    } else{
-      navigate("/Main");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (auth.currentUser.emailVerified != true) {
+  //     navigate("/Emailverify");
+  //   } else{
+  //     navigate("/Main");
+  //   }
+  // }, []);
 
 
 

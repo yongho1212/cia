@@ -40,7 +40,7 @@ const Login = () => {
 
   useEffect(() => {
     if (state.loggedin) {
-      navigate("/Main");
+      navigate("/MAIN1");
     }
   }, [state.loggedin, navigate]);
 
@@ -56,6 +56,9 @@ const Login = () => {
       console.log('logout');
 };
 
+function moveMain() {
+  navigate("/Main")
+};
 
 
 
@@ -69,9 +72,9 @@ const Login = () => {
       .then((res) => {        
         console.log(res.data)
         const loginData = res.data
-        if(loginData !== true){
-          handleLogout();
-        }
+        // if(loginData !== true){
+        //   handleLogout();
+        // }
         loginUser(loginData);
         fbuser(true);
         getListById();
@@ -106,7 +109,10 @@ const Login = () => {
     await signInWithEmailAndPassword(auth, email, password)
     .then(() =>
       getinfo()
-    );
+    )
+    .then(() =>{
+      moveMain();
+    })
   };
 
   const handleGoogleSignIn = () => {

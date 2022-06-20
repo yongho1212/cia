@@ -37,6 +37,7 @@ import { bindActionCreators } from 'redux';
 import { actionCreators } from './state/index';
 import EditDetailpage from './components/body/detailPage/EditDetailPage';
 import InfluencerProfile from './components/body/profile/InfluencerProfile';
+import { db } from './firebase';
 
 
 
@@ -90,9 +91,10 @@ function App() {
             <Route path="/Signup" element={<Signup />} />
           </>  
           :
+          <>
+          <Route path="/Emailverify" element={<Emailverify />} />
           <Route  element={<Layout />}>
             <Route path="/Main/*" element={<Main />} />
-            <Route path="/Emailverify" element={<Emailverify />} />
             <Route path="/SearchResult/:text" element={<SearchResult />} />
             {/* <Route path="/SearchResult" element={<Search />} /> */}
             <Route path="/UploadProfile" element={<UploadProfile/>} />
@@ -112,6 +114,7 @@ function App() {
             <Route path="/DashMain/" element={<DashMain />} />
             <Route path="/InfluencerProfile/:id" element={<InfluencerProfile />} />
           </Route>
+          </>
           }
         </Routes>
       <Footer style={{display: 'flex'}}/>
