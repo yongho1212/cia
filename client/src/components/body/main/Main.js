@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
+import React, { useEffect } from "react";
 import './Main.css'
-import { reauthenticateWithCredential, EmailAuthProvider, deleteUser } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import MainRight from "../Product/ProductView/ProductView";
-import Profile from "../profile/Profile";
+import ProdcutView from "../Product/ProductView/ProductView";
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../state/index';
-
 import {
   signInWithEmailAndPassword,
   getAuth,
@@ -31,7 +27,7 @@ const Main = () => {
 
   return (
     <div style={{ backgroundColor:'blue', display:'inline-block', flexDirection:'row', justifyContent:'flex-end'}}>
-          <MainRight/>
+          <ProdcutView />
     </div>
   );
 };

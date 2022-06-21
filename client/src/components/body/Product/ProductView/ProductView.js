@@ -1,25 +1,17 @@
 import React, {useEffect, useState} from 'react'
-import { Button } from '@mui/material';
-import { useNavigate, Route, useParams } from "react-router-dom";
 import axios from 'axios'
 import { Link } from "react-router-dom";
-import DetailPage from '../ProductdetailPage/detailPage';
 
-const  MainRight = ({ useParams }) => {
+const  ProdcutView = ({ useParams }) => {
   const [product, setProduct] = useState();
-  
-  console.log(product);
 
   const getPostList = async () => {
     try {
        const res = await axios.post('http://localhost:1212/products/getlist')
-       .then((res) => { 
-       // console.log(res.data);
-
+       .then((res) => {
         setProduct(res.data);
         return 0;
       })
-
     } 
     catch (err) {
       console.log(err)
@@ -58,10 +50,7 @@ const  MainRight = ({ useParams }) => {
         )
       }) : ''}
     </div> 
-    
   );
 };
 
-
-
-export default MainRight;
+export default ProdcutView;

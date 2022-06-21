@@ -1,30 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
-import {useNavigate, useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Button } from '@mui/material';
-import { NavItem } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../../state/index';
 
 const DetailPage = () => {
     const [product, setProduct] = useState([]); // 제품 정보
-    const [applicant, setApplicant] = useState([]); // 지원자 목록
     const { id } = useParams();
-    const nid = String(id);
-    console.log('nid', nid);
-    
-    
-
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
     const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
 
     const uid = state.auth.state.loginData.uid;
-    const disemail = state.auth.state.loginData.emial
-    const disrole = state.auth.state.loginData.uiroled
-    const disavatar = state.auth.state.loginData.avatart
-    const disname =  state.auth.state.loginData.displayName
 
     const getPostList = async () => {
         try {
@@ -34,7 +23,6 @@ const DetailPage = () => {
             setProduct(res.data); 
             return 0;
           })
-    
         } 
         catch (err) {
           console.log(err)
@@ -56,18 +44,15 @@ const DetailPage = () => {
         }
     };
 
-
     const item = product.find(e => e._id === id);
 
     useEffect(() => {
         getPostList();
     }, []);
 
-
     return (
         <div>
             <div>{uid}</div>
-            {/* <div>{item._id}</div> */}
             {item ? 
             <div>
                 <div>{item._id}</div>
@@ -89,13 +74,11 @@ const DetailPage = () => {
                 </div>
                 <div>
                     상품 사진 {item.photo}
-                    
                     <img
                         src={item.photo}
                         width='100'
                         height='100'
                         alt='testA' />
-
                 </div>
                 <div>
                     타겟 플랫폼 {item.targetPlatform}    
@@ -107,8 +90,7 @@ const DetailPage = () => {
                         </div>
                     )
                 }) : <></>}
-            </div> : <div>찬휘</div>}
-
+            </div> : <div>업로드 실패</div>}
             <div>
                 <Button onClick={appliyCampaign}>
                     신청하기
@@ -116,7 +98,6 @@ const DetailPage = () => {
             </div>
         </div>
     );
-
 };
 
 export default DetailPage;
