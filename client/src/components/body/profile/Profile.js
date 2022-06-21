@@ -77,6 +77,7 @@ const handleLogout = async() => {
 
 
 const deleteUserAll = async() => {
+  if(window.confirm('정말 탈퇴하시겠습니다?')){
   const res = await axios.post('http://localhost:1212/user/delete', {uid})
       .then((res) => {
         console.log(res.data)
@@ -93,6 +94,10 @@ const deleteUserAll = async() => {
     // An error ocurred
     // ...
   });
+  alert('삭제완료!')
+} else{
+  alert('취소')
+}
 }
 
 
