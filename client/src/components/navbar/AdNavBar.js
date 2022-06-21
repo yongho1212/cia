@@ -20,7 +20,6 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems, secondaryListItems } from '../body/workSpace/listItems';
 import Prdlistitems from '../body/workSpace/Prdlistitem';
-import ChatMain from '../../components/body/chatMain/ChatMain'
 import Button from "@mui/material/Button";
 
 const mdTheme = createTheme();

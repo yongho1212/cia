@@ -7,11 +7,11 @@ import {Button} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import AWS from "aws-sdk";
 import { addDoc, setDoc, serverTimestamp, collection } from "firebase/firestore";
-import { db, auth } from '../../../firebase'
+import { db, auth } from '../../../../firebase'
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actionCreators } from "../../../state/index";
-import { appendprd } from '../../../state/actioncreators';
+import { actionCreators } from "../../../../state/index";
+import { appendprd } from '../../../../state/actioncreators';
 
 
 const UploadProduct = () => {

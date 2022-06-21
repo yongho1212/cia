@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 import { NavItem } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../../state/index';
+import { actionCreators } from '../../../../state/index';
 
 const DetailPage = () => {
     const [product, setProduct] = useState([]); // 제품 정보

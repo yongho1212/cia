@@ -5,9 +5,9 @@ import { Button } from '@mui/material';
 import { NavItem } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../../state/index';
+import { actionCreators } from '../../../../state/index';
 import { doc, getDocFromCache, setDoc, addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db, auth } from '../../../firebase'
+import { db, auth } from '../../../../firebase'
 import { async } from '@firebase/util';
 
  const EditDetailpage = () => {
