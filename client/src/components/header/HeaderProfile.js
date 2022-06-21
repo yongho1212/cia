@@ -102,15 +102,15 @@ const HeaderProfile = () => {
     }
     
     async function handleLogout() {
-      try {
-        logoutUser();
-        nofbuser(false);;
-        signOut(auth);
-        navigate('/Home')
-        console.log('logout')
-      } catch (err) {
-        console.log(err)
-  };
+        try {
+          logoutUser();
+          nofbuser(false);;
+          signOut(auth);
+          navigate('/Home')
+          console.log('logout')
+        } catch (err) {
+          console.log(err)
+      };
     };
     function handleClickProfile() {
       navigate("/Profile");

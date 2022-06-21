@@ -7,8 +7,11 @@ import GoogleButton from "react-google-button";
 
 import {
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
   getAuth,
   updateProfile,
+  signOut,
 } from "firebase/auth";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -31,41 +34,54 @@ const Login = () => {
 
   const navigate = useNavigate();
   const auth = getAuth();
+  const gprovider = new GoogleAuthProvider();
 
   const [infor, setInfor] = useState("");
 
   useEffect(() => {
     if (state.loggedin) {
-      navigate("/Main");
+      navigate("/MAIN1");
     }
   }, [state.loggedin, navigate]);
+
+  const handleLogout = () => {
+    console.log('1');
+      logoutUser();
+      console.log('2');
+      nofbuser(false);
+      console.log('3');
+      signOut(auth);
+      console.log('4');
+      navigate('/Home');
+      console.log('logout');
+};
+
+function moveMain() {
+  navigate("/Main")
+};
+
+
 
 
   const getinfo = async () => {
     const uid = auth.currentUser.uid;
+    console.log(auth.currentUser)
     console.log(uid);
     const response = await axios
       .get("http://localhost:1212/user/getUserInfo", { params: { uid: uid } })
       .then((res) => {        
-        // const displayName = res.data.displayName
-        // const uid = res.data.uid
-        // const email = res.data.email
-        // const role = res.data.role
-        // const avatar = res.data.avatar
-        // const tags = res.data.tags
-        // const age = res.data.age
-        // const sex = res.data.sex
-        // const insta = res.data.insta
-        // const mobile = res.data.mobile
-        // const joinedChannel = res.data.joinedChannel
         console.log(res.data)
         const loginData = res.data
+        // if(loginData !== true){
+        //   handleLogout();
+        // }
         loginUser(loginData);
         fbuser(true);
         getListById();
       })
       .catch((error) => {
         console.log(error.response);
+        
     });
   };
 
@@ -83,20 +99,43 @@ const Login = () => {
       })
     } 
     catch (err) {
-      console.log(err)
+      alert('비밀번호 혹은 이메일이 일치하지 않습니다. 다시 시도하세요')
     }
   }
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await signInWithEmailAndPassword(auth, email, password).then(() =>
+    await signInWithEmailAndPassword(auth, email, password)
+    .then(() =>
       getinfo()
-    );
+    )
+    .then(() =>{
+      moveMain();
+    })
   };
 
   const handleGoogleSignIn = () => {
-    //    dispatch(googleSignInInitiate());
+    signInWithPopup(auth, gprovider)
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      console.log(result.user.email)
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      const email = error.customData.email;
+      const credential = GoogleAuthProvider.credentialFromError(error);
+    })
+    .then(() => {
+      getinfo();
+    })
+    .then(() =>{
+      moveMain();
+    })
   };
 
   const handleFBSignIn = () => {

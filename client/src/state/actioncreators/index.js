@@ -24,11 +24,11 @@ export const addchannel = (channel) =>{
     }
 }
 
-export const logoutUser = ( uid, name, tags, age, sex, date, insta, mobile, avatar) =>{
+export const logoutUser = ( ) =>{
     return (dispatch) => {
         dispatch({
             type : "LOGOUT",
-            payload : { uid, name, tags, age, sex, date, insta, mobile, avatar}
+            payload : ""
         })
     }
 }

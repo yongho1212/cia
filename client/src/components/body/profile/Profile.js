@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { reauthenticateWithCredential, EmailAuthProvider, deleteUser } from "firebase/auth";
+import { reauthenticateWithCredential, signOut, deleteUser, getAuth } from "firebase/auth";
 import {updateProfile} from 'firebase/auth'
 import { useNavigate } from "react-router";
 
@@ -20,7 +20,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../state/index';
   
-import FacebookLoginButton from '../auth/Facebook'
+
+
 
 
 const Profile = () => {
@@ -44,30 +45,54 @@ const Profile = () => {
   const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
   const navigate = useNavigate();
 
-  console.log(state.auth)
-  console.log(state.auth.state.loginData.age)
-  console.log(state.auth.state.loginData.avatar)
-  console.log(state.auth.state.loginData.displayName)
-  console.log(state.auth.state.loginData.email)
-  console.log(state.auth.state.loginData.insta)
-  console.log(state.auth.state.loginData.joinedChannel)
-  console.log(state.auth.state.loginData.mobile)
-  console.log(state.auth.state.loginData.sex)
-  console.log(state.auth.state.loginData.tags)
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const uid = state.auth.state.loginData.uid
 
 
-  
   useEffect(() =>{
     if (!fbuser){
       navigate("/Home")
 
     }
   })
-
- 
   
 const editProfile = () => {
   navigate("/EditProfile")
+}
+
+
+const handleLogout = async() => {
+  try {
+    navigate('/Home');
+    logoutUser();
+    nofbuser(false);;
+    signOut(auth);
+    console.log('logout')
+  } catch (err) {
+    console.log(err)
+};
+};
+
+
+
+const deleteUserAll = async() => {
+  const res = await axios.post('http://localhost:1212/user/delete', {uid})
+      .then((res) => {
+        console.log(res.data)
+        console.log('success')
+    })
+  .then(() => {
+    deleteUser(user)
+    console.log('firebase deleted');
+  })
+  .then(() => {
+    handleLogout();
+  })
+  .catch((error) => {
+    // An error ocurred
+    // ...
+  });
 }
 
 
@@ -105,6 +130,12 @@ const editProfile = () => {
           </div>
         </div>
       </Grid>
+
+      <Button
+      onClick={()=>deleteUserAll()}
+      >
+
+      </Button>
 
     
 
