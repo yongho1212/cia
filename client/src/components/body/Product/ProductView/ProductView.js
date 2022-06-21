@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import { useNavigate, Route, useParams } from "react-router-dom";
 import axios from 'axios'
 import { Link } from "react-router-dom";
-import DetailPage from '../detailPage/detailPage';
+import DetailPage from '../ProductdetailPage/detailPage';
 
 const  MainRight = ({ useParams }) => {
   const [product, setProduct] = useState();
@@ -37,7 +37,6 @@ const  MainRight = ({ useParams }) => {
         return (
           <div key={item._id} style={{ marginInline:'40px', marginTop:'40px'}}>
             <Link to={`/Detail/${item._id}`} style={{ color: 'black', display: 'flex', flexDirection: 'column', width: '200px', height: '280px', alignItems: 'flex-start' }}>
-              {/* <Link to={`/Detail/${item.name}`} /> */}
               <div style={{ width: '200px', height: '200px', backgroundColor: 'red' }}>
                 <img className='profile-img' src={item.photo} width='200px' height='200px'/>
               </div>
