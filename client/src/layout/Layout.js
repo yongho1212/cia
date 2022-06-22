@@ -4,6 +4,8 @@ import './Layout.css'
 
 import InfNavBar from '../components/navbar/InfNavBar';
 import AdNavBar from '../components/navbar/AdNavBar';
+import HeaderAD from '../components/header/HeaderAD';
+import HeaderINF from '../components/header/HeaderINF';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -38,20 +40,21 @@ const myrole = state.auth.state.loginData.role
 
   return (
     <div className="layout">
-    <header className="header">
-    {
-        myrole === "influencer"
-        ? <p>inf</p>
-        : <p>ad</p>
+
+      <header className="header">
+      {
+          myrole === "influencer"
+          ? <HeaderINF />
+          : <HeaderAD />
+        }
+      </header>
+      <aside className="aside">
+      {
+          myrole === "influencer"
+          ? <InfNavBar />
+          : <AdNavBar />
       }
-    </header>
-    <aside className="aside">
-    {
-        myrole === "influencer"
-        ? <InfNavBar />
-        : <AdNavBar />
-      }
-    </aside>
+      </aside>
     <main>
       <Outlet />
     </main>

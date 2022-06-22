@@ -14,6 +14,7 @@ import UploadProfile from './components/body/profile/UploadProfile';
 
 import Profile from './components/body/profile/Profile';
 import ADProfile from './components/body/profile/ADProfile';
+import INFProfile from './components/body/profile/INFProfile';
 
 import DetailPage from './components/body/detailPage/detailPage';
 import Main from './components/body/main/Main';
@@ -119,6 +120,7 @@ function App() {
             {/* <Route path="/Detail/" element={<DetailPage />} /> */}
             <Route path="/Profile/*" element={<Profile />} />
             <Route path="/ADProfile/*" element={<ADProfile />} />
+            <Route path="/INFProfile/*" element={<INFProfile />} />
             
             <Route path="/Chatlist/*" element={<Chatlist />} />
             <Route path="/Chat/:id" element={<Chat />} />

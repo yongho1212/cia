@@ -66,6 +66,7 @@ const AdSignup = () => {
       })
       const loginData = {brand_name, email, uid, password}
       adloginUser(loginData)
+      loginUser(loginData)
       fbuser(true)
     } catch (err) {
       console.log('failed')

@@ -17,7 +17,7 @@ export const adloginUser = (adloginData) =>{
 export const infloginUser = (infloginData) =>{
     return (dispatch) => {
         dispatch({
-            type : "ADLOGIN",
+            type : "INFLOGIN",
             payload: {infloginData}
         })
     }
@@ -42,7 +42,7 @@ export const adeditInfo = (userinfo) =>{
 export const infeditInfo = (userinfo) =>{
     return (dispatch) => {
         dispatch({
-            type : "ADEDITINFO",
+            type : "INFEDITINFO",
             payload: {userinfo}
         })
     }

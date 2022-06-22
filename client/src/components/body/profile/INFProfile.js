@@ -24,7 +24,7 @@ import { actionCreators } from '../../../state/index';
 
 
 
-const ADProfile = () => {
+const INFProfile = () => {
 
   const [userData, setUserData] = useState({
     email : '',
@@ -42,15 +42,15 @@ const ADProfile = () => {
 
   const dispatch = useDispatch();
   const state = useSelector((state) => state)
-  const {loginUser, logoutUser, fbuser, nofbuser, adloginUser} = bindActionCreators(actionCreators, dispatch);
+  const {loginUser, logoutUser, fbuser, nofbuser, infloginUser} = bindActionCreators(actionCreators, dispatch);
   const navigate = useNavigate();
 
   const auth = getAuth();
   const user = auth.currentUser;
-  const uid = state.advertiser.state.adloginData.uid
+  const uid = state.influencer.state.infloginData.uid
 
 
-
+  
 
   
 
@@ -115,20 +115,20 @@ const deleteUserAll = async() => {
           <h1>Hello! It's profile page.</h1>	
           <Avatar
             alt="Remy Sharp"
-            src={state.advertiser.state.adloginData.avatar}
+            src={state.influencer.state.infloginData.avatar}
             sx={{ width: 100, height: 100 }}
           />
           <div>
-          {state.advertiser.state.adloginData.role} <br/>
+          {state.influencer.state.infloginData.role} <br/>
           
-          {state.advertiser.state.adloginData.avatar}<br/>
-          {state.advertiser.state.adloginData.brandname}<br/>
-          {state.advertiser.state.adloginData.email}<br/>
+          {state.influencer.state.infloginData.avatar}<br/>
+          {state.influencer.state.infloginData.nickname}<br/>
+          {state.influencer.state.infloginData.email}<br/>
           
-          {state.advertiser.state.adloginData.joinedChannel}<br/>
-          {state.advertiser.state.adloginData.mobile}<br/>
+          {state.influencer.state.infloginData.joinedChannel}<br/>
+          {state.influencer.state.infloginData.mobile}<br/>
        
-          {state.advertiser.state.adloginData.tags}<br/> 
+          {state.influencer.state.infloginData.tags}<br/> 
           </div>
         </div>
         
@@ -155,4 +155,4 @@ const deleteUserAll = async() => {
 }
 
 
-export default ADProfile;
+export default INFProfile;

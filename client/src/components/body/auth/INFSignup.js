@@ -38,7 +38,7 @@ const INFSignup = () => {
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  
   const [uid, setUid] = useState("");
 
   useEffect(() => {
@@ -66,8 +66,9 @@ const INFSignup = () => {
         console.log("해당 상풍 아이디" + res)
         console.log(res.data)
       })
-      const infloginData = {nickname, email, role, uid, password}
+      const infloginData = {nickname, email, uid, password}
       infloginUser(infloginData)
+      loginUser(infloginData)
       fbuser(true)
     } catch (err) {
       console.log('failed')
@@ -81,7 +82,7 @@ const INFSignup = () => {
         updateProfile(auth.currentUser, {
           displayName,
         })
-        console.log(auth.currentUser.uid, displayName, email, role)
+        console.log(auth.currentUser.uid, displayName, email)
       })
       .then(() => {
         upLoadProfile()
@@ -134,7 +135,7 @@ const INFSignup = () => {
           </Box>
 
 
-          <FormControl>
+          {/* <FormControl>
             <FormLabel id="demo-controlled-radio-buttons-group">ROLE</FormLabel>
             <RadioGroup
               aria-labelledby="demo-controlled-radio-buttons-group"
@@ -144,7 +145,7 @@ const INFSignup = () => {
               <FormControlLabel value="inflencer" control={<Radio />} label="INFLUENCER" />
               <FormControlLabel value="advertiser" control={<Radio />} label="ADVERTISER" />
             </RadioGroup>
-          </FormControl>
+          </FormControl> */}
 
           
             <Button 
