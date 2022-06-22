@@ -113,7 +113,7 @@ const HeaderProfile = () => {
       };
     };
     function handleClickProfile() {
-      navigate("/Profile");
+      navigate("/ADProfile");
     }
     function workSpace() {
       navigate("/Workspace");

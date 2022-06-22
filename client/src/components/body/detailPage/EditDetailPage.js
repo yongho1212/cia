@@ -112,19 +112,19 @@ import { async } from '@firebase/util';
         
     }
 
-    // const addChannel = async (joinedChannel) => {
-    //     try {
-    //         const res = await axios.post('http://localhost:1212/user/addchannel',
-    //             {joinedChannel}
-    //         ).then((res) => {
-    //             console.log('success')
-    //         })
-    //         console.log(joinedChannel);
-    //     } catch (err) {
-    //         console.log('failed updateProfile');
-    //         console.log(joinedChannel);
-    //     }
-    // };
+    const addChannel = async (joinedChannel) => {
+        try {
+            const res = await axios.post('http://localhost:1212/user/addchannel',
+                {joinedChannel}
+            ).then((res) => {
+                console.log('success')
+            })
+            console.log(joinedChannel);
+        } catch (err) {
+            console.log('failed updateProfile');
+            console.log(joinedChannel);
+        }
+    };
 
   
 

@@ -6,10 +6,43 @@ export const loginUser = (loginData) =>{
         })
     }
 }
+export const adloginUser = (adloginData) =>{
+    return (dispatch) => {
+        dispatch({
+            type : "ADLOGIN",
+            payload: {adloginData}
+        })
+    }
+}
+export const infloginUser = (infloginData) =>{
+    return (dispatch) => {
+        dispatch({
+            type : "ADLOGIN",
+            payload: {infloginData}
+        })
+    }
+}
 export const editInfo = (userinfo) =>{
     return (dispatch) => {
         dispatch({
             type : "EDITINFO",
+            payload: {userinfo}
+        })
+    }
+}
+export const adeditInfo = (userinfo) =>{
+    return (dispatch) => {
+        dispatch({
+            type : "ADEDITINFO",
+            payload: {userinfo}
+        })
+    }
+}
+
+export const infeditInfo = (userinfo) =>{
+    return (dispatch) => {
+        dispatch({
+            type : "ADEDITINFO",
             payload: {userinfo}
         })
     }
@@ -19,6 +52,22 @@ export const addchannel = (channel) =>{
     return (dispatch) => {
         dispatch({
             type : "ADDCHANNEL",
+            payload: {channel}
+        })
+    }
+}
+export const adaddchannel = (channel) =>{
+    return (dispatch) => {
+        dispatch({
+            type : "ADADDCHANNEL",
+            payload: {channel}
+        })
+    }
+}
+export const infaddchannel = (channel) =>{
+    return (dispatch) => {
+        dispatch({
+            type : "INFADDCHANNEL",
             payload: {channel}
         })
     }

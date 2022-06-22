@@ -11,7 +11,10 @@ import Chat from './components/body/chat/Chat';
 import InfluencerList from './components/body/influencerList/InfluencerList';
 import Search from './components/body/search/Search';
 import UploadProfile from './components/body/profile/UploadProfile';
+
 import Profile from './components/body/profile/Profile';
+import ADProfile from './components/body/profile/ADProfile';
+
 import DetailPage from './components/body/detailPage/detailPage';
 import Main from './components/body/main/Main';
 import Footer from './components/footer/Footer';
@@ -29,6 +32,12 @@ import DashMain from './components/body/workSpace/Dashmain';
 import Layout from './layout/Layout'
 import ChatMain from './components/body/chatMain/ChatMain'
 import Emailverify from './components/body/auth/Emailverify'
+import SignupChooseRole from './components/body/auth/SignupChooseRole';
+import LoginChooseRole from './components/body/auth/LoginChooseRole';
+import ADSignup from './components/body/auth/ADSignup';
+import INFSignup from './components/body/auth/INFSignup';
+import ADLogin from './components/body/auth/ADLogin';
+import INFLogin from './components/body/auth/INFLogin';
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -88,7 +97,13 @@ function App() {
           <>
             <Route path="/Home" element={<Home />}  />
             <Route path="/Login" element={<Login />} />
+            <Route path="/ADLogin" element={<ADLogin />} />
+            <Route path="/INFLogin" element={<INFLogin />} />
             <Route path="/Signup" element={<Signup />} />
+            <Route path="/ADSignup" element={<ADSignup />} />
+            <Route path="/INFSignup" element={<INFSignup />} />
+            <Route path="/SignupChooseRole" element={<SignupChooseRole />} />
+            <Route path="/LoginChooseRole" element={<LoginChooseRole />} />
           </>  
           :
           <>
@@ -103,6 +118,8 @@ function App() {
             <Route path="/EditDetailPage/:id" element={<EditDetailpage />} />
             {/* <Route path="/Detail/" element={<DetailPage />} /> */}
             <Route path="/Profile/*" element={<Profile />} />
+            <Route path="/ADProfile/*" element={<ADProfile />} />
+            
             <Route path="/Chatlist/*" element={<Chatlist />} />
             <Route path="/Chat/:id" element={<Chat />} />
             <Route path="/ChatMain/*" element={<ChatMain />} />

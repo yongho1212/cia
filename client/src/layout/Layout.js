@@ -23,17 +23,12 @@ const Layout = () => {
   const dispatch = useDispatch();
   const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
 
+const myrole = state.auth.state.loginData.role
 
-  const searchRole = () => {
-    setUserRole(state.auth.role)
-  }
-  
-  useEffect(() => {
-    searchRole();
-  }, [])
+
 
   const sidebarRender = () => {
-    if (userRole === "influencer"){
+    if (myrole === "influencer"){
       return(<InfNavBar />)
     } else {
       return(<AdNavBar />)
@@ -44,11 +39,15 @@ const Layout = () => {
   return (
     <div className="layout">
     <header className="header">
-      
+    {
+        myrole === "influencer"
+        ? <p>inf</p>
+        : <p>ad</p>
+      }
     </header>
     <aside className="aside">
     {
-        userRole === "influencer"
+        myrole === "influencer"
         ? <InfNavBar />
         : <AdNavBar />
       }

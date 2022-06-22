@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logOutInitiate } from "../../redux/actions"
+
 
 
 const pages = ['Products', 'Pricing', 'Blog'];
@@ -27,14 +27,6 @@ const HeaderLogin = () => {
   const state = useSelector((state) => state)
   const dispatch = useDispatch();
   const uuid = state.auth.uid
-
-  const handleAuth = () => {
-    if (uuid = false) {
-      dispatch(logOutInitiate());
-      
-    }
-  };
-
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -58,17 +50,17 @@ const HeaderLogin = () => {
       navigate("/Main");
     }
     function handleClickSignIn() {
-      navigate("/Login");
+      navigate("/LoginChooseRole");
     }
     function handleClickSignUp() {
-      navigate("/SignUp");
+      navigate("/SignupChooseRole");
     }
     function handleClickUpload() {
       navigate("/Upload");
     }
     async function handleLogout() {
       try {
-        dispatch(logOutInitiate());
+        
         navigate('/Home')
         console.log('logout')
       } catch (err) {

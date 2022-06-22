@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logOutInitiate } from "../../../redux/actions";
+
 import './home.css'
 import { Link, Routes, Route, useNavigate} from "react-router-dom";
 import {Button} from '@mui/material'
@@ -13,12 +13,7 @@ import background from "../../../adboard.jpg"
 const Home = () => {
   const { user } = useSelector((state) => ({ ...state.user }));
   const dispatch = useDispatch();
-  const handleAuth = () => {
-    if (user) {
-      dispatch(logOutInitiate());
-    }
-  };
-
+ 
   const sectionStyle = {
     width: "100%",
 
