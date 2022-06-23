@@ -1,25 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
-import {useNavigate, useParams} from "react-router-dom";
+import { useParams} from "react-router-dom";
 import { Button } from '@mui/material';
-import { NavItem } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../../state/index';
+import { actionCreators } from '../../../../state/index';
 import { doc, getDocFromCache, setDoc, addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db, auth } from '../../../firebase'
-import { async } from '@firebase/util';
+import { db, auth } from '../../../../firebase'
 
  const EditDetailpage = () => {
     const [product, setProduct] = useState([]); // 제품 정보
     const [applicant, setApplicant] = useState([]); // 지원자 목록
     const { id } = useParams();
-    
     const [prdfsid, setPrdfsid] = useState("")
     const [prdname, setPrdname] = useState("")
-
     const prdidd = id;
-    
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
     const {loginUser, logoutUser, fbuser, nofbuser, adaddchannel} = bindActionCreators(actionCreators, dispatch);
@@ -29,9 +24,7 @@ import { async } from '@firebase/util';
     const disavatar = state.auth.state.loginData.avatar
     const disname = state.auth.state.loginData.displayName
     
-
     const onAcceptHandle = async (applicant_id) => {
-        // console.log(e);
         try {
             console.log('accept try');
             const res = await axios.post('http://localhost:1212/products/acceptApplicant',
@@ -77,6 +70,9 @@ import { async } from '@firebase/util';
         const channelid = joined_channel
 
 
+        
+        
+        
         try {
             const resprdinf = await axios.post('http://localhost:1212/inf/inf_add_prd',
                 {applicant_id, progress_prd}
@@ -144,7 +140,6 @@ import { async } from '@firebase/util';
         }
     }
 
-
     const item = product.find(e => e._id === id);
 
     const getprdInfo = async() => {
@@ -169,8 +164,6 @@ import { async } from '@firebase/util';
         getprdInfo();
     }, []);
 
-
-    
     return (
         <div>
             <div>uid</div>
@@ -204,7 +197,6 @@ import { async } from '@firebase/util';
                         width='100'
                         height='100'
                         alt='testA' />
-
                 </div>
                 <div>
                     {item.targetPlatform}    
@@ -220,11 +212,9 @@ import { async } from '@firebase/util';
                         </div>
                     )
                 }) : <></>}
-            </div> : <div>찬휘야 에러다</div>}
+            </div> : <div>실패입니다</div>}
         </div>
     );
-
 };
-
 
  export default EditDetailpage;

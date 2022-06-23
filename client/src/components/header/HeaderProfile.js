@@ -127,15 +127,7 @@ const HeaderProfile = () => {
         <Toolbar disableGutters style={{justifyContent:'space-between'}}>
         
         <Box>
-            
-               {/* <Button 
-                variant="text"
-                style={{ backgroundColor:"#fff", color:"#000",fontSize:31,fontWeight:'bold', marginInline:10}}
-                onClick={handleClickMain}
-                >
-                  Sway
-                </Button> */}
-                <Link to="Main" style={{ backgroundColor:'#fff', color:'#000', fontSize:31, fontWeight:'bold', marginInline:10}}>Sway</Link>
+          <Link to="Main" style={{ backgroundColor:'#fff', color:'#000', fontSize:31, fontWeight:'bold', marginInline:10}}>Sway</Link>
         </Box>
         
         

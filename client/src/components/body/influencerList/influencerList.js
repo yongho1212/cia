@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import { useNavigate, Route, useParams } from "react-router-dom";
 import axios from 'axios'
 import { Link } from "react-router-dom";
-import DetailPage from '../detailPage/detailPage';
+import DetailPage from '../Product/ProductdetailPage/detailPage';
 
 const  InfluencerList = ({ useParams }) => {
   const [list, setList] = useState();

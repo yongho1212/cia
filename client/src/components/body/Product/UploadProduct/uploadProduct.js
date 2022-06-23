@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import { Form } from "react-bootstrap";
 import "./uploadProduct.css";
 import { useState } from 'react';
@@ -7,22 +7,22 @@ import {Button} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import AWS from "aws-sdk";
 import { addDoc, setDoc, serverTimestamp, collection } from "firebase/firestore";
-import { db, auth } from '../../../firebase'
+import { db, auth } from '../../../../firebase'
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actionCreators } from "../../../state/index";
+import { actionCreators } from "../../../../state/index";
 
+
+import { appendprd } from '../../../../state/actioncreators';
 
 
 const UploadProduct = () => {
-
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
     const { loginUser, logoutUser, fbuser, nofbuser, appendprd } = bindActionCreators(
       actionCreators,
       dispatch
     );
-
     const [name, setName] = useState("");
     const [brand, setBrand] = useState("");
     const [targetPlatform, setTargetPlatform] = useState("");
@@ -38,8 +38,6 @@ const UploadProduct = () => {
     const [photo, setPhoto] = useState("");
     const [mobile, setMobile] = useState("");
     const [uploadedPhoto, setUploadedPhoto] = useState("");
- //   const [prdfsidDb, setPrdfsidDb] = useState("");
-
     const navigate = useNavigate();
     
 
@@ -52,17 +50,10 @@ const UploadProduct = () => {
             writer: {authorUid},
             createdAt: serverTimestamp(),
         })
- //       console.log(prdfsid.id);
         const fff = prdfsid.id;
-   //     console.log(fff);
-  //      setPrdfsidDb(fff);
         return fff;
     }
-    
-    
 
-      
-    
     AWS.config.update({
         region: 'ap-northeast-2',
         credentials: new AWS.CognitoIdentityCredentials({
@@ -72,9 +63,7 @@ const UploadProduct = () => {
 
     const handleFileInput = e => {
         var today = new Date(); 
-        
         const file = e.target.files[0];
-
         const upload = new AWS.S3.ManagedUpload({
             params: {
                 Bucket: "swaybucket",
@@ -83,7 +72,6 @@ const UploadProduct = () => {
             },
         })
         const promise = upload.promise()
-
         promise.then(
             function (data) {
                 setPhoto(data.Location.toString());
@@ -96,8 +84,6 @@ const UploadProduct = () => {
             }
         )
     }
-    
-
 
     const handlePost = async (e) => {
         e.preventDefault();
@@ -125,7 +111,6 @@ const UploadProduct = () => {
                 point, applicationConditions, qualification, isCheck,
                 detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid, prdfsidDb);
         } catch (err) {
-            
             console.log(err)
             console.log('failed');
             console.log(name, brand, targetPlatform, category, period, postType,
@@ -142,9 +127,9 @@ const UploadProduct = () => {
 
     return (
         <div>
-            <div>{authorUid}가 있나?</div>
+            <div>{authorUid}</div>
             <input type="file" id="upload" className='image-upload' onChange={handleFileInput}/>
-            <label htmlFor='upload' className='image-upload-wrapper'>여기입니다.</label>
+            <label htmlFor='upload' className='image-upload-wrapper'></label>
                 <img className='profile-img' src={photo} />
             <Form onSubmit={handlePost}>
                 <Form.Group className="mb-3" controlId="formBasicName">

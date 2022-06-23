@@ -15,7 +15,7 @@ import Chat from './components/body/chat/Chat';
 import INFChat from './components/body/chat/INFChat';
 import ADChat from './components/body/chat/ADChat';
 
-import InfluencerList from './components/body/influencerList/InfluencerList';
+import InfluencerList from './components/body/influencerList/influencerList';
 import Search from './components/body/search/Search';
 import UploadProfile from './components/body/profile/UploadProfile';
 
@@ -23,14 +23,13 @@ import Profile from './components/body/profile/Profile';
 import ADProfile from './components/body/profile/ADProfile';
 import INFProfile from './components/body/profile/INFProfile';
 
-import DetailPage from './components/body/detailPage/detailPage';
+
+import DetailPage from './components/body/Product/ProductdetailPage/detailPage';
 import Main from './components/body/main/Main';
 import Footer from './components/footer/Footer';
 import SearchResult from './components/body/search/SearchResult';
 import EditProfile from './components/body/editprofile/EditProfile';
-import ProtectedRoute from "./components/ProtectedRoute";
-import UserRoute from "./components/UserRoute";
-import UploadProduct from './components/body/Product/uploadProduct';
+import UploadProduct from './components/body/Product/UploadProduct/uploadProduct';
 import Workspace from './components/body/workSpace/Workspace';
 import Navbar from './components/body/workSpace/Navbar';
 import InfNavBar from './components/navbar/InfNavBar';
@@ -53,11 +52,9 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from './state/index';
-import EditDetailpage from './components/body/detailPage/EditDetailPage';
+import EditDetailpage from './components/body/Product/ProductdetailPage/EditDetailPage';
 import InfluencerProfile from './components/body/profile/InfluencerProfile';
 import { db } from './firebase';
-
-
 
 function App() {
 
@@ -120,12 +117,9 @@ function App() {
           <Route  element={<Layout />}>
             <Route path="/Main/*" element={<Main />} />
             <Route path="/SearchResult/:text" element={<SearchResult />} />
-            {/* <Route path="/SearchResult" element={<Search />} /> */}
             <Route path="/UploadProfile" element={<UploadProfile/>} />
             <Route path="/Detail/:id" element={<DetailPage />} />
-            {/* <Route path="/Chatt/*" element={<ChatMain />} /> */}
             <Route path="/EditDetailPage/:id" element={<EditDetailpage />} />
-            {/* <Route path="/Detail/" element={<DetailPage />} /> */}
             <Route path="/Profile/*" element={<Profile />} />
             <Route path="/ADProfile/*" element={<ADProfile />} />
             <Route path="/INFProfile/*" element={<INFProfile />} />
