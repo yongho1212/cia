@@ -17,6 +17,8 @@ app.use(fileUpload({
 
 // Routes
 app.use('/user', require('./routes/userRouter'))
+app.use('/ad', require('./routes/adRouter'))
+app.use('/inf', require('./routes/infRouter'))
 app.use('/api', require('./routes/upload'))
 app.use('/products', require('./routes/products'))
 app.use('/chat', require('./routes/chatRouter'))

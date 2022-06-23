@@ -4,6 +4,8 @@ import './Layout.css'
 
 import InfNavBar from '../components/navbar/InfNavBar';
 import AdNavBar from '../components/navbar/AdNavBar';
+import HeaderAD from '../components/header/HeaderAD';
+import HeaderINF from '../components/header/HeaderINF';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -23,17 +25,12 @@ const Layout = () => {
   const dispatch = useDispatch();
   const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
 
+const myrole = state.auth.state.loginData.role
 
-  const searchRole = () => {
-    setUserRole(state.auth.role)
-  }
-  
-  useEffect(() => {
-    searchRole();
-  }, [])
+
 
   const sidebarRender = () => {
-    if (userRole === "influencer"){
+    if (myrole === "influencer"){
       return(<InfNavBar />)
     } else {
       return(<AdNavBar />)
@@ -43,16 +40,21 @@ const Layout = () => {
 
   return (
     <div className="layout">
-    <header className="header">
-      
-    </header>
-    <aside className="aside">
-    {
-        userRole === "influencer"
-        ? <InfNavBar />
-        : <AdNavBar />
+
+      <header className="header">
+      {
+          myrole === "influencer"
+          ? <HeaderINF />
+          : <HeaderAD />
+        }
+      </header>
+      <aside className="aside">
+      {
+          myrole === "influencer"
+          ? <InfNavBar />
+          : <AdNavBar />
       }
-    </aside>
+      </aside>
     <main>
       <Outlet />
     </main>

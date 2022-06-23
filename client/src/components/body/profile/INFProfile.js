@@ -24,7 +24,7 @@ import { actionCreators } from '../../../state/index';
 
 
 
-const Profile = () => {
+const INFProfile = () => {
 
   const [userData, setUserData] = useState({
     email : '',
@@ -42,12 +42,17 @@ const Profile = () => {
 
   const dispatch = useDispatch();
   const state = useSelector((state) => state)
-  const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
+  const {loginUser, logoutUser, fbuser, nofbuser, infloginUser} = bindActionCreators(actionCreators, dispatch);
   const navigate = useNavigate();
 
   const auth = getAuth();
   const user = auth.currentUser;
-  const uid = state.auth.state.loginData.uid
+  const uid = state.influencer.state.infloginData.uid
+
+
+  
+
+  
 
 
   useEffect(() =>{
@@ -110,21 +115,20 @@ const deleteUserAll = async() => {
           <h1>Hello! It's profile page.</h1>	
           <Avatar
             alt="Remy Sharp"
-            src={state.auth.state.loginData.joinedChannel}
+            src={state.influencer.state.infloginData.avatar}
             sx={{ width: 100, height: 100 }}
           />
           <div>
-          {state.auth.state.loginData.role} <br/>
-
-          {state.auth.state.loginData.age}<br/>
-          {state.auth.state.loginData.avatar}<br/>
-          {state.auth.state.loginData.displayName}<br/>
-          {state.auth.state.loginData.email}<br/>
-          {state.auth.state.loginData.insta}<br/>
-          {state.auth.state.loginData.joinedChannel}<br/>
-          {state.auth.state.loginData.mobile}<br/>
-          {state.auth.state.loginData.sex}<br/>
-          {state.auth.state.loginData.tags}<br/>
+          {state.influencer.state.infloginData.role} <br/>
+          
+          {state.influencer.state.infloginData.avatar}<br/>
+          {state.influencer.state.infloginData.nickname}<br/>
+          {state.influencer.state.infloginData.email}<br/>
+          
+          {state.influencer.state.infloginData.joinedChannel}<br/>
+          {state.influencer.state.infloginData.mobile}<br/>
+       
+          {state.influencer.state.infloginData.tags}<br/> 
           </div>
         </div>
         
@@ -151,4 +155,4 @@ const deleteUserAll = async() => {
 }
 
 
-export default Profile;
+export default INFProfile;

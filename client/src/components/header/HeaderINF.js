@@ -24,7 +24,7 @@ import { getAuth, signOut } from "firebase/auth";
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const HeaderProfile = () => {
+const HeaderINF = () => {
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -89,7 +89,7 @@ const HeaderProfile = () => {
       navigate("/Main");
     }
     function handleClickChat() {
-      navigate("/Chatlist");
+      navigate("/INFChatlist");
     }
     function handleClickSearch() {
       navigate("/Search");
@@ -113,7 +113,7 @@ const HeaderProfile = () => {
       };
     };
     function handleClickProfile() {
-      navigate("/ADProfile");
+      navigate("/INFProfile");
     }
     function workSpace() {
       navigate("/Workspace");
@@ -125,9 +125,19 @@ const HeaderProfile = () => {
     <AppBar position="static" style={{backgroundColor:'#fff', zIndex:100}}>
       <Container maxWidth="xl" >
         <Toolbar disableGutters style={{justifyContent:'space-between'}}>
-        
+        <Typography style={{color:'#000'}}>
+            inf
+        </Typography>
         <Box>
-          <Link to="Main" style={{ backgroundColor:'#fff', color:'#000', fontSize:31, fontWeight:'bold', marginInline:10}}>Sway</Link>
+            
+               {/* <Button 
+                variant="text"
+                style={{ backgroundColor:"#fff", color:"#000",fontSize:31,fontWeight:'bold', marginInline:10}}
+                onClick={handleClickMain}
+                >
+                  Sway
+                </Button> */}
+                <Link to="Main" style={{ backgroundColor:'#fff', color:'#000', fontSize:31, fontWeight:'bold', marginInline:10}}>Sway</Link>
         </Box>
         
         
@@ -213,4 +223,4 @@ const HeaderProfile = () => {
     </AppBar>
   );
 };
-export default HeaderProfile;
+export default HeaderINF;

@@ -15,6 +15,7 @@ import {useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 
+
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -50,16 +51,17 @@ const HeaderLogin = () => {
       navigate("/Main");
     }
     function handleClickSignIn() {
-      navigate("/Login");
+      navigate("/LoginChooseRole");
     }
     function handleClickSignUp() {
-      navigate("/SignUp");
+      navigate("/SignupChooseRole");
     }
     function handleClickUpload() {
       navigate("/Upload");
     }
     async function handleLogout() {
       try {
+        
         navigate('/Home')
         console.log('logout')
       } catch (err) {

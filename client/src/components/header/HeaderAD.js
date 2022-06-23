@@ -24,7 +24,7 @@ import { getAuth, signOut } from "firebase/auth";
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const HeaderProfile = () => {
+const HeaderAD = () => {
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -89,7 +89,7 @@ const HeaderProfile = () => {
       navigate("/Main");
     }
     function handleClickChat() {
-      navigate("/Chatlist");
+      navigate("/ADChatlist");
     }
     function handleClickSearch() {
       navigate("/Search");
@@ -122,12 +122,22 @@ const HeaderProfile = () => {
   
 
   return (
-    <AppBar position="static" style={{backgroundColor:'#fff', zIndex:100}}>
+    <AppBar position="static" style={{backgroundColor:'#fff', zIndex:100, height: '90px', justifyContent:'center'}}>
       <Container maxWidth="xl" >
         <Toolbar disableGutters style={{justifyContent:'space-between'}}>
-        
+        <Typography style={{color:'#000'}}>
+            ad
+        </Typography>
         <Box>
-          <Link to="Main" style={{ backgroundColor:'#fff', color:'#000', fontSize:31, fontWeight:'bold', marginInline:10}}>Sway</Link>
+            
+               {/* <Button 
+                variant="text"
+                style={{ backgroundColor:"#fff", color:"#000",fontSize:31,fontWeight:'bold', marginInline:10}}
+                onClick={handleClickMain}
+                >
+                  Sway
+                </Button> */}
+                <Link to="Main" style={{ backgroundColor:'#fff', color:'#000', fontSize:31, fontWeight:'bold', marginInline:10}}>Sway</Link>
         </Box>
         
         
@@ -145,16 +155,16 @@ const HeaderProfile = () => {
               검색
             </Link>
           </div>
-            <Button 
+            {/* <Button 
               variant="contained"
-              style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
+              style={{backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
               onClick={handleUploadProfile}
             >
               업로드 프로필2
-            </Button>
+            </Button> */}
             <Button 
                 variant="contained"
-                style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
+                style={{backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
                 onClick={handleClickUpload}
             >
                 업로드product
@@ -162,42 +172,42 @@ const HeaderProfile = () => {
        
             <Button 
                 variant="contained"
-                style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
+                style={{backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
                 onClick={handleClickSearch}
             >
                 검색
             </Button>
             <Button 
                 variant="contained"
-                style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
+                style={{ backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
                 onClick={handleClickChat}
             >
                 채팅
             </Button>
             <Button 
                 variant="contained"
-                style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
+                style={{backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
                 onClick={handleClickProfile}
             >
                 프로필
             </Button>
             <Button 
                 variant="contained"
-                style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
+                style={{ backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
                 onClick={handleClickInfprflist}
             >
                 인플루언서 리스트
             </Button>
             <Button 
                 variant="contained"
-                style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
+                style={{backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
                 onClick={workSpace}
             >
                 WORK SPACE
             </Button>
             <Button 
                 variant="contained"
-                style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
+                style={{backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
                 onClick={handleLogout}
             >
                 로그아웃
@@ -213,4 +223,4 @@ const HeaderProfile = () => {
     </AppBar>
   );
 };
-export default HeaderProfile;
+export default HeaderAD;
