@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import "./uploadProduct.css";
 import { useState } from 'react';
 import axios from 'axios';
-import {Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import AWS from "aws-sdk";
 import { addDoc, setDoc, serverTimestamp, collection } from "firebase/firestore";
@@ -12,16 +12,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../../../state/index";
 
-
-import { appendprd } from '../../../../state/actioncreators';
-
-
 const UploadProduct = () => {
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
     const { loginUser, logoutUser, fbuser, nofbuser, appendprd } = bindActionCreators(
-      actionCreators,
-      dispatch
+        actionCreators,
+        dispatch
     );
     const [name, setName] = useState("");
     const [brand, setBrand] = useState("");
@@ -39,15 +35,13 @@ const UploadProduct = () => {
     const [mobile, setMobile] = useState("");
     const [uploadedPhoto, setUploadedPhoto] = useState("");
     const navigate = useNavigate();
-    
-
     const authorUid = state.advertiser.state.adloginData.uid
     const authorEmail = state.advertiser.state.adloginData.email
 
-    const addNewPrdChannel = async() => {
-        const prdfsid = await addDoc(collection(db, 'prdRoom'),{
-            name: {name},
-            writer: {authorUid},
+    const addNewPrdChannel = async () => {
+        const prdfsid = await addDoc(collection(db, 'prdRoom'), {
+            name: { name },
+            writer: { authorUid },
             createdAt: serverTimestamp(),
         })
         const fff = prdfsid.id;
@@ -62,7 +56,7 @@ const UploadProduct = () => {
     })
 
     const handleFileInput = e => {
-        var today = new Date(); 
+        var today = new Date();
         const file = e.target.files[0];
         const upload = new AWS.S3.ManagedUpload({
             params: {
@@ -79,7 +73,7 @@ const UploadProduct = () => {
                 alert("이미지 업로드에 성공했습니다.");
                 console.log("data: ", photo, "data type: ", typeof (photo));
             },
-            function (err) {    
+            function (err) {
                 return alert("오류가 발생했습니다.", err.message);
             }
         )
@@ -94,15 +88,17 @@ const UploadProduct = () => {
         try {
             console.log(qqq);
             const res = await axios.post('products/upload',
-                {name, brand, targetPlatform, category, period, postType,
+                {
+                    name, brand, targetPlatform, category, period, postType,
                     point, applicationConditions, qualification, isCheck,
-                    detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid, prdfsidDb}
+                    detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid, prdfsidDb
+                }
             ).then((res) => {
                 console.log(res.data)
                 console.log('success')
             })
             const resprdad = await axios.post('http://localhost:1212/ad/ad_add_prd',
-                {uid, progress_prd}
+                { uid, progress_prd }
             ).then((resprdad) => {
                 console.log('success')
                 console.log(resprdad.data)
@@ -115,11 +111,13 @@ const UploadProduct = () => {
             console.log('failed');
             console.log(name, brand, targetPlatform, category, period, postType,
                 point, applicationConditions, qualification, isCheck,
-                detailPage, offersAndMissions, photo, mobile, authorUid, authorEmail,  prdfsidDb);
+                detailPage, offersAndMissions, photo, mobile, authorUid, authorEmail, prdfsidDb);
         }
-        const data = {name, brand, targetPlatform, category, period, postType,
+        const data = {
+            name, brand, targetPlatform, category, period, postType,
             point, applicationConditions, qualification, isCheck,
-            detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid, prdfsidDb}
+            detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid, prdfsidDb
+        }
         appendprd(data);
         navigate("/Main");
         console.log(state.myprd)
@@ -128,9 +126,9 @@ const UploadProduct = () => {
     return (
         <div>
             <div>{authorUid}</div>
-            <input type="file" id="upload" className='image-upload' onChange={handleFileInput}/>
+            <input type="file" id="upload" className='image-upload' onChange={handleFileInput} />
             <label htmlFor='upload' className='image-upload-wrapper'></label>
-                <img className='profile-img' src={photo} />
+            <img className='profile-img' src={photo} />
             <Form onSubmit={handlePost}>
                 <Form.Group className="mb-3" controlId="formBasicName">
                     <Form.Control
