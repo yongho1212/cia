@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-
 import { useNavigate, Link } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
-
 import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
@@ -13,11 +11,9 @@ import {
   updateProfile,
   signOut,
 } from "firebase/auth";
-
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../../state/index";
-
 import "./Login.css";
 import axios from "axios";
 
@@ -28,14 +24,11 @@ const INFLogin = () => {
     actionCreators,
     dispatch
   );
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
   const auth = getAuth();
   const gprovider = new GoogleAuthProvider();
-
   const [infor, setInfor] = useState("");
 
   useEffect(() => {
@@ -44,58 +37,34 @@ const INFLogin = () => {
     }
   }, [state.loggedin, navigate]);
 
-  const handleLogout = () => {
-    console.log('1');
-      logoutUser();
-      console.log('2');
-      nofbuser(false);
-      console.log('3');
-      signOut(auth);
-      console.log('4');
-      navigate('/Home');
-      console.log('logout');
-};
-
-function moveMain() {
+const moveMain = () => {
   navigate("/Main")
 };
 
-
-
-
   const getinfo = async () => {
     const uid = auth.currentUser.uid;
-    console.log(auth.currentUser)
-    console.log(uid);
     const response = await axios
       .get("http://localhost:1212/inf/getInfInfo", { params: { uid: uid } })
       .then((res) => {        
         console.log(res.data)
-        const infloginData = res.data
-        // if(loginData !== true){
-        //   handleLogout();
-        // }
+        const infloginData = res.data;
         infloginUser(infloginData);
-        loginUser(infloginData)
+        loginUser(infloginData);
         fbuser(true);
         getListById();
       })
       .catch((error) => {
         console.log(error.response);
-        
     });
   };
 
   const getListById = async () => {
-    const uid = auth.currentUser.uid
-    console.log(uid)
+    const uid = auth.currentUser.uid;
     try {
        const res = await axios.get('http://localhost:1212/products/getlistbyid', 
        { params: { uid } })
-       .then((res) => { 
-        console.log(res.data);
+       .then((res) => {
         prependprd(res.data);
-        console.log(state.myprd)
         return 0;
       })
     } 
@@ -103,7 +72,6 @@ function moveMain() {
       alert('비밀번호 혹은 이메일이 일치하지 않습니다. 다시 시도하세요')
     }
   }
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -124,7 +92,6 @@ function moveMain() {
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
-      console.log(result.user.email)
     }).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -147,7 +114,6 @@ function moveMain() {
     <>
       <div className="p-4 box">
         <h2 className="mb-3">Firebase Auth Login</h2>
-
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control
@@ -156,7 +122,6 @@ function moveMain() {
               onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Group>
-
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Control
               type="password"
@@ -164,7 +129,6 @@ function moveMain() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
-
           <div className="d-grid gap-2">
             <Button variant="primary" type="Submit">
               Log In

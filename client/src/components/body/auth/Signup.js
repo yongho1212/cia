@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useId } from "react";
 import "./Register.css";
-
 import { Form, Alert } from "react-bootstrap";
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,18 +8,14 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
-
-
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
-
 import {
   createUserWithEmailAndPassword,
   getAuth,
   updateProfile,
   sendEmailVerification
-} from "firebase/auth";
-
+} from "firebase/auth"
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from "../../../state/index";
@@ -32,9 +27,7 @@ const Signup = () => {
   const dispatch = useDispatch();
   const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
   let navigate = useNavigate();
-  
   const auth = getAuth();
-
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -61,9 +54,6 @@ const Signup = () => {
       const res = await axios.post('/user/register', 
       {displayName, email, role, uid, password})
       .then(function(res){
-        
-        console.log("해당 상풍 아이디" + res)
-        console.log(res.data)
       })
       const loginData = {displayName, email, role, uid, password}
       loginUser(loginData)
@@ -80,7 +70,6 @@ const Signup = () => {
         updateProfile(auth.currentUser, {
           displayName,
         })
-        console.log(auth.currentUser.uid, displayName, email, role)
       })
       .then(() => {
         upLoadProfile()
@@ -88,10 +77,8 @@ const Signup = () => {
       .then(() => {
         sendEmailVerification(auth.currentUser)
       })
-      moveEmail();
-      }  
-         
-
+    moveEmail();
+  }     
 
   return (
     <ThemeProvider theme={theme}>
@@ -120,7 +107,6 @@ const Signup = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </Box>
-
           <Box className="mb-3" controlId="formBasicPassword">
             <TextField
               type="password"
@@ -128,8 +114,6 @@ const Signup = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </Box>
-
-
           <FormControl>
             <FormLabel id="demo-controlled-radio-buttons-group">ROLE</FormLabel>
             <RadioGroup
@@ -141,26 +125,21 @@ const Signup = () => {
               <FormControlLabel value="advertiser" control={<Radio />} label="ADVERTISER" />
             </RadioGroup>
           </FormControl>
-
-          
-            <Button 
-            variant="primary" 
-            type="Submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            >
-              Sign up
-            </Button>
-          
+          <Button 
+          type="Submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+          >
+            Sign up
+          </Button>
         </Form>
-      
         <Button onClick={moveLogin}>
         Already have an account? Log In
         </Button>
       </Box>
-      </Container>
-      </ThemeProvider>
+    </Container>
+    </ThemeProvider>
   );
 };
 

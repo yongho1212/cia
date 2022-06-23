@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useId } from "react";
 import "./Register.css";
-
 import { Form, Alert } from "react-bootstrap";
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,18 +8,14 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Typography } from "@mui/material";
-
-
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
-
 import {
   createUserWithEmailAndPassword,
   getAuth,
   updateProfile,
   sendEmailVerification
 } from "firebase/auth";
-
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from "../../../state/index";
@@ -32,13 +27,10 @@ const INFSignup = () => {
   const dispatch = useDispatch();
   const {loginUser, logoutUser, fbuser, nofbuser,infloginUser} = bindActionCreators(actionCreators, dispatch);
   let navigate = useNavigate();
-  
   const auth = getAuth();
-
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
   const [uid, setUid] = useState("");
 
   useEffect(() => {
@@ -61,8 +53,7 @@ const INFSignup = () => {
       const nickname = displayName
       const res = await axios.post('/inf/inf_register', 
       {nickname, email, uid, password})
-      .then(function(res){
-        
+      .then(function(res){        
         console.log("해당 상풍 아이디" + res)
         console.log(res.data)
       })
@@ -90,11 +81,9 @@ const INFSignup = () => {
       .then(() => {
         sendEmailVerification(auth.currentUser)
       })
-      moveEmail();
-      }  
-         
-
-
+    moveEmail();
+  }  
+        
   return (
     <ThemeProvider theme={theme}>
     <Container>
@@ -125,7 +114,6 @@ const INFSignup = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </Box>
-
           <Box className="mb-3" controlId="formBasicPassword">
             <TextField
               type="password"
@@ -133,23 +121,7 @@ const INFSignup = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </Box>
-
-
-          {/* <FormControl>
-            <FormLabel id="demo-controlled-radio-buttons-group">ROLE</FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="controlled-radio-buttons-group"
-              onChange={(e) => setRole(e.target.value)}
-            >
-              <FormControlLabel value="inflencer" control={<Radio />} label="INFLUENCER" />
-              <FormControlLabel value="advertiser" control={<Radio />} label="ADVERTISER" />
-            </RadioGroup>
-          </FormControl> */}
-
-          
-            <Button 
-            variant="primary" 
+            <Button
             type="Submit"
             fullWidth
             variant="contained"
@@ -157,9 +129,7 @@ const INFSignup = () => {
             >
               Sign up
             </Button>
-          
         </Form>
-      
         <Button onClick={moveLogin}>
         Already have an account? Log In
         </Button>
