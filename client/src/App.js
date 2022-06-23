@@ -6,8 +6,15 @@ import Signup from "./components/body/auth/Signup";
 import Home from './components/body/home/Home'
 import HeaderLogin  from './components/header/HeaderLogin';
 import HeaderProfile from './components/header/HeaderProfile';
+
 import Chatlist from './components/body/chat/Chatlist';
+import INFChatlist from './components/body/chat/INFChatlist';
+import ADChatlist from './components/body/chat/ADChatlist';
+
 import Chat from './components/body/chat/Chat';
+import INFChat from './components/body/chat/INFChat';
+import ADChat from './components/body/chat/ADChat';
+
 import InfluencerList from './components/body/influencerList/InfluencerList';
 import Search from './components/body/search/Search';
 import UploadProfile from './components/body/profile/UploadProfile';
@@ -31,10 +38,11 @@ import AdNavBar from './components/navbar/AdNavBar';
 import HomeNavBar from './components/navbar/HomeNavBar';
 import DashMain from './components/body/workSpace/Dashmain';
 import Layout from './layout/Layout'
-import ChatMain from './components/body/chatMain/ChatMain'
+
 import Emailverify from './components/body/auth/Emailverify'
 import SignupChooseRole from './components/body/auth/SignupChooseRole';
 import LoginChooseRole from './components/body/auth/LoginChooseRole';
+
 import ADSignup from './components/body/auth/ADSignup';
 import INFSignup from './components/body/auth/INFSignup';
 import ADLogin from './components/body/auth/ADLogin';
@@ -87,7 +95,7 @@ function App() {
   return (
     <BrowserRouter>
     { state.loggedin ?
-      <HeaderProfile />
+      console.log('s')
     : 
       <HeaderLogin />
     }
@@ -123,8 +131,14 @@ function App() {
             <Route path="/INFProfile/*" element={<INFProfile />} />
             
             <Route path="/Chatlist/*" element={<Chatlist />} />
+            <Route path="/ADChatlist/*" element={<ADChatlist />} />
+            <Route path="/INFChatlist/*" element={<INFChatlist />} />
+
             <Route path="/Chat/:id" element={<Chat />} />
-            <Route path="/ChatMain/*" element={<ChatMain />} />
+            <Route path="/ADChat/:id" element={<ADChat />} />
+            <Route path="/INFChat/:id" element={<INFChat />} />
+
+            
             <Route path="/Search/*" element={<Search />} />
             <Route path="/EditProfile/*" element={<EditProfile />} />
             <Route path="/Upload/" element={<UploadProduct />} />

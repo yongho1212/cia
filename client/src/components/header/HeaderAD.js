@@ -89,7 +89,7 @@ const HeaderAD = () => {
       navigate("/Main");
     }
     function handleClickChat() {
-      navigate("/Chatlist");
+      navigate("/ADChatlist");
     }
     function handleClickSearch() {
       navigate("/Search");

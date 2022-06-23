@@ -11,14 +11,14 @@ import { db, auth } from '../../../firebase'
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../../state/index";
-import { appendprd } from '../../../state/actioncreators';
+
 
 
 const UploadProduct = () => {
 
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
-    const { loginUser, logoutUser, fbuser, nofbuser } = bindActionCreators(
+    const { loginUser, logoutUser, fbuser, nofbuser, appendprd } = bindActionCreators(
       actionCreators,
       dispatch
     );
@@ -43,8 +43,8 @@ const UploadProduct = () => {
     const navigate = useNavigate();
     
 
-    const authorUid = state.auth.state.loginData.uid
-    const authorEmail = state.auth.state.loginData.email
+    const authorUid = state.advertiser.state.adloginData.uid
+    const authorEmail = state.advertiser.state.adloginData.email
 
     const addNewPrdChannel = async() => {
         const prdfsid = await addDoc(collection(db, 'prdRoom'),{
@@ -104,7 +104,7 @@ const UploadProduct = () => {
         const qqq = await addNewPrdChannel();
         const prdfsidDb = qqq
         const uid = authorUid
-        const joinedPrd = qqq
+        const progress_prd = qqq
         try {
             console.log(qqq);
             const res = await axios.post('products/upload',
@@ -115,8 +115,8 @@ const UploadProduct = () => {
                 console.log(res.data)
                 console.log('success')
             })
-            const resprdad = await axios.post('http://localhost:1212/user/addprdad',
-                {uid, joinedPrd}
+            const resprdad = await axios.post('http://localhost:1212/ad/ad_add_prd',
+                {uid, progress_prd}
             ).then((resprdad) => {
                 console.log('success')
                 console.log(resprdad.data)

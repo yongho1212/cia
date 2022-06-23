@@ -35,7 +35,7 @@ const infCtrl = {
     login: async (req, res) => {
         try {
             const {email, password} = req.body
-            const user = await Ad.findOne({email})
+            const user = await Inf.findOne({email})
             if(!user) return res.status(400).json({msg: "This email does not exist."})
 
             const isMatch = await bcrypt.compare(password, user.password)
@@ -58,9 +58,9 @@ const infCtrl = {
     getInfInfo: async (req, res) => {
         try {
             const {uid} = req.query
-            const ad = await Inf.findOne({ uid: uid}).select('-password').exec()
-            res.send(ad);
-            console.log(ad);
+            const inf = await Inf.findOne({ uid: uid}).select('-password').exec()
+            res.send(inf);
+            console.log(inf);
              
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -69,7 +69,7 @@ const infCtrl = {
 
     getUsersAllInfor: async (req, res) => {
         try {
-            const users = await Ad.find().select('-password')
+            const users = await Inf.find().select('-password')
 
             res.json(users)
         } catch (err) {
@@ -82,21 +82,8 @@ const infCtrl = {
             // const uid = req.body.uid
             console.log("mongodb is connected fuck");
             const { uid, name, tags, age, sex, date, insta, mobile, avatar} = req.body
-            await Ad.findOneAndUpdate({uid: uid}, {$set: {
+            await Inf.findOneAndUpdate({uid: uid}, {$set: {
                 name: name, tags: tags, age: age, sex: sex, date: date, insta: insta, mobile: mobile, avatar: avatar
-            }})
-            res.json({msg: "Update Success!"})
-        } catch (err) {
-            return res.status(500).json({msg: err.message})
-        }
-    },
-    addChatChannelAD: async (req, res) => {
-        try {
-            // const uid = req.body.uid
-            console.log("mongodb is connected fuck");
-            const { uid, joinedChannel } = req.body
-            await Ad.findOneAndUpdate({uid: uid}, {$push: {
-                joinedChannel: joinedChannel
             }})
             res.json({msg: "Update Success!"})
         } catch (err) {
@@ -107,9 +94,9 @@ const infCtrl = {
         try {
             // const uid = req.body.uid
             console.log("mongodb is connected fuck");
-            const { applicant_id, joinedChannel } = req.body
-            await Ad.findOneAndUpdate({uid: applicant_id}, {$push: {
-                joinedChannel: joinedChannel
+            const { applicant_id, joined_channel } = req.body
+            await Inf.findOneAndUpdate({uid: applicant_id}, {$push: {
+                joined_channel: joined_channel
             }})
             res.json({msg: "Update Success!"})
         } catch (err) {
@@ -120,22 +107,9 @@ const infCtrl = {
         try {
             // const uid = req.body.uid
             console.log("mongodb is connected fuck");
-            const { applicant_id, joinedPrd } = req.body
-            await Ad.findOneAndUpdate({uid: applicant_id}, {$push: {
-                joinedPrd: joinedPrd
-            }})
-            res.json({msg: "Update Success!"})
-        } catch (err) {
-            return res.status(500).json({msg: err.message})
-        }
-    },
-    addPrdAD: async (req, res) => {
-        try {
-            // const uid = req.body.uid
-            console.log("mongodb is connected fuck");
-            const { uid, joinedPrd } = req.body
-            await Ad.findOneAndUpdate({uid: uid}, {$push: {
-                joinedPrd: joinedPrd
+            const { applicant_id, progress_prd } = req.body
+            await Inf.findOneAndUpdate({uid: applicant_id}, {$push: {
+                progress_prd: progress_prd
             }})
             res.json({msg: "Update Success!"})
         } catch (err) {
@@ -146,7 +120,7 @@ const infCtrl = {
     deleteUser: async (req, res) => {
         try {
             const {uid} = req.body
-            await Ad.findOneAndDelete({uid: uid})
+            await Inf.findOneAndDelete({uid: uid})
 
             res.json({msg: "Deleted Success!"})
         } catch (err) {
@@ -158,7 +132,7 @@ const infCtrl = {
             const {about} = req.body
 
 
-            await Ad.findOneAndUpdate({_id: req.user.id}, {
+            await Inf.findOneAndUpdate({_id: req.user.id}, {
                 about
             })
 

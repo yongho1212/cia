@@ -89,7 +89,7 @@ const HeaderINF = () => {
       navigate("/Main");
     }
     function handleClickChat() {
-      navigate("/Chatlist");
+      navigate("/INFChatlist");
     }
     function handleClickSearch() {
       navigate("/Search");

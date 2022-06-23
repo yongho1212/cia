@@ -22,7 +22,7 @@ import { async } from '@firebase/util';
     
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
-    const {loginUser, logoutUser, fbuser, nofbuser, addchannel} = bindActionCreators(actionCreators, dispatch);
+    const {loginUser, logoutUser, fbuser, nofbuser, adaddchannel} = bindActionCreators(actionCreators, dispatch);
 
     const uid = state.auth.state.loginData.uid
     const disrole = state.auth.state.loginData.role
@@ -69,29 +69,29 @@ import { async } from '@firebase/util';
         })
        
         console.log(newChannel.id);
-        const joinedChannel = newChannel.id
-        const joinedPrd = prdfsid
+        const joined_channel = newChannel.id
+        const progress_prd = prdfsid
         const aduid = uid
         const infuid = applicant_id
         
-        const channelid = joinedChannel
+        const channelid = joined_channel
 
 
         try {
-            const resprdinf = await axios.post('http://localhost:1212/user/addprdinf',
-                {applicant_id, joinedPrd}
+            const resprdinf = await axios.post('http://localhost:1212/inf/inf_add_prd',
+                {applicant_id, progress_prd}
             ).then((resprdinf) => {
                 console.log('success')
                 console.log(resprdinf.data)
             })
-            const resad = await axios.post('http://localhost:1212/user/addchannelad',
-                {uid, joinedChannel}
+            const resad = await axios.post('http://localhost:1212/ad/ad_add_channel',
+                {uid, joined_channel}
             ).then((resad) => {
                 console.log('success')
                 console.log(resad.data)
             })
-            const resinf = await axios.post('http://localhost:1212/user/addchannelinf',
-                {applicant_id, joinedChannel}
+            const resinf = await axios.post('http://localhost:1212/inf/inf_add_channel',
+                {applicant_id, joined_channel}
             ).then((resinf) => {
                 console.log('success')
                 console.log(resinf.data)
@@ -102,27 +102,27 @@ import { async } from '@firebase/util';
                 console.log('success')
                 console.log(chdb.data)
             })
-            console.log(uid, joinedChannel);
+            console.log(uid, joined_channel);
         } catch (err) {
             console.log(err)
             console.log('failed updateProfile');
-            console.log(uid, joinedChannel);
+            console.log(uid, joined_channel);
         }
-        addchannel(joinedChannel)
+        adaddchannel(joined_channel)
         
     }
 
-    const addChannel = async (joinedChannel) => {
+    const addChannel = async (joined_channel) => {
         try {
             const res = await axios.post('http://localhost:1212/user/addchannel',
-                {joinedChannel}
+                {joined_channel}
             ).then((res) => {
                 console.log('success')
             })
-            console.log(joinedChannel);
+            console.log(joined_channel);
         } catch (err) {
             console.log('failed updateProfile');
-            console.log(joinedChannel);
+            console.log(joined_channel);
         }
     };
 

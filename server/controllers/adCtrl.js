@@ -91,59 +91,35 @@ const adCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
-    addChatChannelAD: async (req, res) => {
-        try {
-            // const uid = req.body.uid
-            console.log("mongodb is connected fuck");
-            const { uid, joinedChannel } = req.body
-            await Ad.findOneAndUpdate({uid: uid}, {$push: {
-                joinedChannel: joinedChannel
-            }})
-            res.json({msg: "Update Success!"})
-        } catch (err) {
-            return res.status(500).json({msg: err.message})
-        }
-    },
-    addChatChannelINF: async (req, res) => {
-        try {
-            // const uid = req.body.uid
-            console.log("mongodb is connected fuck");
-            const { applicant_id, joinedChannel } = req.body
-            await Ad.findOneAndUpdate({uid: applicant_id}, {$push: {
-                joinedChannel: joinedChannel
-            }})
-            res.json({msg: "Update Success!"})
-        } catch (err) {
-            return res.status(500).json({msg: err.message})
-        }
-    },
-    addPrdINF: async (req, res) => {
-        try {
-            // const uid = req.body.uid
-            console.log("mongodb is connected fuck");
-            const { applicant_id, joinedPrd } = req.body
-            await Ad.findOneAndUpdate({uid: applicant_id}, {$push: {
-                joinedPrd: joinedPrd
-            }})
-            res.json({msg: "Update Success!"})
-        } catch (err) {
-            return res.status(500).json({msg: err.message})
-        }
-    },
     addPrdAD: async (req, res) => {
         try {
             // const uid = req.body.uid
             console.log("mongodb is connected fuck");
-            const { uid, joinedPrd } = req.body
+            const { uid, progress_prd } = req.body
             await Ad.findOneAndUpdate({uid: uid}, {$push: {
-                joinedPrd: joinedPrd
+                progress_prd: progress_prd
             }})
             res.json({msg: "Update Success!"})
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
     },
-    
+    addChatChannelAD: async (req, res) => {
+        try {
+            // const uid = req.body.uid
+            console.log("mongodb is connected fuck");
+            const { uid, joined_channel } = req.body
+            await Ad.findOneAndUpdate({uid: uid}, {$push: {
+                joined_channel: joined_channel
+            }})
+            res.json({msg: "Update Success!"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+
+ 
+
     deleteUser: async (req, res) => {
         try {
             const {uid} = req.body
