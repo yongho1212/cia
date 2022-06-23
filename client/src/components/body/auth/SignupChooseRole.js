@@ -1,21 +1,16 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
 
-
-
-
-
 const SignupChooseRole = () => {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  function moveAd() {
+      navigate("/AdSignup")
+    };
 
-    function moveAd() {
-        navigate("/AdSignup")
-      };
-
-      function moveInf() {
-        navigate("/InfSignup")
-      };
+    function moveInf() {
+      navigate("/InfSignup")
+    };
 
   return (
     <div style={{justifyContent:'center', alignItems:'center'}}>
@@ -27,7 +22,7 @@ const SignupChooseRole = () => {
             광고주
         </button>
     </div>
-  )
-}
+  );
+};
 
 export default SignupChooseRole;

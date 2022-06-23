@@ -62,9 +62,6 @@ function moveMain() {
       .then((res) => {        
         console.log(res.data)
         const adloginData = res.data
-        // if(loginData !== true){
-        //   handleLogout();
-        // }
         adloginUser(adloginData);
         loginUser(adloginData)
         fbuser(true);

@@ -4,7 +4,6 @@ import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 const Reset = () => {
   const [email, setEmail] = useState("");
   const auth = getAuth();
-
   const handleReset = () => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
@@ -16,6 +15,7 @@ const Reset = () => {
         console.log("An error has occured: ", errorCode, errorMessage);
       });
   };
+  
   return (
     <div>
       <h1>Reset password</h1>
