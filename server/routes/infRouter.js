@@ -11,6 +11,8 @@ router.post('/inf_add_prd', infCtrl.addPrdINF)
 
 router.post('/inf_add_channel', infCtrl.addChatChannelINF)
 
+router.post('/inf_update_profile', infCtrl.inf_update_profile)
+
 
 
 

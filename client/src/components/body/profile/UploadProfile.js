@@ -13,25 +13,32 @@ import { actionCreators } from "../../../state/index";
 const UploadProfile = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
-  const { loginUser, logoutUser, fbuser, nofbuser, editInfo } =
-    bindActionCreators(actionCreators, dispatch);
+  const {
+    infloginUser,
+  } = bindActionCreators(actionCreators, dispatch);
 
-  const [uid, setUid] = useState("");
-  const [uidforSearch, setUidforSearch] = useState("");
-  const [name, setName] = useState(
-    state.influencer.state.infloginData.displayName
-  );
+  const uid = state.influencer.state.infloginData.uid;
+  const email = state.influencer.state.infloginData.email;
+  const [about, setAbout] = useState(state.influencer.state.infloginData.about);
+  const role = state.influencer.state.infloginData.role;
+  const [location, setLocation] = useState(state.influencer.state.infloginData.location);
+  const [nickname, setNickname] = useState(state.influencer.state.infloginData.nickname);
   const [tags, setTags] = useState(state.influencer.state.infloginData.tags);
-  const [age, setAge] = useState(state.influencer.state.infloginData.age);
   const [sex, setSex] = useState(state.influencer.state.infloginData.sex);
-  const [date, setDate] = useState(state.influencer.state.infloginData.date);
+  const [birthday, setBirthday] = useState(state.influencer.state.infloginData.birthday);
   const [insta, setInsta] = useState(state.influencer.state.infloginData.insta);
-  const [avatar, setAvatar] = useState(
-    state.influencer.state.infloginData.avatar
-  );
-  const [mobile, setMobile] = useState(
-    state.influencer.state.infloginData.mobile
-  );
+  const [facebook, setFacebook] = useState(state.influencer.state.infloginData.facebook);
+  const [tiktok, setTiktok] = useState(state.influencer.state.infloginData.tiktok);
+  const [twitter, setTwitter] = useState(state.influencer.state.infloginData.twitter);
+  const [youtube, setYoutube] = useState(state.influencer.state.infloginData.youtube);
+  const [avatar, setAvatar] = useState(state.influencer.state.infloginData.avatar);
+  const [mobile, setMobile] = useState(state.influencer.state.infloginData.mobile);
+  const denied_prd = state.influencer.state.infloginData.denied_prd;
+  const wait_prd = state.influencer.state.infloginData.wait_prd;
+  const progress_prd = state.influencer.state.infloginData.progress_prd;
+  const history_prd = state.influencer.state.infloginData.history_prd;
+  const joined_channel = state.influencer.state.infloginData.joined_channel;
+  
 
   AWS.config.update({
     region: "ap-northeast-2",
@@ -71,13 +78,12 @@ const UploadProfile = () => {
     e.preventDefault();
     try {
       const res = await axios
-        .post("http://localhost:1212/user/update", {
+        .post("http://localhost:1212/inf/inf_update_profile", {
           uid,
-          name,
+          nickname,
           tags,
-          age,
           sex,
-          date,
+          birthday,
           insta,
           mobile,
           avatar,
@@ -85,13 +91,53 @@ const UploadProfile = () => {
         .then((res) => {
           console.log("success");
         });
-      console.log(uid, name, tags, age, sex, date, insta, mobile, avatar);
+      console.log(
+        uid,
+        nickname,
+        tags,
+        sex,
+        birthday,
+        insta,
+        mobile,
+        avatar
+      );
     } catch (err) {
       console.log("failed updateProfile");
-      console.log(uid, name, tags, age, sex, date, insta, mobile, avatar);
+      console.log(
+        uid,
+        nickname,
+        tags,
+        sex,
+        birthday,
+        insta,
+        mobile,
+        avatar
+      );
     }
-    const userinfo = { uid, name, tags, age, sex, date, insta, mobile, avatar };
-    loginUser(userinfo);
+    const userinfo = {
+      uid,
+      nickname,
+      email,
+      tags,
+      about,
+      role,
+      avatar,
+      sex,
+      birthday,
+      location,
+      insta,
+      facebook,
+      tiktok,
+      twitter,
+      youtube,
+      mobile,
+      wait_prd,
+      denied_prd,
+      progress_prd,
+      history_prd,
+      joined_channel,
+    };
+    infloginUser(userinfo);
     navigate("/Main");
   };
 
@@ -120,9 +166,9 @@ const UploadProfile = () => {
         <Form onSubmit={handlePost}>
           <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Control
-              type="name"
-              placeholder={name}
-              onChange={(e) => setName(e.target.value)}
+              type="nickname"
+              placeholder={nickname}
+              onChange={(e) => setNickname(e.target.value)}
               defaultValue={state.influencer.state.infloginData.nickname}
             />
           </Form.Group>
@@ -137,10 +183,10 @@ const UploadProfile = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Control
-              type="age"
+              type="Date"
               placeholder="how old?"
-              onChange={(e) => setAge(e.target.value)}
-              defaultValue={state.influencer.state.infloginData.age}
+              onChange={(e) => setBirthday(e.target.value)}
+              defaultValue={state.influencer.state.infloginData.birthday}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicName">
@@ -156,7 +202,7 @@ const UploadProfile = () => {
             <Form.Control
               type="today"
               placeholder="date today"
-              onChange={(e) => setDate(e.target.value)}
+              onChange={(e) => setBirthday(e.target.value)}
             />
           </Form.Group>
 
@@ -190,7 +236,7 @@ const UploadProfile = () => {
           />
           <div>
             <Button variant="primary" type="Submit">
-              Upload Please!
+              저장
             </Button>
           </div>
         </Form>

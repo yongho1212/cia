@@ -53,6 +53,20 @@ const infCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
+
+    inf_update_profile: async (req, res) => {
+        try {
+            // const uid = req.body.uid
+            console.log("mongodb is connected fuck");
+            const { uid, nickname, tags,  sex, birthday, insta, mobile, avatar} = req.body
+            await Inf.findOneAndUpdate({uid: uid}, {$set: {
+                nickname: nickname, tags: tags,  sex: sex, birthday: birthday, insta: insta, mobile: mobile, avatar: avatar
+            }})
+            res.json({msg: "Update Success!"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
     
     
     getInfInfo: async (req, res) => {
