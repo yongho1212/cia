@@ -126,7 +126,8 @@ const UploadProduct = () => {
     };
 
     return (
-        <div>
+        <div style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
+            <div>
             <div>{authorUid}</div>
             <input type="file" id="upload" className='image-upload' onChange={handleFileInput}/>
             <label htmlFor='upload' className='image-upload-wrapper'></label>
@@ -237,6 +238,7 @@ const UploadProduct = () => {
                     </Button>
                 </div>
             </Form>
+            </div>
         </div>
     );
 };

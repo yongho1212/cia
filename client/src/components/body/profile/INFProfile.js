@@ -1,158 +1,243 @@
 import React, { useEffect, useState } from "react";
 
-import { reauthenticateWithCredential, signOut, deleteUser, getAuth } from "firebase/auth";
-import {updateProfile} from 'firebase/auth'
+import {
+  reauthenticateWithCredential,
+  signOut,
+  deleteUser,
+  getAuth,
+} from "firebase/auth";
+import { updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router";
 
-import TextField from '@mui/material/TextField';
-import FormControl from '@mui/material/FormControl';
-import Avatar from'@mui/material/Avatar';
+import TextField from "@mui/material/TextField";
+import FormControl from "@mui/material/FormControl";
+import Avatar from "@mui/material/Avatar";
 import { Form, Alert, Button } from "react-bootstrap";
-import { InputLabel } from "@mui/material";
+import { InputLabel, Typography } from "@mui/material";
 import { Input } from "@mui/material";
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
-import { async } from "@firebase/util"
-import axios from 'axios';
+import { async } from "@firebase/util";
+import axios from "axios";
 
-import { useDispatch, useSelector } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../../state/index';
-  
-
-
-
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../../../state/index";
 
 const INFProfile = () => {
 
-  const [userData, setUserData] = useState({
-    email : '',
-    displayName : '',
-    role : 'notsure',
-    uid : '',
-    avatar : '',
-    tags:'',
-    age:'',
-    sex:'',
-    insta:'',
-    mobile:'',
-    joinedChannel:[]
-  })
+  const [open, setOpen] = React.useState(false);
+  const [scroll, setScroll] = React.useState('paper');
+
 
   const dispatch = useDispatch();
-  const state = useSelector((state) => state)
-  const {loginUser, logoutUser, fbuser, nofbuser, infloginUser} = bindActionCreators(actionCreators, dispatch);
+  const state = useSelector((state) => state);
+  const { loginUser, logoutUser, fbuser, nofbuser, infloginUser } =
+    bindActionCreators(actionCreators, dispatch);
   const navigate = useNavigate();
 
   const auth = getAuth();
   const user = auth.currentUser;
-  const uid = state.influencer.state.infloginData.uid
+  const uid = state.influencer.state.infloginData.uid;
 
 
-  
+  const handleClickOpen = (scrollType) => () => {
+    setOpen(true);
+    setScroll(scrollType);
+  };
 
-  
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-
-  useEffect(() =>{
-    if (!fbuser){
-      navigate("/Home")
-
+  const descriptionElementRef = React.useRef(null);
+  useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
     }
-  })
-  
-const editProfile = () => {
-  navigate("/EditProfile")
-}
+  }, [open]);
 
-
-const handleLogout = async() => {
-  try {
-    navigate('/Home');
-    logoutUser();
-    nofbuser(false);;
-    signOut(auth);
-    console.log('logout')
-  } catch (err) {
-    console.log(err)
-};
-};
-
-
-
-const deleteUserAll = async() => {
-  if(window.confirm('정말 탈퇴하시겠습니다?')){
-  const res = await axios.post('http://localhost:1212/user/delete', {uid})
-      .then((res) => {
-        console.log(res.data)
-        console.log('success')
-    })
-  .then(() => {
-    deleteUser(user)
-    console.log('firebase deleted');
-  })
-  .then(() => {
-    handleLogout();
-  })
-  .catch((error) => {
-    // An error ocurred
-    // ...
+  useEffect(() => {
+    if (!fbuser) {
+      navigate("/Home");
+    }
   });
-  alert('삭제완료!')
-} else{
-  alert('취소')
-}
-}
 
+  const editProfile = () => {
+    navigate("/EditProfile");
+  };
 
+  const handleLogout = async () => {
+    try {
+      navigate("/Home");
+      logoutUser();
+      nofbuser(false);
+      signOut(auth);
+      console.log("logout");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const deleteUserAll = async () => {
+    if (window.confirm("정말 탈퇴하시겠습니다?")) {
+      const res = await axios
+        .post("http://localhost:1212/user/delete", { uid })
+        .then((res) => {
+          console.log(res.data);
+          console.log("success");
+        })
+        .then(() => {
+          deleteUser(user);
+          console.log("firebase deleted");
+        })
+        .then(() => {
+          handleLogout();
+        })
+        .catch((error) => {
+          // An error ocurred
+          // ...
+        });
+      alert("삭제완료!");
+    } else {
+      alert("취소");
+    }
+  };
+
+  // uid: '',
+  //       nickname: '',
+  //       email: '',
+  //       password: '',
+  //       tags: [],
+  //       about: '',
+  //       role: 'influencer',
+  //       avatar: '',
+  //       sex: '',
+  //       birthday: '',
+  //       location:'',
+  //       insta: '',
+  //       facebook: '',
+  //       tiktok: '',
+  //       twitter: '',
+  //       youtube: '',
+  //       mobile: '',
+  //       wait_prd:[],
+  //       denied_prd:[],
+  //       progress_prd:[],
+  //       history_prd:[],
+  //       joined_channel:[]
 
   return (
-    <Box style={{backgroundColor:'#fff', display: 'flex', flexDirection: 'row' }}  sx={{ flexGrow: 1 }}>
-      
-      <Grid style={{}}>
-        <div style={{backgroundColor:'red', margin:'15px'}}> 
-          <h1>Hello! It's profile page.</h1>	
-          <Avatar
-            alt="Remy Sharp"
-            src={state.influencer.state.infloginData.avatar}
-            sx={{ width: 100, height: 100 }}
-          />
-          <div>
-          {state.influencer.state.infloginData.role} <br/>
-          
-          {state.influencer.state.infloginData.avatar}<br/>
-          {state.influencer.state.infloginData.nickname}<br/>
-          {state.influencer.state.infloginData.email}<br/>
-          
-          {state.influencer.state.infloginData.joinedChannel}<br/>
-          {state.influencer.state.infloginData.mobile}<br/>
-       
-          {state.influencer.state.infloginData.tags}<br/> 
-          </div>
-        </div>
-        
-        <div style={{backgroundColor:'green', margin:'15px'}}> 
-          <h1>Hello! It's profile page.</h1>	
-          <div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        backgroundColor: "#667",
+      }}
+    >
+      <div style={{ width: "50vw" }}>
+        <Box
+          style={{
+            backgroundColor: "#fff",
+          }}
+          sx={{ flexGrow: 1 }}
+        >
+          <Grid style={{}}>
+            <div style={{ backgroundColor: "red", margin: "15px" }}>
+              <h1>Hello! It's profile page.</h1>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "flex-end",
+                  backgroundColor: "blue",
+                }}
+              >
+                <Avatar
+                  alt="Remy Sharp"
+                  src={state.influencer.state.infloginData.avatar}
+                  sx={{ width: 170, height: 170 }}
+                />
 
-          </div>
-        </div>
-      </Grid>
-
-      <Button
-      onClick={()=>deleteUserAll()}
+                <div style={{ marginLeft: "15px", width:'100%',height:'170', backgroundColor:'#fff'}}>
+                  <div style={{ display: 'flex',justifyContent:'flex-end' }}>
+                  <div>
+      <Button onClick={handleClickOpen('paper')}>scroll=paper</Button>
+      <Button onClick={handleClickOpen('body')}>scroll=body</Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        scroll={scroll}
+        aria-labelledby="scroll-dialog-title"
+        aria-describedby="scroll-dialog-description"
       >
+        <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
+        <DialogContent dividers={scroll === 'paper'}>
+          <DialogContentText
+            id="scroll-dialog-description"
+            ref={descriptionElementRef}
+            tabIndex={-1}
+          >
+            {[...new Array(50)]
+              .map(
+                () => `Cras mattis consectetur purus sit amet fermentum.
+Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
+              )
+              .join('\n')}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Subscribe</Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+                  </div>
+                  <Typography style={{ fontSize: "40px" }}>
+                    {state.influencer.state.infloginData.nickname}
+                  </Typography>
+                  <Typography style={{ fontSize: "25px", color: "grey" }}>
+                    {state.influencer.state.infloginData.role}
+                  </Typography>
+                </div>
+              </div>
 
-      </Button>
+              <div>
+                <br />
 
-    
+                <br />
+                {state.influencer.state.infloginData.email}
+                <br />
+                {state.influencer.state.infloginData.joined_channel}
+                <br />
+                {state.influencer.state.infloginData.mobile}
+                <br />
+                {state.influencer.state.infloginData.tags}
+                <br />
+              </div>
+            </div>
+          </Grid>
 
-    {/* <FacebookLoginButton/> */}
-    </Box>
-    
-  )
-}
+          {/* <FacebookLoginButton/> */}
+        </Box>
 
+        <div style={{ backgroundColor: "#a78" }}>
+          <Button onClick={() => deleteUserAll()}>회원탈퇴</Button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default INFProfile;

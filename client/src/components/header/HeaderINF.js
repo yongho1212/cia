@@ -162,21 +162,21 @@ const HeaderINF = () => {
             >
               업로드 프로필2
             </Button>
-            <Button 
+            {/* <Button 
                 variant="contained"
                 style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
                 onClick={handleClickUpload}
             >
                 업로드product
-            </Button>
+            </Button> */}
        
-            <Button 
+            {/* <Button 
                 variant="contained"
                 style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
                 onClick={handleClickSearch}
             >
                 검색
-            </Button>
+            </Button> */}
             <Button 
                 variant="contained"
                 style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
@@ -191,20 +191,20 @@ const HeaderINF = () => {
             >
                 프로필
             </Button>
-            <Button 
+            {/* <Button 
                 variant="contained"
                 style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
                 onClick={handleClickInfprflist}
             >
                 인플루언서 리스트
-            </Button>
-            <Button 
+            </Button> */}
+            {/* <Button 
                 variant="contained"
                 style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
                 onClick={workSpace}
             >
                 WORK SPACE
-            </Button>
+            </Button> */}
             <Button 
                 variant="contained"
                 style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
