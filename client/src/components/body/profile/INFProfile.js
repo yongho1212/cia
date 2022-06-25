@@ -166,6 +166,8 @@ const INFProfile = () => {
                         scroll={scroll}
                         aria-labelledby="scroll-dialog-title"
                         aria-describedby="scroll-dialog-description"
+                        fullWidth="true"
+                        maxWidth = "40px"
                       >
                         <DialogTitle id="scroll-dialog-title">
                           Subscribe
@@ -175,7 +177,10 @@ const INFProfile = () => {
                         </DialogContent>
                         <DialogActions>
                           <Button onClick={handleClose}>Cancel</Button>
-                          <Button onClick={handleClose}>Subscribe</Button>
+                          
+                          <Button positive form='my-form' content='Submit' value='Submit' type="Submit">
+                            저장
+                          </Button>
                         </DialogActions>
                       </Dialog>
                     </div>

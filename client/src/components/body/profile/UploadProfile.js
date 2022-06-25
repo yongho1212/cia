@@ -163,7 +163,7 @@ const UploadProfile = () => {
         <img className="profile-img" src={avatar} />
 
         <div> 안녕하세요 {state.influencer.state.infloginData.nickname} 님</div>
-        <Form onSubmit={handlePost}>
+        <Form onSubmit={handlePost} id='my-form'>
           <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Control
               type="nickname"
@@ -235,9 +235,9 @@ const UploadProfile = () => {
             sx={{ width: 100, height: 100 }}
           />
           <div>
-            <Button variant="primary" type="Submit">
+            {/* <Button variant="primary" type="Submit">
               저장
-            </Button>
+            </Button> */}
           </div>
         </Form>
       </div>
