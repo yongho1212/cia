@@ -78,13 +78,13 @@ const adCtrl = {
         }
     },
     
-    updateUser: async (req, res) => {
+    ad_update_profile: async (req, res) => {
         try {
             // const uid = req.body.uid
             console.log("mongodb is connected fuck");
-            const { uid, name, tags, age, sex, date, insta, mobile, avatar} = req.body
+            const { uid, brandname, tags, insta, mobile, avatar} = req.body
             await Ad.findOneAndUpdate({uid: uid}, {$set: {
-                name: name, tags: tags, age: age, sex: sex, date: date, insta: insta, mobile: mobile, avatar: avatar
+                brandname: brandname, tags: tags, insta: insta, mobile: mobile, avatar: avatar
             }})
             res.json({msg: "Update Success!"})
         } catch (err) {

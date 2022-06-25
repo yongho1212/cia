@@ -23,50 +23,45 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../../state/index";
 
-const UploadProfile = () => {
+const ADEditProfile = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
-  const { infloginUser } = bindActionCreators(actionCreators, dispatch);
+  const { adloginUser } = bindActionCreators(actionCreators, dispatch);
 
-  const uid = state.influencer.state.infloginData.uid;
-  const email = state.influencer.state.infloginData.email;
-  const [about, setAbout] = useState(state.influencer.state.infloginData.about);
-  const role = state.influencer.state.infloginData.role;
+  const uid = state.advertiser.state.adloginData.uid;
+  const email = state.advertiser.state.adloginData.email;
+  const [about, setAbout] = useState(state.advertiser.state.adloginData.about);
+  const role = state.advertiser.state.adloginData.role;
   const [location, setLocation] = useState(
-    state.influencer.state.infloginData.location
+    state.advertiser.state.adloginData.location
   );
-  const [nickname, setNickname] = useState(
-    state.influencer.state.infloginData.nickname
+  const [brand_name, setBrand_name] = useState(
+    state.advertiser.state.adloginData.brand_name
   );
-  const [tags, setTags] = useState(state.influencer.state.infloginData.tags);
-  const [sex, setSex] = useState(state.influencer.state.infloginData.sex);
-  const [birthday, setBirthday] = useState(
-    state.influencer.state.infloginData.birthday
-  );
-  const [insta, setInsta] = useState(state.influencer.state.infloginData.insta);
+  const [tags, setTags] = useState(state.advertiser.state.adloginData.tags);
+
+  const [insta, setInsta] = useState(state.advertiser.state.adloginData.insta);
   const [facebook, setFacebook] = useState(
-    state.influencer.state.infloginData.facebook
+    state.advertiser.state.adloginData.facebook
   );
-  const [tiktok, setTiktok] = useState(
-    state.influencer.state.infloginData.tiktok
-  );
+  const [website, setWebsite] = useState(state.advertiser.state.adloginData.website);
+
   const [twitter, setTwitter] = useState(
-    state.influencer.state.infloginData.twitter
+    state.advertiser.state.adloginData.twitter
   );
   const [youtube, setYoutube] = useState(
-    state.influencer.state.infloginData.youtube
+    state.advertiser.state.adloginData.youtube
   );
-  const [avatar, setAvatar] = useState(
-    state.influencer.state.infloginData.avatar
+  const [logo, setLogo] = useState(
+    state.advertiser.state.adloginData.logo
   );
   const [mobile, setMobile] = useState(
-    state.influencer.state.infloginData.mobile
+    state.advertiser.state.adloginData.mobile
   );
-  const denied_prd = state.influencer.state.infloginData.denied_prd;
-  const wait_prd = state.influencer.state.infloginData.wait_prd;
-  const progress_prd = state.influencer.state.infloginData.progress_prd;
-  const history_prd = state.influencer.state.infloginData.history_prd;
-  const joined_channel = state.influencer.state.infloginData.joined_channel;
+
+  const progress_prd = state.advertiser.state.adloginData.progress_prd;
+  const history_prd = state.advertiser.state.adloginData.history_prd;
+  const joined_channel = state.advertiser.state.adloginData.joined_channel;
 
   AWS.config.update({
     region: "ap-northeast-2",
@@ -81,7 +76,7 @@ const UploadProfile = () => {
     const upload = new AWS.S3.ManagedUpload({
       params: {
         Bucket: "swaybucket",
-        Key: "INFPROFILE" + uid + ".jpg",
+        Key: "BRANDLOGO" + uid + ".jpg",
         Body: file,
       },
     });
@@ -89,10 +84,10 @@ const UploadProfile = () => {
 
     promise.then(
       function (data) {
-        setAvatar(data.Location.toString());
+        setLogo(data.Location.toString());
         console.log("checkthephoto: ", data.Location);
         alert("이미지 업로드에 성공했습니다.");
-        console.log("data: ", avatar, "data type: ", typeof avatar);
+        console.log("data: ", logo, "data type: ", typeof logo);
       },
       function (err) {
         return alert("오류가 발생했습니다.", err.message);
@@ -106,48 +101,50 @@ const UploadProfile = () => {
     e.preventDefault();
     try {
       const res = await axios
-        .post("http://localhost:1212/inf/inf_update_profile", {
+        .post("http://localhost:1212/ad/ad_update_profile", {
           uid,
-          nickname,
+          brand_name,
           tags,
-          sex,
-          birthday,
           insta,
           mobile,
-          avatar,
+          logo,
+          tags,
+          logo,
+          website,
+          facebook,
+          twitter,
+          youtube,
+          location,
+          about,
         })
         .then((res) => {
           console.log("success");
         });
-      console.log(uid, nickname, tags, sex, birthday, insta, mobile, avatar);
+      console.log( uid,brand_name,tags,insta,mobile,logo,tags,logo,website,facebook,twitter,youtube,location,about);
     } catch (err) {
       console.log("failed updateProfile");
-      console.log(uid, nickname, tags, sex, birthday, insta, mobile, avatar);
+      console.log(uid,brand_name,tags,insta,mobile,logo,tags,logo,website,facebook,twitter,youtube,location,about);
     }
     const userinfo = {
-      uid,
-      nickname,
-      email,
-      tags,
-      about,
-      role,
-      avatar,
-      sex,
-      birthday,
-      location,
-      insta,
-      facebook,
-      tiktok,
-      twitter,
-      youtube,
-      mobile,
-      wait_prd,
-      denied_prd,
-      progress_prd,
-      history_prd,
-      joined_channel,
+        uid,
+        brand_name,
+        email,
+        about,
+        tags,
+        role,
+        logo,
+        insta ,
+        facebook,
+        twitter,
+        youtube,
+        website,
+        mobile,
+        location,
+        progress_prd,
+        history_prd,
+        joined_channel
     };
-    infloginUser(userinfo);
+    adloginUser(userinfo);
     navigate("/Main");
   };
 
@@ -170,16 +167,16 @@ const UploadProfile = () => {
         <label htmlFor="upload" className="image-upload-wrapper">
           여기입니다.
         </label>
-        <img className="profile-img" src={avatar} />
+        <img className="profile-img" src={logo} />
 
-        <div> 안녕하세요 {state.influencer.state.infloginData.nickname} 님</div>
+        <div> 안녕하세요 {state.advertiser.state.adloginData.brand_name} 님</div>
         <Form onSubmit={handlePost} id="my-form">
           <Form.Group className="mb-3" controlId="formBasicName">
             <TextField
-              type="nickname"
-              placeholder={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-              defaultValue={state.influencer.state.infloginData.nickname}
+              type="brand name"
+              placeholder={brand_name}
+              onChange={(e) => setBrand_name(e.target.value)}
+              defaultValue={state.advertiser.state.adloginData.brand_name}
             />
           </Form.Group>
 
@@ -188,20 +185,20 @@ const UploadProfile = () => {
               type="tags"
               placeholder="choose Tag!"
               onChange={(e) => setTags(e.target.value)}
-              defaultValue={state.influencer.state.infloginData.tags}
+              defaultValue={state.advertiser.state.adloginData.tags}
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicName">
+          {/* <Form.Group className="mb-3" controlId="formBasicName">
             <TextField
               type="Date"
               placeholder="how old?"
               onChange={(e) => setBirthday(e.target.value)}
-              defaultValue={state.influencer.state.infloginData.birthday}
+              defaultValue={state.advertiser.state.adloginData.birthday}
             />
-          </Form.Group>
+          </Form.Group> */}
 
-          <FormControl sx={{ m: 1, width: 300 }}>
+          {/* <FormControl sx={{ m: 1, width: 300 }}>
             
             <InputLabel id="demo-simple-select-label">Sex</InputLabel>
             <Select
@@ -210,28 +207,28 @@ const UploadProfile = () => {
               value={sex}
               label="sex"
               onChange={(e) => setSex(e.target.value)}
-              defaultValue={state.influencer.state.infloginData.birthday}
+              defaultValue={state.advertiser.state.adloginData.birthday}
             >
               <MenuItem value={'male'}>male</MenuItem>
               <MenuItem value={'female'}>female</MenuItem>
               
             </Select>
-          </FormControl>
+          </FormControl> */}
 
-          <Form.Group className="mb-3" controlId="formBasicName">
+          {/* <Form.Group className="mb-3" controlId="formBasicName">
             <TextField
               type="today"
               placeholder="date today"
               onChange={(e) => setBirthday(e.target.value)}
             />
-          </Form.Group>
+          </Form.Group> */}
 
           <Form.Group className="mb-3" controlId="formBasicName">
             <TextField
               type="InstaId"
               placeholder={state.auth.state.loginData.insta}
               onChange={(e) => setInsta(e.target.value)}
-              defaultValue={state.influencer.state.infloginData.insta}
+              defaultValue={state.advertiser.state.adloginData.insta}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicName">
@@ -239,14 +236,14 @@ const UploadProfile = () => {
               type="mobile"
               placeholder="your Mobile Number"
               onChange={(e) => setMobile(e.target.value)}
-              defaultValue={state.influencer.state.infloginData.mobile}
+              defaultValue={state.advertiser.state.adloginData.mobile}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicName">
             <TextField
               type="photo"
-              placeholder={state.influencer.state.infloginData.avatar}
-              value={avatar}
+              placeholder={state.advertiser.state.adloginData.logo}
+              value={logo}
             />
           </Form.Group>
 
@@ -261,4 +258,4 @@ const UploadProfile = () => {
   );
 };
 
-export default UploadProfile;
+export default ADEditProfile;

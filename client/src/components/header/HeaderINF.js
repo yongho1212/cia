@@ -155,13 +155,13 @@ const HeaderINF = () => {
               검색
             </Link>
           </div>
-            <Button 
+            {/* <Button 
               variant="contained"
               style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
               onClick={handleUploadProfile}
             >
               업로드 프로필2
-            </Button>
+            </Button> */}
             {/* <Button 
                 variant="contained"
                 style={{color:"#03ff95", backgroundColor:"#03ff95", color:"#000", marginInline:10}}
