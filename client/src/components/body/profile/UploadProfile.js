@@ -5,6 +5,19 @@ import axios from "axios";
 import { Button } from "react-bootstrap";
 import AWS from "aws-sdk";
 import Avatar from "@mui/material/Avatar";
+import {
+  FormControl,
+  InputLabel,
+  Input,
+  FormHelperText,
+  TextField,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  MenuItem,
+  Select
+} from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -13,32 +26,47 @@ import { actionCreators } from "../../../state/index";
 const UploadProfile = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
-  const {
-    infloginUser,
-  } = bindActionCreators(actionCreators, dispatch);
+  const { infloginUser } = bindActionCreators(actionCreators, dispatch);
 
   const uid = state.influencer.state.infloginData.uid;
   const email = state.influencer.state.infloginData.email;
   const [about, setAbout] = useState(state.influencer.state.infloginData.about);
   const role = state.influencer.state.infloginData.role;
-  const [location, setLocation] = useState(state.influencer.state.infloginData.location);
-  const [nickname, setNickname] = useState(state.influencer.state.infloginData.nickname);
+  const [location, setLocation] = useState(
+    state.influencer.state.infloginData.location
+  );
+  const [nickname, setNickname] = useState(
+    state.influencer.state.infloginData.nickname
+  );
   const [tags, setTags] = useState(state.influencer.state.infloginData.tags);
   const [sex, setSex] = useState(state.influencer.state.infloginData.sex);
-  const [birthday, setBirthday] = useState(state.influencer.state.infloginData.birthday);
+  const [birthday, setBirthday] = useState(
+    state.influencer.state.infloginData.birthday
+  );
   const [insta, setInsta] = useState(state.influencer.state.infloginData.insta);
-  const [facebook, setFacebook] = useState(state.influencer.state.infloginData.facebook);
-  const [tiktok, setTiktok] = useState(state.influencer.state.infloginData.tiktok);
-  const [twitter, setTwitter] = useState(state.influencer.state.infloginData.twitter);
-  const [youtube, setYoutube] = useState(state.influencer.state.infloginData.youtube);
-  const [avatar, setAvatar] = useState(state.influencer.state.infloginData.avatar);
-  const [mobile, setMobile] = useState(state.influencer.state.infloginData.mobile);
+  const [facebook, setFacebook] = useState(
+    state.influencer.state.infloginData.facebook
+  );
+  const [tiktok, setTiktok] = useState(
+    state.influencer.state.infloginData.tiktok
+  );
+  const [twitter, setTwitter] = useState(
+    state.influencer.state.infloginData.twitter
+  );
+  const [youtube, setYoutube] = useState(
+    state.influencer.state.infloginData.youtube
+  );
+  const [avatar, setAvatar] = useState(
+    state.influencer.state.infloginData.avatar
+  );
+  const [mobile, setMobile] = useState(
+    state.influencer.state.infloginData.mobile
+  );
   const denied_prd = state.influencer.state.infloginData.denied_prd;
   const wait_prd = state.influencer.state.infloginData.wait_prd;
   const progress_prd = state.influencer.state.infloginData.progress_prd;
   const history_prd = state.influencer.state.infloginData.history_prd;
   const joined_channel = state.influencer.state.infloginData.joined_channel;
-  
 
   AWS.config.update({
     region: "ap-northeast-2",
@@ -91,28 +119,10 @@ const UploadProfile = () => {
         .then((res) => {
           console.log("success");
         });
-      console.log(
-        uid,
-        nickname,
-        tags,
-        sex,
-        birthday,
-        insta,
-        mobile,
-        avatar
-      );
+      console.log(uid, nickname, tags, sex, birthday, insta, mobile, avatar);
     } catch (err) {
       console.log("failed updateProfile");
-      console.log(
-        uid,
-        nickname,
-        tags,
-        sex,
-        birthday,
-        insta,
-        mobile,
-        avatar
-      );
+      console.log(uid, nickname, tags, sex, birthday, insta, mobile, avatar);
     }
     const userinfo = {
       uid,
@@ -163,9 +173,9 @@ const UploadProfile = () => {
         <img className="profile-img" src={avatar} />
 
         <div> 안녕하세요 {state.influencer.state.infloginData.nickname} 님</div>
-        <Form onSubmit={handlePost} id='my-form'>
+        <Form onSubmit={handlePost} id="my-form">
           <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
+            <TextField
               type="nickname"
               placeholder={nickname}
               onChange={(e) => setNickname(e.target.value)}
@@ -174,32 +184,42 @@ const UploadProfile = () => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
+            <TextField
               type="tags"
               placeholder="choose Tag!"
               onChange={(e) => setTags(e.target.value)}
               defaultValue={state.influencer.state.infloginData.tags}
             />
           </Form.Group>
+
           <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
+            <TextField
               type="Date"
               placeholder="how old?"
               onChange={(e) => setBirthday(e.target.value)}
               defaultValue={state.influencer.state.infloginData.birthday}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
-              type="sex"
-              placeholder="male or female"
+
+          <FormControl sx={{ m: 1, width: 300 }}>
+            
+            <InputLabel id="demo-simple-select-label">Sex</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={sex}
+              label="sex"
               onChange={(e) => setSex(e.target.value)}
-              defaultValue={state.influencer.state.infloginData.sex}
-            />
-          </Form.Group>
+              defaultValue={state.influencer.state.infloginData.birthday}
+            >
+              <MenuItem value={'male'}>male</MenuItem>
+              <MenuItem value={'female'}>female</MenuItem>
+              
+            </Select>
+          </FormControl>
 
           <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
+            <TextField
               type="today"
               placeholder="date today"
               onChange={(e) => setBirthday(e.target.value)}
@@ -207,7 +227,7 @@ const UploadProfile = () => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
+            <TextField
               type="InstaId"
               placeholder={state.auth.state.loginData.insta}
               onChange={(e) => setInsta(e.target.value)}
@@ -215,7 +235,7 @@ const UploadProfile = () => {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
+            <TextField
               type="mobile"
               placeholder="your Mobile Number"
               onChange={(e) => setMobile(e.target.value)}
@@ -223,17 +243,13 @@ const UploadProfile = () => {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
+            <TextField
               type="photo"
               placeholder={state.influencer.state.infloginData.avatar}
               value={avatar}
             />
           </Form.Group>
-          <Avatar
-            alt="Remy Sharp"
-            src={state.influencer.state.infloginData.avatar}
-            sx={{ width: 100, height: 100 }}
-          />
+
           <div>
             {/* <Button variant="primary" type="Submit">
               저장
