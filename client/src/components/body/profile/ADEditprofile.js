@@ -18,6 +18,7 @@ import {
   MenuItem,
   Select
 } from "@mui/material";
+import { TagsInput } from "react-tag-input-component";
 
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -248,10 +249,18 @@ const ADEditProfile = () => {
           </Form.Group>
 
           <div>
-            {/* <Button variant="primary" type="Submit">
-              저장
-            </Button> */}
-          </div>
+            <h1>Add Fruits</h1>
+
+            <pre>{JSON.stringify(tags)}</pre>
+
+            <TagsInput
+                value={tags}
+                onChange={setTags}
+                name="fruits"
+                placeHolder="enter fruits"
+            />
+            <em>press enter to add new tag</em>
+            </div>
         </Form>
       </div>
     </div>
