@@ -6,20 +6,45 @@ import {
     getAuth,
     updateProfile,
     sendEmailVerification,
-    onAuthStateChanged
+    onAuthStateChanged,
+    onIdTokenChanged
   } from "firebase/auth";
 
 const Emailverify = () => {
     const navigate = useNavigate();
     const auth = getAuth();
-    useEffect(() => {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          const emailVerified = user.emailVerified;
-        }
-      });
-      }, []
-    );
+    
+    function handleClickMain() {
+      navigate("/Main");
+    }
+
+    // useEffect(() => {
+    //   onAuthStateChangedUnsubscribe();
+    //   }, []);
+
+      const onAuthStateChangedUnsubscribe = 
+          onAuthStateChanged(auth, (user) => {
+            if (user) {
+              // -> Alert Email Verification
+              
+              const onIdTokenChangedUnsubscribe = onIdTokenChanged(auth, (user) => {
+                const unsubscribeSetInterval = setTimeout(() => {
+                  auth.currentUser.reload();
+                  auth.currentUser.getIdToken(/* forceRefresh */ true)
+                }, 10000);
+  
+                if (user && user.emailVerified) {
+                  clearInterval(unsubscribeSetInterval) //delete interval
+                  onAuthStateChangedUnsubscribe() //unsubscribe onAuthStateChanged
+                  handleClickMain();
+                  return onIdTokenChangedUnsubscribe() //unsubscribe onIdTokenChanged
+                }
+              })
+            }
+          })
+
+
+
 
 const resendvfmail = () =>{
     sendEmailVerification(auth.currentUser)

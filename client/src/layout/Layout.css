@@ -10,15 +10,15 @@
     background-color: cadetblue;
   }
   
-  .aside {
+  /* .aside {
     grid-area: 2 / 1 / 3 / 2;
     background-color: chartreuse;
     
-  }
+  } */
   
   .main {
-    grid-area: 2 / 2 / 3 / 3;
-    background-color: darkred;
+    grid-area: 2 / 1 /3 / 3 ;
+    background-color: #fff;
     
   }
   

@@ -48,14 +48,14 @@ const myrole = state.auth.state.loginData.role
           : <HeaderAD />
         }
       </header>
-      <aside className="aside">
+      {/* <aside urticaria className="aside">
       {
           myrole === "influencer"
           ? <InfNavBar />
           : <AdNavBar />
       }
-      </aside>
-    <main>
+      </aside> */}
+    <main className="main">
       <Outlet />
     </main>
     <footer className="footer">

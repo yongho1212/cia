@@ -36,7 +36,7 @@ const reducer = ( state = initialState, action) => {
         case "INFEDITINFO" :
             return {
                 ...state,
-                auth :  action.payload
+                state : action.payload
             }
         case "INFADDCHANNEL" :
             return {

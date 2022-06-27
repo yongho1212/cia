@@ -1,113 +1,230 @@
 import React, { useEffect, useState } from "react";
-import { reauthenticateWithCredential, signOut, deleteUser, getAuth } from "firebase/auth";
+
+import {
+  reauthenticateWithCredential,
+  signOut,
+  deleteUser,
+  getAuth,
+} from "firebase/auth";
+import { updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router";
-import Avatar from '@mui/material/Avatar';
-import { Button } from "react-bootstrap";
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../../state/index';
+
+import TextField from "@mui/material/TextField";
+import FormControl from "@mui/material/FormControl";
+import Avatar from "@mui/material/Avatar";
+import { Form, Alert, Button } from "react-bootstrap";
+import { InputLabel, Typography } from "@mui/material";
+import { Input } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
+import ADEditProfile from './ADEditprofile';
+
+import { async } from "@firebase/util";
+import axios from "axios";
+
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../../../state/index";
 
 const ADProfile = () => {
-  const [userData, setUserData] = useState({
-    email: '',
-    displayName: '',
-    role: 'notsure',
-    uid: '',
-    avatar: '',
-    tags: '',
-    age: '',
-    sex: '',
-    insta: '',
-    mobile: '',
-    joinedChannel: []
-  })
+  const [open, setOpen] = React.useState(false);
+  const [scroll, setScroll] = React.useState("paper");
+
   const dispatch = useDispatch();
-  const state = useSelector((state) => state)
-  const { loginUser, logoutUser, fbuser, nofbuser, adloginUser } = bindActionCreators(actionCreators, dispatch);
+  const state = useSelector((state) => state);
+  const { loginUser, logoutUser, fbuser, nofbuser, adloginUser } =
+    bindActionCreators(actionCreators, dispatch);
   const navigate = useNavigate();
   const auth = getAuth();
   const user = auth.currentUser;
-  const uid = state.advertiser.state.adloginData.uid
+  const uid = state.advertiser.state.adloginData.uid;
+
+  const handleClickOpen = (scrollType) => () => {
+    setOpen(true);
+    setScroll(scrollType);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const descriptionElementRef = React.useRef(null);
+  useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
 
   useEffect(() => {
     if (!fbuser) {
-      navigate("/Home")
+      navigate("/Home");
     }
-  })
+  });
 
   const editProfile = () => {
-    navigate("/EditProfile")
-  }
+    navigate("/EditProfile");
+  };
 
   const handleLogout = async () => {
     try {
-      navigate('/Home');
+      navigate("/Home");
       logoutUser();
-      nofbuser(false);;
+      nofbuser(false);
       signOut(auth);
-      console.log('logout')
+      console.log("logout");
     } catch (err) {
-      console.log(err)
-    };
+      console.log(err);
+    }
   };
 
   const deleteUserAll = async () => {
-    if (window.confirm('정말 탈퇴하시겠습니다?')) {
-      const res = await axios.post('http://localhost:1212/user/delete', { uid })
+    if (window.confirm("정말 탈퇴하시겠습니다?")) {
+      const res = await axios
+        .post("http://localhost:1212/user/delete", { uid })
         .then((res) => {
-          console.log(res.data)
-          console.log('success')
+          console.log(res.data);
+          console.log("success");
         })
         .then(() => {
-          deleteUser(user)
-          console.log('firebase deleted');
+          deleteUser(user);
+          console.log("firebase deleted");
         })
         .then(() => {
           handleLogout();
         })
         .catch((error) => {
+          // An error ocurred
+          // ...
         });
-      alert('삭제완료!')
+      alert("삭제완료!");
     } else {
-      alert('취소')
+      alert("취소");
     }
-  }
+  };
+
+  
 
   return (
-    <Box style={{ backgroundColor: '#fff', display: 'flex', flexDirection: 'row' }} sx={{ flexGrow: 1 }}>
-      <Grid style={{}}>
-        <div style={{ backgroundColor: 'red', margin: '15px' }}>
-          <h1>Hello! It's profile page.</h1>
-          <Avatar
-            alt="Remy Sharp"
-            src={state.advertiser.state.adloginData.avatar}
-            sx={{ width: 100, height: 100 }}
-          />
-          <div>
-            {state.advertiser.state.adloginData.role} <br />
-            {state.advertiser.state.adloginData.avatar}<br />
-            {state.advertiser.state.adloginData.brandname}<br />
-            {state.advertiser.state.adloginData.email}<br />
-            {state.advertiser.state.adloginData.joinedChannel}<br />
-            {state.advertiser.state.adloginData.mobile}<br />
-            {state.advertiser.state.adloginData.tags}<br />
-          </div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        backgroundColor: "#667",
+        height:'90vh'
+      }}
+    >
+      <div style={{ width: "50vw" }}>
+        <Box
+          style={{
+            backgroundColor: "#fff",
+          }}
+          sx={{ flexGrow: 1 }}
+        >
+          <Grid style={{}}>
+            <div style={{ backgroundColor: "red", margin: "15px" }}>
+              <h1>Hello! It's profile page.</h1>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "flex-end",
+                  backgroundColor: "blue",
+                }}
+              >
+                <Avatar
+                  alt="Remy Sharp"
+                  src={state.advertiser.state.adloginData.logo}
+                  sx={{ width: 170, height: 170 }}
+                />
+
+                <div
+                  style={{
+                    marginLeft: "15px",
+                    width: "100%",
+                    height: "170",
+                    backgroundColor: "#fff",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                    <div>
+                      <Button onClick={handleClickOpen("paper")}>
+                        수정
+                      </Button>
+                      
+                      <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        scroll={scroll}
+                        aria-labelledby="scroll-dialog-title"
+                        aria-describedby="scroll-dialog-description"
+                        fullWidth="true"
+                        maxWidth = "40px"
+                      >
+                        <DialogTitle id="scroll-dialog-title">
+                          Subscribe
+                        </DialogTitle>
+                        <DialogContent dividers={scroll === "paper"}>
+                          <ADEditProfile/>
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={handleClose}>Cancel</Button>
+                          
+                          <Button positive form='my-form' content='Submit' value='Submit' type="Submit">
+                            저장
+                          </Button>
+                        </DialogActions>
+                      </Dialog>
+                    </div>
+                  </div>
+                  <Typography style={{ fontSize: "40px" }}>
+                    {state.advertiser.state.adloginData.brand_name}
+                  </Typography>
+                  <Typography style={{ fontSize: "25px", color: "grey" }}>
+                    {state.advertiser.state.adloginData.role}
+                  </Typography>
+                </div>
+              </div>
+
+              <div>
+                
+                <br />
+                인스타
+                {state.advertiser.state.adloginData.insta}
+                <br />
+                이메일
+                {state.advertiser.state.adloginData.email}
+                <br />
+                조인체널
+                {state.advertiser.state.adloginData.joined_channel}
+                <br />
+                번호
+                {state.advertiser.state.adloginData.mobile}
+                <br />
+                  태그
+                {state.advertiser.state.adloginData.tags}
+                <br />
+              </div>
+            </div>
+          </Grid>
+
+          {/* <FacebookLoginButton/> */}
+        </Box>
+
+        <div style={{ backgroundColor: "#a78" }}>
+          <Button onClick={() => deleteUserAll()}>회원탈퇴</Button>
         </div>
-        <div style={{ backgroundColor: 'green', margin: '15px' }}>
-          <h1>Hello! It's profile page.</h1>
-          <div>
-          </div>
-        </div>
-      </Grid>
-      <Button
-        onClick={() => deleteUserAll()}
-      >
-      </Button>
-    </Box>
-  )
-}
+      </div>
+    </div>
+  );
+};
 
 export default ADProfile;
