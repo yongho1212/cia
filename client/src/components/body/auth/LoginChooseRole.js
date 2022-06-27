@@ -1,18 +1,11 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
 
-
-
-
-
 const LoginChooseRole = () => {
-
     const navigate = useNavigate();
-
     function moveAd() {
         navigate("/AdLogin")
       };
-
       function moveInf() {
         navigate("/InfLogin")
       };

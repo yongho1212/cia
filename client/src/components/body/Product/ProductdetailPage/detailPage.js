@@ -3,23 +3,17 @@ import axios from 'axios'
 import { useParams } from "react-router-dom";
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../../../state/index';
 
 const DetailPage = () => {
     const [product, setProduct] = useState([]); // 제품 정보
     const { id } = useParams();
-    const dispatch = useDispatch();
     const state = useSelector((state) => state);
-    const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
-
     const uid = state.auth.state.loginData.uid;
 
     const getPostList = async () => {
         try {
            const res = await axios.post('http://localhost:1212/products/getlist')
            .then((res) => {
-            console.log(res.data)
             setProduct(res.data); 
             return 0;
           })
@@ -32,7 +26,6 @@ const DetailPage = () => {
     const appliyCampaign = async (e) => {
         e.preventDefault();
         try {
-            console.log('test for push', uid, id);
             const res = await axios.post('http://localhost:1212/products/appliyCampaign',
             {uid, id}).then((res) => {
                 console.log('Applied Success!');

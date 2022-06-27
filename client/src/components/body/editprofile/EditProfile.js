@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios';
 
-
-export default function EditProfile() {
-
+const EditProfile = () => {
 
   return (
     <Box
@@ -24,9 +22,9 @@ export default function EditProfile() {
           label="Required"
           defaultValue="Hello World"
         />
-        
-        
       </div>
     </Box>
   )
 }
+
+export default EditProfile;

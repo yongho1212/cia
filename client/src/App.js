@@ -15,7 +15,7 @@ import Chat from './components/body/chat/Chat';
 import INFChat from './components/body/chat/INFChat';
 import ADChat from './components/body/chat/ADChat';
 
-import InfluencerList from './components/body/influencerList/influencerList';
+import InfluencerList from './components/body/influencerList/InfluencerList';
 import Search from './components/body/search/Search';
 import UploadProfile from './components/body/profile/UploadProfile';
 
@@ -113,7 +113,8 @@ function App() {
           </>  
           :
           <>
-          <Route path="/Emailverify" element={<Emailverify />} />
+          
+          <Route path="/Emailverify/*" element={<Emailverify />} />
           <Route  element={<Layout />}>
           
             <Route path="/Main/*" element={<Main />} />

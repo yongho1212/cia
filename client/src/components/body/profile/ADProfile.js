@@ -41,7 +41,6 @@ const ADProfile = () => {
   const { loginUser, logoutUser, fbuser, nofbuser, adloginUser } =
     bindActionCreators(actionCreators, dispatch);
   const navigate = useNavigate();
-
   const auth = getAuth();
   const user = auth.currentUser;
   const uid = state.advertiser.state.adloginData.uid;

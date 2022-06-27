@@ -41,7 +41,6 @@ const INFProfile = () => {
   const { loginUser, logoutUser, fbuser, nofbuser, infloginUser } =
     bindActionCreators(actionCreators, dispatch);
   const navigate = useNavigate();
-
   const auth = getAuth();
   const user = auth.currentUser;
   const uid = state.influencer.state.infloginData.uid;

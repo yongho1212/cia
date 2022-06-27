@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FacebookLogin from 'react-facebook-login';
 
-const responseFacebook = (response) => {
-    console.log(response);
-  }
-
-export default function FacebookLoginButton() {
+const FacebookLoginButton = () => {
   return (
     <FacebookLogin
         appId="921201001964201"
@@ -16,3 +12,5 @@ export default function FacebookLoginButton() {
         icon="fa-facebook" />
   );
 }
+
+export default FacebookLoginButton;

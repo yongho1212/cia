@@ -1,26 +1,18 @@
-import React, {useEffect, useState} from 'react'
-import { Button } from '@mui/material';
-import { useNavigate, Route, useParams } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from "react-router-dom";
-import DetailPage from '../Product/ProductdetailPage/detailPage';
 
-const  InfluencerList = ({ useParams }) => {
+const InfluencerList = ({ useParams }) => {
   const [list, setList] = useState();
-  
-  console.log(list);
 
   const getInfluencerList = async () => {
     try {
-       const res = await axios.post('http://localhost:1212/user/getlist')
-       .then((res) => { 
-        console.log(res.data);
-
-        setList(res.data);
-        return 0;
-      })
-
-    } 
+      const res = await axios.post('http://localhost:1212/user/getlist')
+        .then((res) => {
+          setList(res.data);
+          return 0;
+        })
+    }
     catch (err) {
       console.log(err)
     }
@@ -31,15 +23,13 @@ const  InfluencerList = ({ useParams }) => {
   }, []);
 
   return (
-    
-    <div className="main_Right_chan" style={{display: 'flex', flexWrap: 'wrap',  }}>
+    <div className="main_Right_chan" style={{ display: 'flex', flexWrap: 'wrap', }}>
       {list ? list.map(item => {
         return (
-          <div key={item._id} style={{ marginInline:'40px', marginTop:'40px'}}>
+          <div key={item._id} style={{ marginInline: '40px', marginTop: '40px' }}>
             <Link to={`/InfluencerProfile/${item._id}`} style={{ color: 'black', display: 'flex', flexDirection: 'column', width: '200px', height: '280px', alignItems: 'flex-start' }}>
-              {/* <Link to={`/Detail/${item.name}`} /> */}
               <div style={{ width: '200px', height: '200px', backgroundColor: 'red' }}>
-                <img className='profile-img' src={item.avatar} width='200px' height='200px'/>
+                <img className='profile-img' src={item.avatar} width='200px' height='200px' />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div style={{ fontSize: '20px' }}>
@@ -58,11 +48,8 @@ const  InfluencerList = ({ useParams }) => {
           </div>
         )
       }) : ''}
-    </div> 
-    
+    </div>
   );
 };
-
-
 
 export default InfluencerList;

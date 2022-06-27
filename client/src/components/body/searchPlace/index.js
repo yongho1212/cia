@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Chip from '@mui/material/Chip';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
@@ -20,98 +19,88 @@ function valuetext(value) {
 const minDistance = 10;
 
 const SearchBar = () => {
-
-
-  
-    const [value2, setValue2] = React.useState([20, 37]);
-  
-    const handleChange2 = (event, newValue, activeThumb) => {
-      if (!Array.isArray(newValue)) {
-        return;
-      }
-  
-      if (newValue[1] - newValue[0] < minDistance) {
-        if (activeThumb === 0) {
-          const clamped = Math.min(newValue[0], 100 - minDistance);
-          setValue2([clamped, clamped + minDistance]);
-        } else {
-          const clamped = Math.max(newValue[1], minDistance);
-          setValue2([clamped - minDistance, clamped]);
-        }
+  const [value2, setValue2] = React.useState([20, 37]);
+  const handleChange2 = (event, newValue, activeThumb) => {
+    if (!Array.isArray(newValue)) {
+      return;
+    }
+    if (newValue[1] - newValue[0] < minDistance) {
+      if (activeThumb === 0) {
+        const clamped = Math.min(newValue[0], 100 - minDistance);
+        setValue2([clamped, clamped + minDistance]);
       } else {
-        setValue2(newValue);
+        const clamped = Math.max(newValue[1], minDistance);
+        setValue2([clamped - minDistance, clamped]);
       }
-    };
-  
-
-
+    } else {
+      setValue2(newValue);
+    }
+  };
 
   return (
     <>
-    <div className="serchbarcontainer">
-    <FormControl component="fieldset">
-      <FormLabel component="legend">Label placement</FormLabel>
-      <FormGroup aria-label="position" row>
-      <FormControlLabel
-          value="end"
-          control={<Checkbox />}
-          label="Instagram"
-          labelPlacement="end"
-        />
-        <FormControlLabel
-          value="end"
-          control={<Checkbox />}
-          label="Facebook"
-          labelPlacement="end"
-        />
-        <FormControlLabel
-          value="end"
-          control={<Checkbox />}
-          label="Tiktok"
-          labelPlacement="end"
-        />
-        <FormControlLabel
-          value="end"
-          control={<Checkbox />}
-          label="Youtube"
-          labelPlacement="end"
-        />
-      </FormGroup>
-    </FormControl>
-
-    <Stack spacing={3} sx={{ width: 1000 }}>
-      <Autocomplete
-        multiple
-        id="tags-outlined"
-        options={top100Films}
-        getOptionLabel={(option) => option.title}
-        defaultValue={[top100Films[13]]}
-        filterSelectedOptions
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="filterSelectedOptions"
-            placeholder="Favorites"
+      <div className="serchbarcontainer">
+        <FormControl component="fieldset">
+          <FormLabel component="legend">Label placement</FormLabel>
+          <FormGroup aria-label="position" row>
+            <FormControlLabel
+              value="end"
+              control={<Checkbox />}
+              label="Instagram"
+              labelPlacement="end"
+            />
+            <FormControlLabel
+              value="end"
+              control={<Checkbox />}
+              label="Facebook"
+              labelPlacement="end"
+            />
+            <FormControlLabel
+              value="end"
+              control={<Checkbox />}
+              label="Tiktok"
+              labelPlacement="end"
+            />
+            <FormControlLabel
+              value="end"
+              control={<Checkbox />}
+              label="Youtube"
+              labelPlacement="end"
+            />
+          </FormGroup>
+        </FormControl>
+        <Stack spacing={3} sx={{ width: 1000 }}>
+          <Autocomplete
+            multiple
+            id="tags-outlined"
+            options={top100Films}
+            getOptionLabel={(option) => option.title}
+            defaultValue={[top100Films[13]]}
+            filterSelectedOptions
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="filterSelectedOptions"
+                placeholder="Favorites"
+              />
+            )}
           />
-        )}
-      />
-    </Stack>
-
-    <Box sx={{ width: 300, marginTop: '15px' }}>
-        <Typography gutterBottom>Followers</Typography>
-        <Slider
+        </Stack>
+        <Box sx={{ width: 300, marginTop: '15px' }}>
+          <Typography gutterBottom>Followers</Typography>
+          <Slider
             getAriaLabel={() => 'Minimum distance shift'}
             value={value2}
             onChange={handleChange2}
             valueLabelDisplay="auto"
             getAriaValueText={valuetext}
             disableSwap
-        />
-    </Box>
-    </div>
+          />
+        </Box>
+      </div>
     </>
   );
-}
+};
 
 export default SearchBar;
 
