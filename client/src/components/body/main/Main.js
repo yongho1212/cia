@@ -19,7 +19,7 @@ const Main = () => {
   }, [state, navigate]);
 
   return (
-    <div style={{ backgroundColor: 'blue', display: 'inline-block', flexDirection: 'row', justifyContent: 'flex-end' }}>
+    <div style={{  display: 'inline-block', flexDirection: 'row', justifyContent: 'flex-end' }}>
       <ProdcutView />
     </div>
   );
