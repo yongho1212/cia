@@ -155,6 +155,15 @@ const infCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
+
+    getlist: async (req, res) => {
+        try {
+            const post = await Inf.find();
+            res.send(post)
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
    
 
 }
