@@ -11,6 +11,7 @@ import { db, auth } from '../../../../firebase'
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../../../state/index";
+import { appendprd } from '../../../../state/actioncreators';
 
 const UploadProduct = () => {
     const state = useSelector((state) => state);
@@ -119,6 +120,7 @@ const UploadProduct = () => {
             detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid, prdfsidDb
         }
         appendprd(data);
+        console.log(state.myprd)
         navigate("/Main");
         console.log(state.myprd)
     };
@@ -130,7 +132,7 @@ const UploadProduct = () => {
             <input type="file" id="upload" className='image-upload' onChange={handleFileInput} />
             <label htmlFor='upload' className='image-upload-wrapper'></label>
             <img className='profile-img' src={photo} />
-            <Form onSubmit={handlePost}>
+            <Form onSubmit={handlePost} id="prdform">
                 <Form.Group className="mb-3" controlId="formBasicName">
                     <Form.Control
                         type="name"

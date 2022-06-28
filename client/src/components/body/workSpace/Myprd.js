@@ -25,12 +25,12 @@ const Myprd = () => {
 
   const getListById = async () => {
     
-    console.log(uid)
+  //  console.log(uid)
     try {
        const res = await axios.get('http://localhost:1212/products/getlistbyid', 
        { params: { uid } })
        .then((res) => { 
-        console.log(res.data);
+//        console.log(res.data);
         setProduct(res.data);
         return 0;
       })
@@ -47,6 +47,7 @@ const Myprd = () => {
 
   return (
     <div className="main_Right_chan" style={{display: 'flex', flexWrap: 'wrap'}}>
+      나의 상품리스트
       {product ? product.map(item => {
         return (
           <div key={item._id} style={{ margin: '20px'}}>

@@ -31,11 +31,11 @@ const reducer = ( state = initialState, action) => {
     switch(action.type) {
         case "PREPEND_PRD":
             return { ...state,
-                myPrd : action.payload
+                myPrd : [action.payload]
             }
         case "APPEND_PRD":
             return { ...state,
-                myPrd : [...state.myPrd, action.payload]
+                myPrd : [action.payload]
             }
         default:
             return state;

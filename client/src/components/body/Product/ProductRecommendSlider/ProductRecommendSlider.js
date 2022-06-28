@@ -27,7 +27,6 @@ const SampleNextArrow = ({className, style, onClick}) => {
 
 const ProductRecommendSlider = () => {
   const settings = {
-    centerMode: true,
     dots: true,
     infinite: true,
     slidesToShow: 3,
