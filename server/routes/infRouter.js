@@ -13,7 +13,7 @@ router.post('/inf_add_channel', infCtrl.addChatChannelINF)
 
 router.post('/inf_update_profile', infCtrl.inf_update_profile)
 
-
+router.post('/getlist', infCtrl.getlist)
 
 
 

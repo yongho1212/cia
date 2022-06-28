@@ -16,6 +16,7 @@ const Main = () => {
 
 
   const userRole = state.auth.state.loginData.role
+  // const userRole = 'influencer'
 
   console.log(userRole);
 
