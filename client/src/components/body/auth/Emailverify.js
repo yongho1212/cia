@@ -31,7 +31,7 @@ const Emailverify = () => {
                 const unsubscribeSetInterval = setTimeout(() => {
                   auth.currentUser.reload();
                   auth.currentUser.getIdToken(/* forceRefresh */ true)
-                }, 100000);
+                }, 10000);
   
                 if (user && user.emailVerified) {
                   clearInterval(unsubscribeSetInterval) //delete interval
