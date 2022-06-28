@@ -58,8 +58,10 @@ const AdSignup = () => {
         console.log(res.data)
       })
       const loginData = {brand_name, email, uid, password}
+      const role = 'advertiser'
+      const userdata = {role, uid}
       adloginUser(loginData)
-      loginUser(loginData)
+      loginUser(userdata)
       fbuser(true)
     } catch (err) {
       console.log('failed')

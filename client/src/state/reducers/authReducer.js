@@ -9,9 +9,7 @@ const initialState = {
         joinedChannel: [],
         mobile: "",
         role: "" ,
-        sex: "",
-        tags: "",
-        uid: ""
+
     } 
     
 }
