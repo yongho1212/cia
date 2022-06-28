@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from "react-router-dom";
+import ProductRecommendSlider from '../ProductRecommendSlider/ProductRecommendSlider';
+
 
 const ProdcutView = ({ useParams }) => {
   const [product, setProduct] = useState();
@@ -23,6 +25,8 @@ const ProdcutView = ({ useParams }) => {
   }, []);
 
   return (
+    <div style={{}}>
+      <ProductRecommendSlider />
     <div className="main_Right_chan" style={{ display: 'flex', flexWrap: 'wrap', }}>
       {product ? product.map(item => {
         return (
@@ -48,6 +52,7 @@ const ProdcutView = ({ useParams }) => {
           </div>
         )
       }) : ''}
+    </div>
     </div>
   );
 };

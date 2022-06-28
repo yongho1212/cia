@@ -3,6 +3,8 @@ import './Main.css'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ProdcutView from "../Product/ProductView/ProductView";
+import Workspace from '../workSpace/Workspace' 
+import Dashmain from '../workSpace/Dashmain' 
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../state/index';
 
@@ -12,6 +14,11 @@ const Main = () => {
   const { loginUser, logoutUser, fbuser, nofbuser } = bindActionCreators(actionCreators, dispatch);
   const navigate = useNavigate();
 
+
+  const userRole = state.auth.state.loginData.role
+
+  console.log(userRole);
+
   useEffect(() => {
     if (!fbuser) {
       navigate("/Home");
@@ -19,8 +26,13 @@ const Main = () => {
   }, [state, navigate]);
 
   return (
-    <div style={{ backgroundColor: 'blue', display: 'inline-block', flexDirection: 'row', justifyContent: 'flex-end' }}>
+    <div style={{  display: 'inline-block', flexDirection: 'row', justifyContent: 'flex-end' }}>
+      { userRole === 'influencer' ?
       <ProdcutView />
+      :
+      <Dashmain />
+      }
+      
     </div>
   );
 };
