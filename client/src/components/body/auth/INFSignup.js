@@ -59,9 +59,9 @@ const INFSignup = () => {
       })
       const infloginData = {nickname, email, uid, password}
       const role = 'influencer'
-      const userdata = {role, uid}
+      const loginData = {role, uid}
       infloginUser(infloginData)
-      loginUser(userdata)
+      loginUser(loginData)
       fbuser(true)
     // console.log(state.auth.state.loginData.role)
     } catch (err) {
