@@ -121,7 +121,6 @@ const adCtrl = {
         try {
             const {uid} = req.body
             await Ad.findOneAndDelete({uid: uid})
-
             res.json({msg: "Deleted Success!"})
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -133,7 +132,6 @@ const adCtrl = {
     aboutMe: async (req, res) => {
         try {
             const {about} = req.body
-
 
             await Ad.findOneAndUpdate({_id: req.user.id}, {
                 about

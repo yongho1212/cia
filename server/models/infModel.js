@@ -73,11 +73,11 @@ const infSchema = new mongoose.Schema({
     },
     denied_prd:{
         type: Array,
-        required: [true, "You already!"]
+        
     },
     progress_prd:{
         type: Array,
-        required: [true, "You already"]
+        
     },
     history_prd:{
         type: Array
