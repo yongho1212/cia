@@ -5,7 +5,7 @@ import { Alert, Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../../state/index';
-import { doc, getDocFromCache, setDoc, addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { doc, deleteDoc, setDoc, addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, auth } from '../../../../firebase'
 import { useNavigate } from 'react-router-dom';
 
@@ -128,6 +128,8 @@ const EditDetailpage = () => {
         if (window.confirm('정말 삭제하시겠습니다?')) {
         
         const prdfsidDb = prdfsid
+
+        await deleteDoc(doc(db, 'prdRoom', `${prdfsidDb}`))
         
         try {
             const delPrd = await axios.post('http://localhost:1212/products/deleteProduct',
