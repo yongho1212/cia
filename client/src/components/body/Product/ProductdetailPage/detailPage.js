@@ -10,6 +10,8 @@ const DetailPage = () => {
     const state = useSelector((state) => state);
     const uid = state.auth.state.loginData.uid;
 
+    const [already, setAlready] = useState(false)
+
     console.log(id)
     console.log(uid)
 
@@ -53,7 +55,8 @@ const applyChecker = async() => {
         {id, uid}).then((res) => {
             console.log(res);
             console.log(res.data)
-            // 받은 값 setState으로 값 변경하고 신청하기 버튼 안보이게 만들기
+            const checker = res.data
+            setAlready(checker);
         })
     }
     catch (err) {
@@ -111,9 +114,14 @@ const applyChecker = async() => {
                 }) : <></>} */}
             </div> : <div>업로드 실패</div>}
             <div>
-                <Button onClick={appliyCampaign}>
+                { already === false ?
+                    <Button onClick={appliyCampaign}>
                     신청하기
-                </Button>
+                    </Button>
+                :
+                    <p>이미 신청하셨습니다.</p>
+                }
+                
             </div>
         </div>
     );
