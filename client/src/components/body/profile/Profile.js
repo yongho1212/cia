@@ -96,7 +96,7 @@ const Profile = () => {
             {state.auth.state.loginData.joinedChannel}<br />
             {state.auth.state.loginData.mobile}<br />
             {state.auth.state.loginData.sex}<br />
-            {state.auth.state.loginData.tags}<br />
+            "#" + {state.auth.state.loginData.tags} + " "<br />
           </div>
         </div>
         <div style={{ backgroundColor: 'green', margin: '15px' }}>

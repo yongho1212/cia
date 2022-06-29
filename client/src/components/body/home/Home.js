@@ -18,7 +18,7 @@ const Home = () => {
     <>
       <div className="home_page">
         <div style={{ height: '100vh', backgroundImage: `url(${background})`, backgroundSize: "cover" }} >
-          <h1> hi</h1>
+          
         </div>
         <Section {...homeObjOne} />
         <Section {...homeObjThree} />

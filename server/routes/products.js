@@ -15,4 +15,6 @@ router.post('/acceptApplicant', productCtrl.acceptApplicant)
 
 router.post('/declineApplicant', productCtrl.declineApplicant)
 
+router.post('/deleteProduct', productCtrl.deletePrd)
+
 module.exports = router

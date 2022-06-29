@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import { useParams } from "react-router-dom";
-import { Button } from '@mui/material';
+import { Alert, Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../../state/index';
 import { doc, getDocFromCache, setDoc, addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, auth } from '../../../../firebase'
+import { useNavigate } from 'react-router-dom';
 
 const EditDetailpage = () => {
     const [product, setProduct] = useState([]); // 제품 정보
@@ -18,6 +19,7 @@ const EditDetailpage = () => {
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
     const { loginUser, logoutUser, fbuser, nofbuser, adaddchannel } = bindActionCreators(actionCreators, dispatch);
+    const navigate = useNavigate()
 
     const uid = state.auth.state.loginData.uid;
 
@@ -97,6 +99,56 @@ const EditDetailpage = () => {
         }
         adaddchannel(joined_channel)
     }
+
+
+    //거절 버튼 
+
+
+    const rejectInf = async (applicant_id) => {
+        
+        const denied_prd = prdfsid
+        
+        try {
+            const resprdinf = await axios.post('http://localhost:1212/inf/inf_reject_prd',
+                { applicant_id, denied_prd }
+            ).then((resprdinf) => {
+                console.log('success')
+                console.log(resprdinf.data)
+            })
+        } catch (err) {
+            console.log(err)
+            console.log('failed reject');
+        }
+        
+    }
+
+
+    // 상품 삭제 하기
+    const deletePrd = async() => {
+        if (window.confirm('정말 삭제하시겠습니다?')) {
+        
+        const prdfsidDb = prdfsid
+        
+        try {
+            const delPrd = await axios.post('http://localhost:1212/products/deleteProduct',
+                { prdfsidDb }
+            ).then((dltres) => {
+                console.log('delete success')
+                console.log(dltres.data)
+            })
+        } catch (err) {
+            console.log(err)
+            console.log('failed delte');
+        }
+        alert('삭제완료!')
+        navigate('/Main')
+    } else {
+      alert('취소')
+    }
+    }
+
+
+
     
     // 뭔가 남겨야 할 것 같은 느낌이라서 남겨둠
     // const addChannel = async (joined_channel) => {
@@ -187,6 +239,13 @@ const EditDetailpage = () => {
                     <div>
                         {item.targetPlatform}
                     </div>
+                    <div>
+                        <button
+                        onClick={() => deletePrd()}
+                        >
+                            상품 삭제하기
+                        </button>
+                    </div>
                     {item ? item.applicant.map(applicant_id => {
                         return (
                             <div>
@@ -194,7 +253,7 @@ const EditDetailpage = () => {
                                     {applicant_id}
                                 </div>
                                 <Button className='accept' onClick={e => { e.preventDefault(); onAcceptHandle(applicant_id); addNewInf(applicant_id); }}>수락</Button>
-                                <Button className='decline' onClick={e => { e.preventDefault(); onDeclineHandle(applicant_id); }}>거절</Button>
+                                <Button className='decline' onClick={e => { e.preventDefault(); onDeclineHandle(applicant_id); rejectInf(applicant_id); }}>거절</Button>
                             </div>
                         )
                     }) : <></>}

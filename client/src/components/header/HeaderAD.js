@@ -162,21 +162,21 @@ const HeaderAD = () => {
             >
               업로드 프로필2
             </Button> */}
-            <Button 
+            {/* <Button 
                 variant="contained"
                 style={{backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
                 onClick={handleClickUpload}
             >
                 업로드product
-            </Button>
+            </Button> */}
        
-            <Button 
+            {/* <Button 
                 variant="contained"
                 style={{backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
                 onClick={handleClickSearch}
             >
                 검색
-            </Button>
+            </Button> */}
             <Button 
                 variant="contained"
                 style={{ backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
@@ -198,13 +198,13 @@ const HeaderAD = () => {
             >
                 인플루언서 리스트
             </Button>
-            <Button 
+            {/* <Button 
                 variant="contained"
                 style={{backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
                 onClick={workSpace}
             >
                 WORK SPACE
-            </Button>
+            </Button> */}
             <Button 
                 variant="contained"
                 style={{backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}

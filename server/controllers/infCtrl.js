@@ -117,6 +117,19 @@ const infCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
+    rejectINF: async (req, res) => {
+        try {
+            // const uid = req.body.uid
+            console.log("mongodb is connected fuck");
+            const { applicant_id, denied_prd } = req.body
+            await Inf.findOneAndUpdate({uid: applicant_id}, {$push: {
+                denied_prd: denied_prd
+            }})
+            res.json({msg: "Update Success!"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },    
     addPrdINF: async (req, res) => {
         try {
             // const uid = req.body.uid

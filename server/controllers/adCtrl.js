@@ -1,4 +1,3 @@
-
 const Ad = require('../models/adModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
@@ -8,7 +7,6 @@ const {CLIENT_URL} = process.env
 
 const adCtrl = {
     ad_register: async (req, res) => {
-
 
         try {
             const {brand_name, email, uid, password} = req.body
@@ -118,7 +116,6 @@ const adCtrl = {
         }
     },
 
- 
 
     deleteUser: async (req, res) => {
         try {
@@ -130,6 +127,9 @@ const adCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
+
+
+
     aboutMe: async (req, res) => {
         try {
             const {about} = req.body

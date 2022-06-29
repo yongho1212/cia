@@ -18,8 +18,7 @@ const initialState = {
         progress_prd:[],
         history_prd:[],
         joined_channel:[]
-    } 
-    
+    }
 }
 
 const reducer = ( state = initialState, action) => {
