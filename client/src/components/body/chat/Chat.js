@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import './Chat.css'
 import { db, auth } from '../../../firebase';
 import { onSnapshot, collection, doc } from 'firebase/firestore';
 import SendMessage from './Sendmessage';
@@ -61,7 +62,7 @@ const Chat = () => {
   }
 
   return (
-    <div>
+    <div style={{width:'60vw', marginInline:'20vw'}}>
       <div>Chat</div>
       <section>
         <div>
@@ -70,13 +71,16 @@ const Chat = () => {
           <div>Who is here?</div>
           <div className="msgs">
             {messages.map(({ id, text, photoURL, uid, displayName }) => (
-              <div>
+              <div style={{backgroundColor:'grey'}}>
                 <div key={id} className={`msg ${uid === auth.currentUser.uid ? 'sent' : 'received'}`}
-                  style={{ backgroundColor: '#ffa', borderRadius: 100, paddingLeft: 30 }}>
-                  <img src={photoURL} alt="" />
-                  <p>{uid}</p>
-                  <p>{displayName}</p>
-                  <p>{text}</p>
+                  >
+                    <div>
+                        <img src={photoURL} alt="" />
+                      <p style={{}}>{uid}</p>
+                      <p>{displayName}</p>
+                      <p>{text}</p>
+                    </div>
+                  
                 </div>
               </div>
             ))}

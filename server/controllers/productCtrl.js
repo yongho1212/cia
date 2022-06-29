@@ -82,6 +82,16 @@ const productCtrl = {
             return res.status(500).json({msg: err.message});
         }
     },
+    deletePrd: async (req, res) => {
+        try {
+            const {prdfsidDb} = req.body
+            await Product.findOneAndDelete({prdfsidDb: prdfsidDb})
+
+            res.json({msg: "Deleted Success!"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
 
     updatePrd: async (req, res) => {
         try {

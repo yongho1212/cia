@@ -121,8 +121,9 @@ const UploadProduct = () => {
         }
         appendprd(data);
         console.log(state.myprd)
-        navigate("/Main");
+        navigate("/Dashmain");
         console.log(state.myprd)
+        alert('상품 업로드 완료')
     };
 
     return (
@@ -232,11 +233,11 @@ const UploadProduct = () => {
                         onChange={(e) => setMobile(e.target.value)}
                     />
                 </Form.Group>
-                <div>
+                {/* <div>
                     <Button variant="primary" type="Submit">
                         Upload Please!
                     </Button>
-                </div>
+                </div> */}
             </Form>
             </div>
         </div>

@@ -256,16 +256,18 @@ const UploadProfile = () => {
               저장
             </Button> */}
 
-            <h1>Add Fruits</h1>
+            <h1>태그 추가</h1>
 
-            <pre>{JSON.stringify(tags)}</pre>
-
-            <TagsInput
-                value={tags}
-                onChange={setTags}
-                name="fruits"
-                placeHolder="enter fruits"
-            />
+            <pre> {"#" + JSON.stringify(tags)+ " "}</pre>
+            <div style={{borderWidth:1, borderColor:'#000'}}>
+              <TagsInput
+                  value={tags}
+                  onChange={setTags}
+                  name="fruits"
+                  placeHolder="enter fruits"
+              />
+            </div>
+            
             <em>press enter to add new tag</em>
           </div>
         </Form>
