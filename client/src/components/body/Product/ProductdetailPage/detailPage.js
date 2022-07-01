@@ -12,13 +12,12 @@ const DetailPage = () => {
 
     const [already, setAlready] = useState(false)
 
-    console.log(id)
-    console.log(uid)
+
 
     const getPostList = async () => {
         try {
            const res = await axios.post('http://localhost:1212/products/getprdinfo',
-           {  id }).then((res) => {
+           { id }).then((res) => {
             console.log(res.data)
             setProduct(res.data); 
             
@@ -66,10 +65,11 @@ const applyChecker = async() => {
 }
 
     const item = product;
-    console.log(item.name)
+    
 
     useEffect(() => {
         getPostList();
+        //applyChecker();
     }, []);
 
     return (
@@ -100,7 +100,8 @@ const applyChecker = async() => {
                         src={item.photo}
                         width='100'
                         height='100'
-                        alt='testA' />
+                        alt='testA' 
+                    />
                 </div>
                 <div>
                     타겟 플랫폼 {item.targetPlatform}    
@@ -121,7 +122,6 @@ const applyChecker = async() => {
                 :
                     <p>이미 신청하셨습니다.</p>
                 }
-                
             </div>
         </div>
     );

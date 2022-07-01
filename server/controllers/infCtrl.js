@@ -110,9 +110,6 @@ const infCtrl = {
             console.log("mongodb is connected fuck");
             const { applicant_id, joined_channel } = req.body
 
-            const check = await Inf.findOne({applicant_id})
-            if(check) return res.status(400).json({msg: "This email already exists."})
-
             await Inf.findOneAndUpdate({uid: applicant_id}, {$push: {
                 joined_channel: joined_channel
             }})
@@ -139,9 +136,6 @@ const infCtrl = {
             // const uid = req.body.uid
             console.log("mongodb is connected fuck");
             const { applicant_id, progress_prd } = req.body
-
-            const check = await Inf.findOne({applicant_id})
-            if(check) return res.status(400).json({msg: "This email already exists."})
 
             await Inf.findOneAndUpdate({uid: applicant_id}, {$push: {
                 progress_prd: progress_prd

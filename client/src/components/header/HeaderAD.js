@@ -122,7 +122,7 @@ const HeaderAD = () => {
   
 
   return (
-    <AppBar position="static" style={{backgroundColor:'#fff', zIndex:100, height: '90px', justifyContent:'center'}}>
+    <AppBar style={{backgroundColor:'#fff', zIndex:100, height: '90px', justifyContent:'center', width:'100vw'}}>
       <Container maxWidth="xl" >
         <Toolbar disableGutters style={{justifyContent:'space-between'}}>
         <Typography style={{color:'#000'}}>
@@ -137,7 +137,7 @@ const HeaderAD = () => {
                 >
                   Sway
                 </Button> */}
-                <Link to="Main" style={{ backgroundColor:'#fff', color:'#000', fontSize:31, fontWeight:'bold', marginInline:10}}>Sway</Link>
+                <Link to="Main" style={{ backgroundColor:'red', color:'#000', fontSize:31, fontWeight:'bold', marginInline:10}}>Sway</Link>
         </Box>
         
         

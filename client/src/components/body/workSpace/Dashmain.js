@@ -100,7 +100,7 @@ const DashMain = () => {
                           aria-labelledby="scroll-dialog-title"
                           aria-describedby="scroll-dialog-description"
                           fullWidth="true"
-                          maxWidth="40px"
+                          maxWidth="50vw"
                         >
                           <DialogTitle id="scroll-dialog-title">
                             Subscribe

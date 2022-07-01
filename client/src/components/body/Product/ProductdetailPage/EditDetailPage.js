@@ -8,6 +8,7 @@ import { actionCreators } from '../../../../state/index';
 import { doc, deleteDoc, setDoc, addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, auth } from '../../../../firebase'
 import { useNavigate } from 'react-router-dom';
+import { reload } from '@firebase/auth';
 
 const EditDetailpage = () => {
     const [product, setProduct] = useState([]); // 제품 정보
@@ -23,6 +24,10 @@ const EditDetailpage = () => {
 
     const uid = state.auth.state.loginData.uid;
 
+    console.log(applicant);
+
+    
+
     const onAcceptHandle = async (applicant_id) => {
         try {
             console.log('accept try');
@@ -37,11 +42,11 @@ const EditDetailpage = () => {
         }
     };
 
-    const onDeclineHandle = async (k) => {
+    const onDeclineHandle = async (applicant_id) => {
         try {
             console.log('Decline try');
             const res = await axios.post('http://localhost:1212/products/declineApplicant',
-                { k, id }).then((res) => {
+                { applicant_id, id }).then((res) => {
                     console.log('Decline Success!');
                 })
         }
@@ -50,6 +55,15 @@ const EditDetailpage = () => {
             console.log(applicant);
         }
     }
+
+
+    const removeItem = (applicant_id) => {
+        setApplicant(applicant =>
+            applicant.filter(applicant => {
+              return applicant.applicant_id !== `${applicant_id}`;
+            }),
+          );
+    };
 
     const addNewInf = async (applicant_id) => {
         const docRef = await collection(db, `prdRoom/${prdfsid}/inflist/`)
@@ -169,11 +183,17 @@ const EditDetailpage = () => {
 
     const getPostList = async (applicant_id) => {
         try {
-            const res = await axios.post('http://localhost:1212/products/getlist')
+            const res = await axios.post('http://localhost:1212/products/getprdinfo', {id})
                 .then((res) => {
                     console.log(res.data)
-                    setProduct(res.data);
-                    return 0;
+                    const prdinfo = res.data;
+                    const list = prdinfo.applicant;
+                    const fsdb = prdinfo.prdfsidDb;
+                    const namae = prdinfo.name;
+                    setProduct(prdinfo);
+                    setApplicant(list);
+                    setPrdfsid(fsdb);
+                    setPrdname(namae);
                 })
         }
         catch (err) {
@@ -181,29 +201,36 @@ const EditDetailpage = () => {
         }
     }
 
-    const item = product.find(e => e._id === id);
+    // const item = product.find(e => e._id === id);
+    const item = product
 
-    const getprdInfo = async () => {
-        const id = prdidd
-        console.log(id)
-        const res = await axios.post("http://localhost:1212/products/getprdinfo", { id })
-            .then((res) => {
-                const prddata = res.data
-                console.log(prddata)
-                console.log(prddata.prdfsidDb)
-                setPrdfsid(prddata.prdfsidDb);
-                setPrdname(prddata.name);
-                console.log(prdfsid)
-            })
-    }
+
+
+    // const getprdInfo = async () => {
+    //     const id = prdidd
+    //     console.log(id)
+    //     const res = await axios.post("http://localhost:1212/products/getprdinfo", { id })
+    //         .then((res) => {
+    //             const prddata = res.data
+    //             console.log(prddata)
+    //             console.log(prddata.prdfsidDb)
+    //             setPrdfsid(prddata.prdfsidDb);
+    //             setPrdname(prddata.name);
+    //             console.log(prdfsid)
+    //         })
+    // }
 
     useEffect(() => {
         getPostList();
+
     }, []);
 
     useEffect(() => {
-        getprdInfo();
-    }, []);
+        console.log(applicant)
+        
+    }, [applicant, setApplicant, removeItem]);
+
+
 
     return (
         <div>
@@ -248,14 +275,14 @@ const EditDetailpage = () => {
                             상품 삭제하기
                         </button>
                     </div>
-                    {item ? item.applicant.map(applicant_id => {
+                    {applicant ? applicant.map(applicant_id => {
                         return (
-                            <div>
-                                <div>
+                            <div key={applicant_id}>
+                                <div >
                                     {applicant_id}
                                 </div>
-                                <Button className='accept' onClick={e => { e.preventDefault(); onAcceptHandle(applicant_id); addNewInf(applicant_id); }}>수락</Button>
-                                <Button className='decline' onClick={e => { e.preventDefault(); onDeclineHandle(applicant_id); rejectInf(applicant_id); }}>거절</Button>
+                                <Button className='accept' onClick={e => { e.preventDefault(); onAcceptHandle(applicant_id); addNewInf(applicant_id); removeItem(applicant_id); window.location.reload();}}>수락</Button>
+                                <Button className='decline' onClick={e => { e.preventDefault(); onDeclineHandle(applicant_id); rejectInf(applicant_id); removeItem(applicant_id); window.location.reload();}}>거절</Button>
                             </div>
                         )
                     }) : <></>}

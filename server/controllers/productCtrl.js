@@ -77,6 +77,7 @@ const productCtrl = {
             return res.status(500).json({msg: err.message});
         }
     },
+   
 
     acceptApplicant: async (req, res) => {
         console.log(req);

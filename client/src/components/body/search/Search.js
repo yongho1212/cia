@@ -18,18 +18,22 @@ const Search = (props) => {
   // <li>{chat}</li>
   // )
 
-  const sexList = ['여성', '남성'];
+  const sexList = ['All','female', 'male'];
+  const tagList = ['태그 전체', '패션', '여행', '외국', '섹스']
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const [infList, setInfList] = React.useState();
+  const [infList, setInfList] = React.useState([]);
+  const [filteredList, setFilteredList] = React.useState();
   const [sexOpen, setSexOpen] = React.useState(false);
   const [ageOpen, setAgeOpen] = React.useState(false);
   const [tagOpen, setTagOpen] = React.useState(false);
+  const [testOpen, setTestOpen] = React.useState(false);
 
-  const [sexText, setSexText] = React.useState('성별');
+  const [sexText, setSexText] = React.useState('All');
   const [ageText, setAgeText] = React.useState('나이');
-  const [tagText, setTagText] = React.useState('태그');
+  const [tagText, setTagText] = React.useState('태그 전체');
+  const [testText, setTestText] = React.useState('태그');
 
   const sexFilterClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -41,18 +45,27 @@ const Search = (props) => {
     setAgeOpen(true);
   };
 
-  const tagFilterClick = () => {
+  const tagFilterClick = (event) => {
+    setAnchorEl(event.currentTarget);
     setTagOpen(true);
   };
 
-  const selectMenu = () => {
+  const testFilterClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    setTestOpen(true);
+  };
+
+  const selectSexMenu = (item) => {
+    setSexText(item);
     setSexOpen(false);
   };
+
 
   const handleClose = () => {
     setSexOpen(false);
     setAgeOpen(false);
     setTagOpen(false);
+    setTestOpen(false);
     setAnchorEl(null);
   };
 
@@ -69,12 +82,33 @@ const Search = (props) => {
       console.log(err)
     }
   }
-  console.log('infList', infList);
+
+  const setList = () => {
+    let temp = []
+    if (sexText === 'All') temp = infList.filter(item => item.tags.includes(tagText));
+    if (sexText !== 'All' && tagText !== '태그 전체') temp = infList.filter(item => item.tags.includes(tagText) && item.sex === sexText);
+    if (tagText === '태그 전체') temp = infList.filter(item => item.sex === (sexText));
+    setFilteredList(temp);
+  };
+
+  const filterSelected = (a) => {
+    setSexText(a);
+    setList();
+    setAnchorEl(null);
+  }
 
   React.useEffect(() => {
     getInfList();
   }, []);
 
+  React.useEffect(() => {
+    setList();
+  }, [sexText, tagText]);
+
+  console.log(sexText);
+  console.log(tagText);
+  console.log(filteredList);
+  
   return (
     <div>
       <h1>Filtered Search Area</h1>
@@ -85,21 +119,37 @@ const Search = (props) => {
         <Button id="age-filter" onClick={ageFilterClick}>
           {ageText}
         </Button>
-        <Button>
+        <Button id="tag-filter" onClick={tagFilterClick}>
           {tagText}
         </Button>
+        <Button id="tag-filter" onClick={testFilterClick}>
+          텍스트 입력
+        </Button>
         <Menu open={sexOpen} anchorEl={anchorEl} onClose={handleClose}>
-          {/* {sexList.map(item => item)} */}
-          <MenuItem onClick={selectMenu}>여성</MenuItem>
-          <MenuItem onClick={selectMenu}>남성</MenuItem>
+          {sexList.map(item => {
+            return [
+            // <MenuItem onClick={()=>filterSelected(item)}>{item}</MenuItem>
+            <MenuItem onClick={() => {setSexText(item); setSexOpen(false);}}>{item}</MenuItem>
+            ]})}
         </Menu>
         <Menu open={ageOpen} anchorEl={anchorEl} onClose={handleClose}>
-          <MenuItem onClick={selectMenu}>20대</MenuItem>
-          <MenuItem onClick={selectMenu}>30대</MenuItem>
-          <MenuItem onClick={selectMenu}>30대</MenuItem>
+          <MenuItem>20대</MenuItem>
+          <MenuItem>30대</MenuItem>
+          <MenuItem>30대</MenuItem>
+        </Menu>
+        <Menu open={tagOpen} anchorEl={anchorEl} onClose={handleClose}>
+          {tagList.map(item => {
+            return [
+            <MenuItem onClick={() => {setTagText(item); setTagOpen(false); }}>{item}</MenuItem>
+            ]})}
+        </Menu>
+        <Menu open={testOpen} anchorEl={anchorEl} onClose={handleClose}>
+          <div>
+            이찬휘의 입력칸
+          </div>
         </Menu>
       </div>
-      {infList ? infList.map(item => {
+      {filteredList ? filteredList.map(item => {
         return (
           <div key={item._id} style={{ marginInline: '40px', marginTop: '40px' }}>
             <Link to={`/Detail/${item._id}`} style={{ color: 'black', display: 'flex', flexDirection: 'column', width: '200px', height: '280px', alignItems: 'flex-start' }}>
