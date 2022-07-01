@@ -278,7 +278,7 @@ const EditDetailpage = () => {
                     {applicant ? applicant.map(applicant_id => {
                         return (
                             <div key={applicant_id}>
-                                <div >
+                                <div>
                                     {applicant_id}
                                 </div>
                                 <Button className='accept' onClick={e => { e.preventDefault(); onAcceptHandle(applicant_id); addNewInf(applicant_id); removeItem(applicant_id); window.location.reload();}}>수락</Button>

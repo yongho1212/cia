@@ -24,6 +24,7 @@
     "react-facebook-login": "^4.1.1",
     "react-firebase-hooks": "^5.0.3",
     "react-google-button": "^0.7.2",
+    "react-google-places-autocomplete": "^3.3.4",
     "react-icons": "^4.3.1",
     "react-loader-spinner": "^6.0.0-0",
     "react-redux": "^7.2.6",

@@ -23,7 +23,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-import UploadProfile from './UploadProfile'
+import SearchLocationInput from "./SearchLoaction";
+
+import UploadProfile from "./UploadProfile";
 
 import { async } from "@firebase/util";
 import axios from "axios";
@@ -111,8 +113,6 @@ const INFProfile = () => {
     }
   };
 
-  
-
   return (
     <div
       style={{
@@ -155,10 +155,8 @@ const INFProfile = () => {
                 >
                   <div style={{ display: "flex", justifyContent: "flex-end" }}>
                     <div>
-                      <Button onClick={handleClickOpen("paper")}>
-                        수정
-                      </Button>
-                      
+                      <Button onClick={handleClickOpen("paper")}>수정</Button>
+
                       <Dialog
                         open={open}
                         onClose={handleClose}
@@ -166,18 +164,24 @@ const INFProfile = () => {
                         aria-labelledby="scroll-dialog-title"
                         aria-describedby="scroll-dialog-description"
                         fullWidth="true"
-                        maxWidth = "40px"
+                        maxWidth="40px"
                       >
                         <DialogTitle id="scroll-dialog-title">
                           Subscribe
                         </DialogTitle>
                         <DialogContent dividers={scroll === "paper"}>
-                          <UploadProfile/>
+                          <UploadProfile />
                         </DialogContent>
                         <DialogActions>
                           <Button onClick={handleClose}>Cancel</Button>
-                          
-                          <Button positive form='my-form' content='Submit' value='Submit' type="Submit">
+
+                          <Button
+                            positive
+                            form="my-form"
+                            content="Submit"
+                            value="Submit"
+                            type="Submit"
+                          >
                             저장
                           </Button>
                         </DialogActions>
@@ -213,9 +217,12 @@ const INFProfile = () => {
                 번호
                 {state.influencer.state.infloginData.mobile}
                 <br />
-                  태그
+                태그
                 {state.influencer.state.infloginData.tags}
                 <br />
+              </div>
+              <div>
+              <SearchLocationInput /> 
               </div>
             </div>
           </Grid>
