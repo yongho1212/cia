@@ -58,9 +58,10 @@ const infCtrl = {
         try {
             // const uid = req.body.uid
             console.log("mongodb is connected fuck");
-            const { uid, nickname, tags,  sex, birthday, insta, mobile, avatar} = req.body
+            const { uid, nickname, tags,  sex, birthday, insta, mobile, avatar, location} = req.body
             await Inf.findOneAndUpdate({uid: uid}, {$set: {
-                nickname: nickname, tags: tags,  sex: sex, birthday: birthday, insta: insta, mobile: mobile, avatar: avatar
+                nickname: nickname, tags: tags,  sex: sex, birthday: birthday, insta: insta, mobile: mobile, avatar: avatar,
+                location: location
             }})
             res.json({msg: "Update Success!"})
         } catch (err) {
@@ -146,7 +147,7 @@ const infCtrl = {
         }
     },
     
-    deleteUser: async (req, res) => {
+    deleteInfUser: async (req, res) => {
         try {
             const {uid} = req.body
             await Inf.findOneAndDelete({uid: uid})

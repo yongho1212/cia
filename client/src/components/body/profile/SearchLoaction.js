@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+  
 
 let autoComplete;
 
@@ -36,27 +37,41 @@ async function handlePlaceSelect(updateQuery) {
   const addressObject = autoComplete.getPlace();
   const query = addressObject.formatted_address;
   updateQuery(query);
+  console.log(query);
   console.log(addressObject);
+  console.log(addressObject.formatted_address)
 }
 
-function SearchLocationInput() {
+const SearchLocationInput = (props) => {
   const [query, setQuery] = useState("");
   const autoCompleteRef = useRef(null);
+  const [address, setAddress] = useState("")
+  
+  props.setLocation(query);
+  console.log(query);
 
   useEffect(() => {
     loadScript(
-      `https://maps.googleapis.com/maps/api/js?key=AIzaSyC52MBNk_pmrUWCEruWCR_70JLbhW_3Jp4&libraries=places`,
+      `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLEPLACES_API}&libraries=places`,
       () => handleScriptLoad(setQuery, autoCompleteRef)
     );
   }, []);
 
+const handleChange = (event, query) => {
+    console.log(query);
+    setQuery(event.target.value);
+  }
+
+
+
   return (
-    <div className="search-location-input">
+    <div className="search-location-input" >
       <input
         ref={autoCompleteRef}
-        onChange={event => setQuery(event.target.value)}
-        placeholder="예시) 정자3동"
+        onChange={handleChange}
+        placeholder="enter city"
         value={query}
+        style={{zIndex:200}}
       />
     </div>
   );

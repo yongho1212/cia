@@ -43,6 +43,7 @@ const infSchema = new mongoose.Schema({
     },
     location:{
         type: String,
+        default:'location'
     },
     insta: {
         type: String,

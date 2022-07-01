@@ -23,7 +23,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-import SearchLocationInput from "./SearchLoaction";
+
 
 import UploadProfile from "./UploadProfile";
 
@@ -89,14 +89,15 @@ const INFProfile = () => {
   };
 
   const deleteUserAll = async () => {
+    const user = auth.currentUser
     if (window.confirm("정말 탈퇴하시겠습니다?")) {
       const res = await axios
-        .post("http://localhost:1212/user/delete", { uid })
+        .post("http://localhost:1212/inf/deleteInfUser", { uid })
         .then((res) => {
           console.log(res.data);
           console.log("success");
         })
-        .then(() => {
+        .then((user) => {
           deleteUser(user);
           console.log("firebase deleted");
         })
@@ -165,6 +166,7 @@ const INFProfile = () => {
                         aria-describedby="scroll-dialog-description"
                         fullWidth="true"
                         maxWidth="40px"
+                        style={{zIndex:50}}
                       >
                         <DialogTitle id="scroll-dialog-title">
                           Subscribe
@@ -220,14 +222,16 @@ const INFProfile = () => {
                 태그
                 {state.influencer.state.infloginData.tags}
                 <br />
+                위치
+                {state.influencer.state.infloginData.location}
+                <br />
               </div>
               <div>
-              <SearchLocationInput /> 
               </div>
             </div>
           </Grid>
 
-          {/* <FacebookLoginButton/> */}
+          
         </Box>
 
         <div style={{ backgroundColor: "#a78" }}>
