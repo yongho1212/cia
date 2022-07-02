@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import {
   reauthenticateWithCredential,
+  EmailAuthProvider,
   signOut,
   deleteUser,
   getAuth,
@@ -24,7 +25,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 
-
+import Inputpassword from './INFDeleteUser';
 import UploadProfile from "./UploadProfile";
 
 import { async } from "@firebase/util";
@@ -37,6 +38,7 @@ import { actionCreators } from "../../../state/index";
 const INFProfile = () => {
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
+  const [password, setPassword] = useState('')
 
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
@@ -55,6 +57,7 @@ const INFProfile = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  console.log(state.influencer.state.infloginData.role)
 
   const descriptionElementRef = React.useRef(null);
   useEffect(() => {
@@ -88,31 +91,10 @@ const INFProfile = () => {
     }
   };
 
-  const deleteUserAll = async () => {
-    const user = auth.currentUser
-    if (window.confirm("정말 탈퇴하시겠습니다?")) {
-      const res = await axios
-        .post("http://localhost:1212/inf/deleteInfUser", { uid })
-        .then((res) => {
-          console.log(res.data);
-          console.log("success");
-        })
-        .then((user) => {
-          deleteUser(user);
-          console.log("firebase deleted");
-        })
-        .then(() => {
-          handleLogout();
-        })
-        .catch((error) => {
-          // An error ocurred
-          // ...
-        });
-      alert("삭제완료!");
-    } else {
-      alert("취소");
-    }
-  };
+  const goDelete = () => {
+    navigate("/INFDeleteUser")
+  }
+
 
   return (
     <div
@@ -235,7 +217,7 @@ const INFProfile = () => {
         </Box>
 
         <div style={{ backgroundColor: "#a78" }}>
-          <Button onClick={() => deleteUserAll()}>회원탈퇴</Button>
+          <Button onClick={() => goDelete()}>회원탈퇴</Button>
         </div>
       </div>
     </div>
