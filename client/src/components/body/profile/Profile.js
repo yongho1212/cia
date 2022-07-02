@@ -30,6 +30,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const auth = getAuth();
   const user = auth.currentUser;
+  
   const uid = state.auth.state.loginData.uid
 
   useEffect(() => {
@@ -53,6 +54,10 @@ const Profile = () => {
       console.log(err)
     };
   };
+
+  const firbaseDelete = async() => {
+
+  }
 
   const deleteUserAll = async () => {
     if (window.confirm('정말 탈퇴하시겠습니다?')) {

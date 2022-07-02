@@ -11,6 +11,8 @@ router.get('/getlistbyid', productCtrl.getListById)
 
 router.post('/appliyCampaign', productCtrl.appliyCampaign)
 
+router.post('/findApplicant', productCtrl.findApplicant)
+
 router.post('/acceptApplicant', productCtrl.acceptApplicant)
 
 router.post('/declineApplicant', productCtrl.declineApplicant)

@@ -55,12 +55,30 @@ const productCtrl = {
         console.log(req);
         try {
             const {uid, id} = req.body;
+            const applicant = uid;
             await Product.findOneAndUpdate({_id: id}, {$addToSet: {applicant: uid}})
             res.json({msg: "Push Success!"});
         } catch (err) {
             return res.status(500).json({msg: err.message});
         }
     },
+    findApplicant: async (req, res) => {
+        console.log(req);
+        const {uid, id} = req.body;
+        try {
+            const checker = await Product.find({_id: id},{applicant: uid})
+            if(checker) {
+                return res.json(true)
+            } else {
+                return res.json(false)
+            }
+            
+        } catch (err) {
+            return res.status(500).json({msg: err.message});
+        }
+    },
+   
+
     acceptApplicant: async (req, res) => {
         console.log(req);
         try {

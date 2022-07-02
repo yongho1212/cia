@@ -10,18 +10,25 @@ const DetailPage = () => {
     const state = useSelector((state) => state);
     const uid = state.auth.state.loginData.uid;
 
+    const [already, setAlready] = useState(false)
+
+
+
     const getPostList = async () => {
         try {
-           const res = await axios.post('http://localhost:1212/products/getlist')
-           .then((res) => {
+           const res = await axios.post('http://localhost:1212/products/getprdinfo',
+           { id }).then((res) => {
+            console.log(res.data)
             setProduct(res.data); 
-            return 0;
+            
           })
         } 
         catch (err) {
           console.log(err)
         }
       }
+
+    
     
     const appliyCampaign = async (e) => {
         e.preventDefault();
@@ -35,12 +42,34 @@ const DetailPage = () => {
             console.log('Applied failed');
             console.log(uid);
         }
+        applyChecker();
     };
 
-    const item = product.find(e => e._id === id);
+    //DB에서 해당 상품의 어플리칸트에서 내 uid 찾아서 있으면 "이미 신청한 상품입니다."
+
+    //findApplicant
+const applyChecker = async() => {
+    try {
+        const res = await axios.post('http://localhost:1212/products/findApplicant',
+        {id, uid}).then((res) => {
+            console.log(res);
+            console.log(res.data)
+            const checker = res.data
+            setAlready(checker);
+        })
+    }
+    catch (err) {
+        console.log('Applied failed');
+        console.log(uid);
+    }
+}
+
+    const item = product;
+    
 
     useEffect(() => {
         getPostList();
+        //applyChecker();
     }, []);
 
     return (
@@ -71,23 +100,28 @@ const DetailPage = () => {
                         src={item.photo}
                         width='100'
                         height='100'
-                        alt='testA' />
+                        alt='testA' 
+                    />
                 </div>
                 <div>
                     타겟 플랫폼 {item.targetPlatform}    
                 </div> 
-                {item ? item.applicant.map(e => {
+                {/* {item ? item.applicant.map(e => {
                     return (
                         <div key={e}>
                             {e}
                         </div>
                     )
-                }) : <></>}
+                }) : <></>} */}
             </div> : <div>업로드 실패</div>}
             <div>
-                <Button onClick={appliyCampaign}>
+                { already === false ?
+                    <Button onClick={appliyCampaign}>
                     신청하기
-                </Button>
+                    </Button>
+                :
+                    <p>이미 신청하셨습니다.</p>
+                }
             </div>
         </div>
     );

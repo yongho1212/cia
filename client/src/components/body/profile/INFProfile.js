@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import {
   reauthenticateWithCredential,
+  EmailAuthProvider,
   signOut,
   deleteUser,
   getAuth,
@@ -23,7 +24,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-import UploadProfile from './UploadProfile'
+
+import Inputpassword from './INFDeleteUser';
+import UploadProfile from "./UploadProfile";
 
 import { async } from "@firebase/util";
 import axios from "axios";
@@ -35,6 +38,7 @@ import { actionCreators } from "../../../state/index";
 const INFProfile = () => {
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
+  const [password, setPassword] = useState('')
 
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
@@ -53,6 +57,7 @@ const INFProfile = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  console.log(state.influencer.state.infloginData.role)
 
   const descriptionElementRef = React.useRef(null);
   useEffect(() => {
@@ -86,32 +91,10 @@ const INFProfile = () => {
     }
   };
 
-  const deleteUserAll = async () => {
-    if (window.confirm("정말 탈퇴하시겠습니다?")) {
-      const res = await axios
-        .post("http://localhost:1212/user/delete", { uid })
-        .then((res) => {
-          console.log(res.data);
-          console.log("success");
-        })
-        .then(() => {
-          deleteUser(user);
-          console.log("firebase deleted");
-        })
-        .then(() => {
-          handleLogout();
-        })
-        .catch((error) => {
-          // An error ocurred
-          // ...
-        });
-      alert("삭제완료!");
-    } else {
-      alert("취소");
-    }
-  };
+  const goDelete = () => {
+    navigate("/INFDeleteUser")
+  }
 
-  
 
   return (
     <div
@@ -155,10 +138,8 @@ const INFProfile = () => {
                 >
                   <div style={{ display: "flex", justifyContent: "flex-end" }}>
                     <div>
-                      <Button onClick={handleClickOpen("paper")}>
-                        수정
-                      </Button>
-                      
+                      <Button onClick={handleClickOpen("paper")}>수정</Button>
+
                       <Dialog
                         open={open}
                         onClose={handleClose}
@@ -166,18 +147,25 @@ const INFProfile = () => {
                         aria-labelledby="scroll-dialog-title"
                         aria-describedby="scroll-dialog-description"
                         fullWidth="true"
-                        maxWidth = "40px"
+                        maxWidth="40px"
+                        style={{zIndex:50}}
                       >
                         <DialogTitle id="scroll-dialog-title">
                           Subscribe
                         </DialogTitle>
                         <DialogContent dividers={scroll === "paper"}>
-                          <UploadProfile/>
+                          <UploadProfile />
                         </DialogContent>
                         <DialogActions>
                           <Button onClick={handleClose}>Cancel</Button>
-                          
-                          <Button positive form='my-form' content='Submit' value='Submit' type="Submit">
+
+                          <Button
+                            positive
+                            form="my-form"
+                            content="Submit"
+                            value="Submit"
+                            type="Submit"
+                          >
                             저장
                           </Button>
                         </DialogActions>
@@ -213,18 +201,23 @@ const INFProfile = () => {
                 번호
                 {state.influencer.state.infloginData.mobile}
                 <br />
-                  태그
+                태그
                 {state.influencer.state.infloginData.tags}
                 <br />
+                위치
+                {state.influencer.state.infloginData.location}
+                <br />
+              </div>
+              <div>
               </div>
             </div>
           </Grid>
 
-          {/* <FacebookLoginButton/> */}
+          
         </Box>
 
         <div style={{ backgroundColor: "#a78" }}>
-          <Button onClick={() => deleteUserAll()}>회원탈퇴</Button>
+          <Button onClick={() => goDelete()}>회원탈퇴</Button>
         </div>
       </div>
     </div>

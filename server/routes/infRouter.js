@@ -15,6 +15,8 @@ router.post('/inf_reject_prd', infCtrl.rejectINF)
 
 router.post('/inf_update_profile', infCtrl.inf_update_profile)
 
+router.post('/deleteInfUser', infCtrl.deleteInfUser)
+
 router.post('/getlist', infCtrl.getlist)
 
 

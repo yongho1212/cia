@@ -43,6 +43,7 @@ const infSchema = new mongoose.Schema({
     },
     location:{
         type: String,
+        default:'location'
     },
     insta: {
         type: String,
@@ -73,11 +74,11 @@ const infSchema = new mongoose.Schema({
     },
     denied_prd:{
         type: Array,
-        required: [true, "You already!"]
+        
     },
     progress_prd:{
         type: Array,
-        required: [true, "You already"]
+        
     },
     history_prd:{
         type: Array

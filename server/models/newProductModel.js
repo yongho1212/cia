@@ -9,7 +9,7 @@ const newproductSchema = new mongoose.Schema({
     brand: {
         type: String,
         required: [true, "Please enter your brand!"],
-        unique: false
+        
     },
     targetPlatform: {
         type: String,
@@ -64,11 +64,11 @@ const newproductSchema = new mongoose.Schema({
     },
     applicant: {
         type: Array,
-        unique:true
+        
     },
     joinInf: {
         type: Array,
-        unique:true
+        
     },
     authorEmail:{
         type: Array,

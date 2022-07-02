@@ -20,6 +20,8 @@ import {
 } from "@mui/material";
 import { TagsInput } from "react-tag-input-component";
 
+import SearchLocationInput from "./SearchLoaction";
+
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../../state/index";
@@ -77,8 +79,8 @@ const UploadProfile = () => {
   });
 
   const handleFileInput = (e) => {
-    const file = e.target.files[0];
 
+    const file = e.target.files[0];
     const upload = new AWS.S3.ManagedUpload({
       params: {
         Bucket: "swaybucket",
@@ -86,6 +88,7 @@ const UploadProfile = () => {
         Body: file,
       },
     });
+
     const promise = upload.promise();
 
     promise.then(
@@ -103,6 +106,7 @@ const UploadProfile = () => {
 
   const navigate = useNavigate();
 
+
   const handlePost = async (e) => {
     e.preventDefault();
     try {
@@ -116,6 +120,7 @@ const UploadProfile = () => {
           insta,
           mobile,
           avatar,
+          location
         })
         .then((res) => {
           console.log("success");
@@ -147,10 +152,13 @@ const UploadProfile = () => {
       progress_prd,
       history_prd,
       joined_channel,
+      
     };
     infloginUser(userinfo);
     navigate("/Main");
   };
+
+  console.log(location);
 
   return (
     <div
@@ -270,6 +278,14 @@ const UploadProfile = () => {
             
             <em>press enter to add new tag</em>
           </div>
+          <div style={{height:'100px', zIndex:100}}>
+            <SearchLocationInput 
+              setLocation={setLocation}
+            /> 
+            
+          </div>
+          
+
         </Form>
       </div>
     </div>

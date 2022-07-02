@@ -57,8 +57,8 @@ const INFSignup = () => {
         console.log("해당 상풍 아이디" + res)
         console.log(res.data)
       })
-      const infloginData = {nickname, email, uid, password}
-      const role = 'influencer'
+      const role = "influencer"
+      const infloginData = {nickname, email, uid, password, role}
       const loginData = {role, uid}
       infloginUser(infloginData)
       loginUser(loginData)

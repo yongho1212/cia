@@ -21,7 +21,7 @@ const UploadProduct = () => {
         dispatch
     );
     const [name, setName] = useState("");
-    const [brand, setBrand] = useState("");
+    const [brand, setBrand] = useState(state.advertiser.state.adloginData.brand_name);
     const [targetPlatform, setTargetPlatform] = useState("");
     const [category, setCategory] = useState("");
     const [period, setPeriod] = useState("");
@@ -144,7 +144,7 @@ const UploadProduct = () => {
                 <Form.Group className="mb-3" controlId="formBasicName">
                     <Form.Control
                         type="brand"
-                        placeholder="BrandName"
+                        placeholder={brand}
                         onChange={(e) => setBrand(e.target.value)}
                     />
                 </Form.Group>
