@@ -118,7 +118,6 @@ function App() {
           
           <Route path="/Emailverify/*" element={<Emailverify />} />
           <Route  element={<Layout />}>
-          
             <Route path="/Main/*" element={<Main />} />
             <Route path="/SearchResult/:text" element={<SearchResult />} />
             <Route path="/UploadProfile" element={<UploadProfile/>} />

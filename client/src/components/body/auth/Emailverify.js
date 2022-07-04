@@ -10,9 +10,16 @@ import {
   onIdTokenChanged,
 } from "firebase/auth";
 
+import CountdownTimer from './CountdownTimer';
+import './Emailverify.css';
+
 const Emailverify = () => {
   const navigate = useNavigate();
   const auth = getAuth();
+  const THREE_MIN = 3 * 60 * 1000;
+  const NOW_IN_MS = new Date().getTime();
+
+  const dateTimeAfterThreeDays = NOW_IN_MS + THREE_MIN;
 
   function handleClickMain() {
     navigate("/Main");
@@ -68,6 +75,7 @@ const Emailverify = () => {
         <Button variant="outlined" onClick={() => window.location.reload()}>
           이메일 인증 환료 후 눌러주세요
         </Button>
+        <CountdownTimer targetDate={dateTimeAfterThreeDays} />
       </div>
     </div>
   );

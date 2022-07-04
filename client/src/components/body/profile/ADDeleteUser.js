@@ -36,46 +36,41 @@ const ADDeleteUser = () => {
     console.log(password)
     console.log(userProvidedPassword)
     
-
-
     const handleLogout = async () => {
       try {
-        navigate("/Home");
-        logoutUser();
-        nofbuser(false);
-        signOut(auth);
-        console.log("logout");
-      } catch (err) {
-        console.log(err);
-      }
+            navigate("/Home");
+            logoutUser();
+            nofbuser(false);
+            signOut(auth);
+          } catch (err) {
+            console.log(err);
+          }
     };
   
   
     const firebaseDelete = () => {
       // 사용자 재인증 (팝업으로 로그인 창)
        const credential = EmailAuthProvider.credential(
-         auth.currentUser.email,
+        auth.currentUser.email,
         userProvidedPassword 
        )
       reauthenticateWithCredential(user, credential).then(() => {
        console.log('User re-authenticated.')
-       }).catch((error) => {
+      }).catch((error) => {
          console.log(error)
-       });
-       deleteUser(user).then(() => {
+      });
+      deleteUser(user).then(() => {
         console.log('deleted from firebase')
-       }).catch((error) => {
+      }).catch((error) => {
         console.log(error)
-       });
-  
+      });
     }
   
     console.log(password)
     // 비밀번호 입력 =>  setState => 받아서 재인증
     // 파베탈퇴 => 디비 탈퇴
   
-    const deleteUserAll = async () => {
-      
+    const deleteUserAll = async() => {
       if (window.confirm("정말 탈퇴하시겠습니다?")) {
         const credential = EmailAuthProvider.credential(
           auth.currentUser.email,
