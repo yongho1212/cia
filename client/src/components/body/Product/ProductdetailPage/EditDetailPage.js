@@ -39,6 +39,7 @@ const EditDetailpage = () => {
         catch (err) {
             console.log('Accept failed');
             console.log(applicant);
+            throw new Error('Something bad happened');
         }
     };
 
@@ -110,6 +111,7 @@ const EditDetailpage = () => {
             console.log(err)
             console.log('failed updateProfile');
             console.log(uid, joined_channel);
+            throw new Error('Something bad happened');
         }
         adaddchannel(joined_channel)
     }
@@ -132,6 +134,7 @@ const EditDetailpage = () => {
         } catch (err) {
             console.log(err)
             console.log('failed reject');
+            throw new Error('Something bad happened');
         }
         
     }
@@ -155,6 +158,7 @@ const EditDetailpage = () => {
         } catch (err) {
             console.log(err)
             console.log('failed delte');
+            throw new Error('Something bad happened');
         }
         alert('삭제완료!')
         navigate('/Main')

@@ -13,6 +13,8 @@ router.post('/ad_add_channel', adCtrl.addChatChannelAD)
 
 router.post('/ad_update_profile', adCtrl.ad_update_profile)
 
+router.post('/deleteAdUser', adCtrl.deleteAdUser)
+
 
 
 

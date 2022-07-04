@@ -74,6 +74,10 @@ const ADProfile = () => {
     navigate("/EditProfile");
   };
 
+  const goDelete = () => {
+    navigate("/ADDeleteUser")
+  }
+
   const handleLogout = async () => {
     try {
       navigate("/Home");
@@ -220,7 +224,7 @@ const ADProfile = () => {
         </Box>
 
         <div style={{ backgroundColor: "#a78" }}>
-          <Button onClick={() => deleteUserAll()}>회원탈퇴</Button>
+          <Button onClick={() => goDelete()}>회원탈퇴</Button>
         </div>
       </div>
     </div>

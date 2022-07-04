@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../../state/index";
 
-const INFDeleteUser = () => {
+const ADDeleteUser = () => {
 
     const [password, setPassword] = useState('')
 
@@ -26,7 +26,7 @@ const INFDeleteUser = () => {
     const navigate = useNavigate();
     const auth = getAuth();
     const user = auth.currentUser;
-    const uid = state.influencer.state.infloginData.uid;
+    const uid = state.advertiser.state.adloginData.uid;
     const userProvidedPassword = password
 
     const handleSubmit = async (e) => {
@@ -96,7 +96,7 @@ const INFDeleteUser = () => {
         });
       
         const res = await axios
-          .post("http://localhost:1212/inf/deleteInfUser", { uid })
+          .post("http://localhost:1212/ad/deleteAdUser", { uid })
           .then((res) => {
             console.log(res.data);
             console.log("success");
@@ -140,4 +140,4 @@ const INFDeleteUser = () => {
   );
 };
 
-export default INFDeleteUser;
+export default ADDeleteUser;

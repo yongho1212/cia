@@ -1,44 +1,43 @@
-import React, {useState,useEffect} from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import { Input } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Search from '../body/search/Search';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import {useNavigate, Link} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import { Input } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Search from "../body/search/Search";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../state/index';
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../../state/index";
 import { getAuth, signOut } from "firebase/auth";
 
-
-
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ["Products", "Pricing", "Blog"];
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const HeaderAD = () => {
-
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [userRole, setUserRole] = useState("");
-  const [text, setText] = React.useState('');
+  const [text, setText] = React.useState("");
 
-  const state = useSelector((state) => state)
+  const state = useSelector((state) => state);
   const dispatch = useDispatch();
-  const {loginUser, logoutUser, fbuser, nofbuser} = bindActionCreators(actionCreators, dispatch);
+  const { loginUser, logoutUser, fbuser, nofbuser } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
 
   const auth = getAuth();
 
-
-/*  useEffect(() => {
+  /*  useEffect(() => {
     const getRole = async() => {
       try{
         setUserRole(state);
@@ -75,86 +74,121 @@ const HeaderAD = () => {
   };
 
   let navigate = useNavigate();
-  
-    function handleSearch() {
-      navigate("/SearchResult");
-      <Search value={text} />
-    }
 
-    function handleUploadProfile() {
-      navigate("/UploadProfile");
-    }
-    
-    function handleClickMain() {
-      navigate("/Main");
-    }
-    function handleClickChat() {
-      navigate("/ADChatlist");
-    }
-    function handleClickSearch() {
-      navigate("/Search");
-    }
-    function handleClickUpload() {
-      navigate("/Upload");
-    }
-    function handleClickInfprflist() {
-      navigate("/Influencerprflist");
-    }
-    
-    async function handleLogout() {
-        try {
-          logoutUser();
-          nofbuser(false);;
-          signOut(auth);
-          navigate('/Home')
-          console.log('logout')
-        } catch (err) {
-          console.log(err)
-      };
-    };
-    function handleClickProfile() {
-      navigate("/ADProfile");
-    }
-    function workSpace() {
-      navigate("/Workspace");
-    }
+  function handleSearch() {
+    navigate("/SearchResult");
+    <Search value={text} />;
+  }
 
-  
+  function handleUploadProfile() {
+    navigate("/UploadProfile");
+  }
+
+  function handleClickMain() {
+    navigate("/Main");
+  }
+  function handleClickChat() {
+    navigate("/ADChatlist");
+  }
+  function handleClickSearch() {
+    navigate("/Search");
+  }
+  function handleClickUpload() {
+    navigate("/Upload");
+  }
+  function handleClickInfprflist() {
+    navigate("/Influencerprflist");
+  }
+
+  async function handleLogout() {
+    try {
+      logoutUser();
+      nofbuser(false);
+      signOut(auth);
+      navigate("/Home");
+      console.log("logout");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  function handleClickProfile() {
+    navigate("/ADProfile");
+  }
+  function workSpace() {
+    navigate("/Workspace");
+  }
 
   return (
-    <AppBar style={{backgroundColor:'#fff', zIndex:100, height: '90px', justifyContent:'center', width:'100vw'}}>
-      <Container maxWidth="xl" >
-        <Toolbar disableGutters style={{justifyContent:'space-between'}}>
-        <Typography style={{color:'#000'}}>
+    <AppBar
+      style={{
+        backgroundColor: "#fff",
+        zIndex: 100,
+        height: "90px",
+        justifyContent: "center",
+        width: "100vw",
+      }}
+    >
+      <Container maxWidth="xl">
+        <Toolbar disableGutters style={{ justifyContent: "space-between" }}>
+          {/* <Typography style={{color:'#000'}}>
             ad
-        </Typography>
-        <Box>
-            
-               {/* <Button 
+        </Typography> */}
+          <Box>
+            {/* <Button 
                 variant="text"
                 style={{ backgroundColor:"#fff", color:"#000",fontSize:31,fontWeight:'bold', marginInline:10}}
                 onClick={handleClickMain}
                 >
                   Sway
                 </Button> */}
-                <Link to="Main" style={{ backgroundColor:'red', color:'#000', fontSize:31, fontWeight:'bold', marginInline:10}}>Sway</Link>
-        </Box>
-        
-        
-
-        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <div style={{display: 'flex' }}>
-            <Input 
-              variant="contained"
-              placeholder='검색어'
-              style={{ width: '230px', display:'flex', color:"#03ff95", backgroundColor:"#03ff95", color:"#000"}}
-              value={text}
-              onChange={(e) => {setText(e.target.value)}}
-            />
-            <Link to={`/SearchResult/${text}`} style={{ display:'flex', alignItems:'center', justifyContent:'center', color:'white', width: '50px', height: '50px', display:'flex',  backgroundColor: 'black' }} onClick={handleSearch}>
-              검색
+            <Link
+              to="Main"
+              style={{
+                color: "#000",
+                fontSize: 31,
+                fontWeight: "bold",
+                marginInline: 10,
+                textDecoration: "none",
+              }}
+            >
+              Collaber
             </Link>
-          </div>
+          </Box>
+
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <div style={{ display: "flex" }}>
+              <Input
+                variant="contained"
+                placeholder="검색어"
+                style={{
+                  width: "230px",
+                  display: "flex",
+                  color: "#03ff95",
+                  backgroundColor: "#03ff95",
+                  color: "#000",
+                }}
+                value={text}
+                onChange={(e) => {
+                  setText(e.target.value);
+                }}
+              />
+              <Link
+                to={`/SearchResult/${text}`}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "white",
+                  width: "50px",
+                  height: "50px",
+                  display: "flex",
+                  backgroundColor: "black",
+                }}
+                onClick={handleSearch}
+              >
+                검색
+              </Link>
+            </div>
             {/* <Button 
               variant="contained"
               style={{backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
@@ -169,7 +203,7 @@ const HeaderAD = () => {
             >
                 업로드product
             </Button> */}
-       
+
             {/* <Button 
                 variant="contained"
                 style={{backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
@@ -177,26 +211,41 @@ const HeaderAD = () => {
             >
                 검색
             </Button> */}
-            <Button 
-                variant="contained"
-                style={{ backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
-                onClick={handleClickChat}
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: "#03ff95",
+                color: "#000",
+                marginInline: 10,
+                height: "70px",
+              }}
+              onClick={handleClickChat}
             >
-                채팅
+              채팅
             </Button>
-            <Button 
-                variant="contained"
-                style={{backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
-                onClick={handleClickProfile}
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: "#03ff95",
+                color: "#000",
+                marginInline: 10,
+                height: "70px",
+              }}
+              onClick={handleClickProfile}
             >
-                프로필
+              프로필
             </Button>
-            <Button 
-                variant="contained"
-                style={{ backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
-                onClick={handleClickInfprflist}
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: "#03ff95",
+                color: "#000",
+                marginInline: 10,
+                height: "70px",
+              }}
+              onClick={handleClickInfprflist}
             >
-                인플루언서 리스트
+              인플루언서 리스트
             </Button>
             {/* <Button 
                 variant="contained"
@@ -205,19 +254,19 @@ const HeaderAD = () => {
             >
                 WORK SPACE
             </Button> */}
-            <Button 
-                variant="contained"
-                style={{backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
-                onClick={handleLogout}
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: "#03ff95",
+                color: "#000",
+                marginInline: 10,
+                height: "70px",
+              }}
+              onClick={handleLogout}
             >
-                로그아웃
+              로그아웃
             </Button>
-            
-        </Box>  
-
-
-
-         
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>

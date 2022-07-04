@@ -57,14 +57,6 @@ const Emailverify = () => {
     );
   };
 
-  const verifyFin = () => {
-    
-    <div>
-        <Button variant="outlined" onClick={() => window.location.reload()}>
-          이메일 인증 환료 후 눌러주세요
-        </Button>
-      </div>
-  }
   //이메일 다시 보내기 누르고 60초동안 이메일 보내기 버튼 비활성화
   //이메일 인증 리스너 만들어서 이메일 인증이 완료되면 로그아웃 하거나 메인으로 이동하게 만들기
 
@@ -72,7 +64,11 @@ const Emailverify = () => {
     <div>
       <div>Emailverify</div>
       <ButtonShow />
-      <verifyFin />
+      <div>
+        <Button variant="outlined" onClick={() => window.location.reload()}>
+          이메일 인증 환료 후 눌러주세요
+        </Button>
+      </div>
     </div>
   );
 };

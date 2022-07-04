@@ -137,7 +137,7 @@ const HeaderINF = () => {
                 >
                   Sway
                 </Button> */}
-                <Link to="Main" style={{ backgroundColor:'#fff', color:'#000', fontSize:31, fontWeight:'bold', marginInline:10}}>Sway</Link>
+                <Link to="Main" style={{ textDecoration:'none', color:'#000', fontSize:31, fontWeight:'bold', marginInline:10}}>Collaber</Link>
         </Box>
         
         

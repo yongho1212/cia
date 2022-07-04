@@ -117,7 +117,7 @@ const adCtrl = {
     },
 
 
-    deleteUser: async (req, res) => {
+    deleteAdUser: async (req, res) => {
         try {
             const {uid} = req.body
             await Ad.findOneAndDelete({uid: uid})
