@@ -16,9 +16,6 @@ import { MdFingerprint } from 'react-icons/md';
 function Footer() {
   return (
     <div className='footer-container' style={{marginTop: 'auto'}}>
-      
-        
-
       <div className='footer-links'>
         <div className='footer-link-wrapper'>
           <div className='footer-link-items'>
@@ -56,10 +53,10 @@ function Footer() {
           <div className='footer-logo'>
             <Link to='/' className='social-logo'>
               {/*<MdFingerprint className='navbar-icon' />*/}
-            LOOF
+            Collaber
             </Link>
           </div>
-          <small className='website-rights'>LOOF © 2021</small>
+          <small className='website-rights'>Collaber © 2022</small>
           <div className='social-icons'>
             <Link
               className='social-icon-link'

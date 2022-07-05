@@ -113,6 +113,7 @@ const UploadProduct = () => {
             console.log(name, brand, targetPlatform, category, period, postType,
                 point, applicationConditions, qualification, isCheck,
                 detailPage, offersAndMissions, photo, mobile, authorUid, authorEmail, prdfsidDb);
+            throw new Error('Something bad happened');
         }
         const data = {
             name, brand, targetPlatform, category, period, postType,

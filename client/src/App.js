@@ -47,6 +47,7 @@ import INFSignup from './components/body/auth/INFSignup';
 import ADLogin from './components/body/auth/ADLogin';
 import INFLogin from './components/body/auth/INFLogin';
 import INFDeleteUser from './components/body/profile/INFDeleteUser';
+import ADDeleteUser from './components/body/profile/ADDeleteUser';
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -117,7 +118,6 @@ function App() {
           
           <Route path="/Emailverify/*" element={<Emailverify />} />
           <Route  element={<Layout />}>
-          
             <Route path="/Main/*" element={<Main />} />
             <Route path="/SearchResult/:text" element={<SearchResult />} />
             <Route path="/UploadProfile" element={<UploadProfile/>} />
@@ -127,6 +127,8 @@ function App() {
             <Route path="/ADProfile/*" element={<ADProfile />} />
             <Route path="/INFProfile/*" element={<INFProfile />} />
             <Route path="/INFDeleteUser/*" element={<INFDeleteUser />} />
+            <Route path="/ADDeleteUser/*" element={<ADDeleteUser />} />
+            
             
             <Route path="/Chatlist/*" element={<Chatlist />} />
             <Route path="/ADChatlist/*" element={<ADChatlist />} />

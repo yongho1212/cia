@@ -87,7 +87,7 @@ function moveMain() {
       })
     } 
     catch (err) {
-      
+      console.log(err)
     }
   }
 
@@ -117,6 +117,7 @@ function moveMain() {
       const errorMessage = error.message;
       const email = error.customData.email;
       const credential = GoogleAuthProvider.credentialFromError(error);
+      throw new Error('Something bad happened');
     })
     .then(() => {
       getinfo();
