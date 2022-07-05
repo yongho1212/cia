@@ -123,7 +123,7 @@ const HeaderAD = () => {
       style={{
         backgroundColor: "#fff",
         zIndex: 100,
-        height: "90px",
+        height: "75px",
         justifyContent: "center",
         width: "100vw",
       }}
@@ -184,7 +184,7 @@ const HeaderAD = () => {
                   display: "flex",
                   backgroundColor: "black",
                 }}
-                onClick={handleSearch}
+                onClick={handleSearch}  
               >
                 검색
               </Link>
