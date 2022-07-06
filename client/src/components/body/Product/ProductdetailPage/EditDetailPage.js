@@ -214,41 +214,45 @@ const EditDetailpage = () => {
   };
 
 
-  // 물어보기
+//   // 물어보rl
+// const posts = applicant.map(applicant_id => {
+//   return axios
+//     .get("http://localhost:1212/inf/getInfInfo", { params: { uid: applicant_id }})
+//     .then((res) => {
+//         console.log(res.data)
+//         // setInfinfo(res.data)
+//         console.log(infinfo)
+//     })
+//     .catch(e => console.error(e));
+// })
 
-const posts = applicant.map(applicant_id => {
-  return axios
-    .get("http://localhost:1212/inf/getInfInfo", { params: { uid: applicant_id }})
-    .then((res) => {
-        console.log(res.data)
-        // setInfinfo(res.data)
-        console.log(infinfo)
-    })
-    .catch(e => console.error(e));
-})
-
-const roundarr = async() => {
-    Promise.all(posts).then(res => setInfinfo(res.data));
-    console.log(infinfo);
-}
-
-
-
+// const roundarr = async() => {
+//     Promise.all(posts).then(res => setInfinfo(res.data));
+//     console.log(infinfo);
+// }
   
-  const item = product;
+ const item = product;
 
+  useEffect(() => {
+    const applicantsPromise = applicant.map(applicant_id => 
+      axios.get("http://localhost:1212/inf/getInfInfo", { params: { uid: applicant_id }})
+        .then((res) => res.data)
+      );
+      Promise.all(applicantsPromise).then(data => {setInfinfo({data})})
+      console.log(infinfo);
+  }, [applicant])
+
+console.log(infinfo);
 
   useEffect(() => {
     getPostList();
-    roundarr();
   }, []);
 
   useEffect(() => {
     console.log(applicant);
-  }, [applicant, setApplicant, removeItem]);
+  }, [applicant]);
 
   console.log(applicant.length);
-
 
   return (
     <div style={{ width: "60vw", marginInline: "20vw", marginTop: "5vh" }}>
@@ -266,7 +270,6 @@ const roundarr = async() => {
             >
               <div>item id</div>
               <div>{item._id}</div>
-
               <div>상품명 {item.name}</div>
               <div>브랜드 {item.brand}</div>
               <div>카테고리 {item.category}</div>
