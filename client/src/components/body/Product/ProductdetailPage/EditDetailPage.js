@@ -214,40 +214,57 @@ const EditDetailpage = () => {
   };
 
 
-  // 물어보기
+//   // 물어보rl
+// const posts = applicant.map(applicant_id => {
+//   return axios
+//     .get("http://localhost:1212/inf/getInfInfo", { params: { uid: applicant_id }})
+//     .then((res) => {
+//         console.log(res.data)
+//         // setInfinfo(res.data)
+//         console.log(infinfo)
+//     })
+//     .catch(e => console.error(e));
+// })
 
-const posts = applicant.map(applicant_id => {
-  return axios
-    .get("http://localhost:1212/inf/getInfInfo", { params: { uid: applicant_id }})
-    .then((res) => {
-        console.log(res.data)
-        // setInfinfo(res.data)
-        console.log(infinfo)
-    })
-    .catch(e => console.error(e));
-})
-
-const roundarr = async() => {
-    Promise.all(posts).then(res => setInfinfo(res.data));
-    console.log(infinfo);
-}
-
-
-
+// const roundarr = async() => {
+//     Promise.all(posts).then(res => setInfinfo(res.data));
+//     console.log(infinfo);
+// }
   
-  const item = product;
+ const item = product;
+
+  useEffect(() => {
+    const applicantsPromise = applicant.map(applicant_id => 
+      axios.get("http://localhost:1212/inf/getInfInfo", { params: { uid: applicant_id }})
+        .then((res) => res.data)
+      );
+      Promise.all(applicantsPromise).then(data => {setInfinfo({data})})
+      
+  }, [applicant])
+
 
 
   useEffect(() => {
     getPostList();
-    roundarr();
   }, []);
 
   useEffect(() => {
     console.log(applicant);
-  }, [applicant, setApplicant, removeItem]);
+  }, [applicant]);
 
   console.log(applicant.length);
+  console.log(infinfo)
+
+  // function Show(k) {
+  //   console.log(k)
+  //   const result = infinfo.data.find(applicant => applicant.uid === `${k}`);
+  //   console.log(result)
+  //     return (
+  //       <div>
+  //         {JSON.stringify(result)}
+  //       </div>
+  //     );
+  // }
 
 
   return (
@@ -266,7 +283,6 @@ const roundarr = async() => {
             >
               <div>item id</div>
               <div>{item._id}</div>
-
               <div>상품명 {item.name}</div>
               <div>브랜드 {item.brand}</div>
               <div>카테고리 {item.category}</div>
@@ -277,35 +293,60 @@ const roundarr = async() => {
           </div>
           <div style={{ marginTop: "20px" }}>
             <dix style={{ width: "100%" }}>신청자 목록</dix>
-            {applicant.length !== 0 ? (
-              applicant.map((applicant_id) => {
+            {infinfo.length !== 0 ? (
+              infinfo.data.map((applicant_id) => {
                 return (
-                  <div key={applicant_id} style={{justifyContent:'center', alignItems:'center', display:'flex'}}>
-                    <div>{applicant_id}</div>
-                    <Button
-                      className="accept"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        onAcceptHandle(applicant_id);
-                        addNewInf(applicant_id);
-                        removeItem(applicant_id);
-                        window.location.reload();
-                      }}
+                  <div 
+                  key={infinfo.data.uid} 
+                  style={{
+                    justifyContent:'space-between', 
+                    alignItems:'center', 
+                    display:'flex',
+                    marginBlock:'10px',
+                    padding:'5px',
+                    
+                    
+                    }}
+                  >
+                    <div 
+                    className="infoContainer"
+                    style={{backgroundColor:'pink', width:'45vw'}}
                     >
-                      ✔️
-                    </Button>
-                    <Button
-                      className="decline"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        onDeclineHandle(applicant_id);
-                        rejectInf(applicant_id);
-                        removeItem(applicant_id);
-                        window.location.reload();
-                      }}
+                      <div>{applicant_id.nickname}</div>
+                      <div>{applicant_id.email}</div>
+                    </div>
+                    
+                    <div className="btnContainer"
+                    style={{backgroundColor:'#EDFFF2', width:'15vw'}}
                     >
-                      ✕
-                    </Button>
+                      <Button
+                        className="accept"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          onAcceptHandle(applicant_id);
+                          addNewInf(applicant_id);
+                          removeItem(applicant_id);
+                          window.location.reload();
+                        }}
+                       
+                      >
+                        ✔️
+                      </Button>
+                      <Button
+                        className="decline"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          onDeclineHandle(applicant_id);
+                          rejectInf(applicant_id);
+                          removeItem(applicant_id);
+                          window.location.reload();
+                        }}
+                      >
+                        ✕
+                      </Button>
+                    </div>
+                    
+                    
                   </div>
                 );
               })
