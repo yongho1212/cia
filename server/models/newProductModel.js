@@ -55,6 +55,9 @@ const newproductSchema = new mongoose.Schema({
         type: String || undefined,
         required: [true, "Please enter duedate"]
     },
+    subimage: {
+        type: Array
+    },
     mobile: {
         type: String,
         require: [true, "Please enter your mobile"]

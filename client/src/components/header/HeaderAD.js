@@ -151,7 +151,7 @@ const HeaderAD = () => {
                 textDecoration: "none",
               }}
             >
-              Collaber
+              Cellabor
             </Link>
           </Box>
 
@@ -243,7 +243,7 @@ const HeaderAD = () => {
                 marginInline: 10,
                 height: "70px",
               }}
-              onClick={handleClickInfprflist}
+              onClick={handleClickSearch}
             >
               인플루언서 리스트
             </Button>
