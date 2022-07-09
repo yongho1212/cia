@@ -91,46 +91,42 @@ const UploadProduct = () => {
   const handleSubFileInput = async (e) => {
     var today = new Date();
     const selected = e.target.files;
-    console.log(selected)
+    console.log(selected);
     const urlList = [...subimage];
-    
 
     for (let i = 0; i < selected.length; i++) {
-        var file = selected[i];
-        var fileName = file.name;
+      var file = selected[i];
+      var fileName = file.name;
 
-        const upload = new AWS.S3.ManagedUpload({
-            params: {
-                Bucket: "swaybucket",
-                Key: fileName + today + ".jpg",
-                Body: selected[i],
-            },
-        });
+      const upload = new AWS.S3.ManagedUpload({
+        params: {
+          Bucket: "swaybucket",
+          Key: fileName + today + ".jpg",
+          Body: selected[i],
+        },
+      });
 
-        const data = await upload.promise();
+      const data = await upload.promise();
 
-        urlList.push(data.Location);
-        console.log(urlList);
-      
+      urlList.push(data.Location);
+      console.log(urlList);
 
-
-
-    //   promise.then(
-    //     function (data) {
-    //       console.log(data.Location);
-    //       urlList.push(data.Location);
-    //       console.log(urlList);
-    //       console.log("checkthephoto: ", data.Location);
-    //       // uploaded.push(data.Location)
-    //       alert("이미지 업로드에 성공했습니다.");
-    //       console.log("data: ", urlList[i], "data type: ", typeof urlList[i]);
-    //     },
-    //     function (err) {
-    //       return alert("오류가 발생했습니다.", err.message);
-    //     }
-    //   );
+      //   promise.then(
+      //     function (data) {
+      //       console.log(data.Location);
+      //       urlList.push(data.Location);
+      //       console.log(urlList);
+      //       console.log("checkthephoto: ", data.Location);
+      //       // uploaded.push(data.Location)
+      //       alert("이미지 업로드에 성공했습니다.");
+      //       console.log("data: ", urlList[i], "data type: ", typeof urlList[i]);
+      //     },
+      //     function (err) {
+      //       return alert("오류가 발생했습니다.", err.message);
+      //     }
+      //   );
     }
-    
+
     //이게 무조건 루프문 끝나고 돌아야하는데 왜 쳐 먼저 도
     setSubimage(urlList);
     console.log(subimage);
@@ -254,62 +250,107 @@ const UploadProduct = () => {
 
   return (
     <div
+      className="prdUPloadContainer"
       style={{
         display: "flex",
         justifyContent: "space-between",
         marginInline: "10vw",
         height: "100vh",
-        width: "80vw",
+        width: "70vw",
+        marginInline: "15vw",
         marginTop: "39px",
+        backgroundColor: "grey",
       }}
     >
       <div
         className="imageContainer"
         style={{
           backgroundColor: "skyblue",
-          width: "40vw",
+          width: "50%",
         }}
       >
-          <div className="mainImageContainer"
-          style={{display:'flex', justifyContent:'center'}}
-          >
-          <div
-          className="mainInamge"
-          style={{
-            width: "25vw",
-            height: "25vw",
-            backgroundColor: "green",
-          }}
+        <div
+          className="mainImageContainer"
+          style={{ display: "flex", justifyContent: "center" }}
         >
-          <label
-            htmlFor="upload"
-            className="image-upload-wrapper"
-            onChange={handleFileInput}
+          <div
+            className="mainInamge"
+            style={{
+              width: "25vw",
+              height: "25vw",
+              border: '3px solid rgba(0, 0, 0)', 
+
+            }}
           >
-            <img
-              className="profile-img"
-              src={photo}
-              style={{ width: "25vw", height: "25vw" }}
-            />
-            <input
-              type="file"
-              id="upload"
-              className="image-upload"
-              // onChange={handleFileInput}
-              style={{
-                opacity: 0,
-              }}
-            />
-          </label>
-        </div>
+            <label
+              htmlFor="upload"
+              className="image-upload-wrapper"
+              onChange={handleFileInput}
+            >
+              <img
+                className="profile-img"
+                src={photo}
+                style={{ width: "25vw", height: "25vw" }}
+              />
+              <input
+                type="file"
+                id="upload"
+                className="image-upload"
+                // onChange={handleFileInput}
+                style={{
+                  opacity: 0,
+                }}
+              />
+            </label>
           </div>
-        
+        </div>
+
         <div
           className="subImageContainer"
-          style={{ display: "flex", justifyContent: "center", width: "100%" }}
+          style={{ 
+              display: "flex", 
+              justifyContent: "center", 
+              alignItems:'center',
+              width: "100%",
+              border: '3px solid rgba(0, 0, 0)', 
+              height: "15vw",
+              marginTop:'3vw',
+              
+            }}
         >
           <div style={{}}>
-            <label htmlFor="input-file" onChange={handleSubFileInput}>
+            <div style={{ display: "flex" }}>
+              {subimage.map((image, id) => (
+                <div 
+                key={id}
+                style={{marginInline:'3px'}}
+                >
+                  <img
+                    src={image}
+                    alt={`${image}-${id}`}
+                    style={{ width: "10vw" }}
+                  />
+                  <Button onClick={() => handleDeleteImage(id)} style={{}}>
+                    ✕
+                  </Button>
+                </div>
+              ))}
+            </div>
+            <div style={{ display: "flex" }}></div>
+            <div style={{justifyContent:'center',display:'flex', alignItems:'center'}}>
+            <label 
+            htmlFor="input-file" 
+            onChange={handleSubFileInput}
+            style={{
+                backgroundColor:'red',
+                width:'100%',
+                height:'100%',
+                display:'flex',
+                justifyContent:'center',
+                alignItems:'center'
+            }}
+
+            >
               <input
                 type="file"
                 id="input-file"
@@ -318,143 +359,123 @@ const UploadProduct = () => {
                   opacity: 0,
                 }}
               />
-              
+
               <span>사진추가</span>
             </label>
-            
-            <div style={{display:'flex', justifyContent:'left'}}>
-            {subimage.map((image, id) => (
-              <div key={id}>
-                <img 
-                src={image} 
-                alt={`${image}-${id}`} 
-                style={{width:'10vw'}}
-                />
-                <Button 
-                onClick={() => handleDeleteImage(id)} 
-                style={{}}
-                >
-                    ✕
-                </Button>
-              </div>
-            ))}
             </div>
-            <div style={{display:'flex'}}>
-            
-              
-            
-            </div>
-
            
           </div>
         </div>
       </div>
-      <Form onSubmit={handlePost} id="prdform">
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Control
-            type="name"
-            placeholder="ItemName"
-            onChange={(e) => setName(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Control
-            type="brand"
-            placeholder={brand}
-            onChange={(e) => setBrand(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Control
-            type="platform"
-            placeholder="TargetPlatform"
-            onChange={(e) => setTargetPlatform(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Control
-            type="category"
-            placeholder="Category"
-            onChange={(e) => setCategory(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Control
-            type="period"
-            placeholder="Period"
-            onChange={(e) => setPeriod(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Control
-            type="postType"
-            placeholder="PostType"
-            onChange={(e) => setPostType(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Control
-            type="point"
-            placeholder="Point"
-            onChange={(e) => setPoint(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Control
-            type="applicationConditions"
-            placeholder="ApplicationConditions"
-            onChange={(e) => setApplicationConditions(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Control
-            type="qulification"
-            placeholder="Qualification"
-            onChange={(e) => setQualification(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Control
-            type="isCheck"
-            placeholder="IsCheck?"
-            onChange={(e) => setIsCheck(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Control
-            type="detailPage"
-            placeholder="DetailPage"
-            onChange={(e) => setDetailPage(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Control
-            type="offersAndMissions"
-            placeholder="OffersAndMissions"
-            onChange={(e) => setOffersAndMissions(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Control
-            type="photo"
-            placeholder="photo"
-            value={photo}
-            defaultValue="사진을 선택하세요"
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Control
-            type="mobile"
-            placeholder="Mobile"
-            onChange={(e) => setMobile(e.target.value)}
-          />
-        </Form.Group>
-        {/* <div>
+
+      <div style={{width:'50%', justifyContent:'center', display:'flex'}}>
+        <Form onSubmit={handlePost} id="prdform">
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Control
+              type="name"
+              placeholder="ItemName"
+              onChange={(e) => setName(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Control
+              type="brand"
+              placeholder={brand}
+              onChange={(e) => setBrand(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Control
+              type="platform"
+              placeholder="TargetPlatform"
+              onChange={(e) => setTargetPlatform(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Control
+              type="category"
+              placeholder="Category"
+              onChange={(e) => setCategory(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Control
+              type="period"
+              placeholder="Period"
+              onChange={(e) => setPeriod(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Control
+              type="postType"
+              placeholder="PostType"
+              onChange={(e) => setPostType(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Control
+              type="point"
+              placeholder="Point"
+              onChange={(e) => setPoint(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Control
+              type="applicationConditions"
+              placeholder="ApplicationConditions"
+              onChange={(e) => setApplicationConditions(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Control
+              type="qulification"
+              placeholder="Qualification"
+              onChange={(e) => setQualification(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Control
+              type="isCheck"
+              placeholder="IsCheck?"
+              onChange={(e) => setIsCheck(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Control
+              type="detailPage"
+              placeholder="DetailPage"
+              onChange={(e) => setDetailPage(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Control
+              type="offersAndMissions"
+              placeholder="OffersAndMissions"
+              onChange={(e) => setOffersAndMissions(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Control
+              type="photo"
+              placeholder="photo"
+              value={photo}
+              defaultValue="사진을 선택하세요"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Control
+              type="mobile"
+              placeholder="Mobile"
+              onChange={(e) => setMobile(e.target.value)}
+            />
+          </Form.Group>
+          <div>
                     <Button variant="primary" type="Submit">
                         Upload Please!
                     </Button>
-                </div> */}
-      </Form>
+                </div>
+        </Form>
+      </div>
     </div>
   );
 };

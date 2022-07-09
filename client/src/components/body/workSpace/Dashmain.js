@@ -30,10 +30,12 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import {useNavigate} from 'react-router-dom'
 
 const mdTheme = createTheme();
 
 const DashMain = () => {
+  const navigate = useNavigate();
   const [upopen, setUpOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
 
@@ -51,6 +53,10 @@ const DashMain = () => {
     setUpOpen(false);
   };
 
+  function moveUploadPrd(){
+    navigate('/Upload')
+  }
+
   const descriptionElementRef = React.useRef(null);
   useEffect(() => {
     if (upopen) {
@@ -63,9 +69,8 @@ const DashMain = () => {
 
   return (
     <ThemeProvider theme={mdTheme}>
-      <Box>
+      <Box style={{width:'100vw'}}>
         <CssBaseline />
-
         <Box sx={{ display: "flex" }}>
           <Box
             component="main"
@@ -86,14 +91,23 @@ const DashMain = () => {
                     sx={{
                       p: 2,
                       display: "flex",
-                      flexDirection: "column",
-                      height: "40px",
+                      alignItems: "center",
+                      height: "60px",
+                      justifyContent: "space-between",
                     }}
                   >
+                    <Box>[====] [====] [====] LeftSide 3Btn</Box>
                     <Box>
-                      <Box>
-                        <Button onClick={handleClickOpen("paper")}>상품 업로드</Button>
-                        <Dialog
+                      <Box style={{ display: "flex", alignItems: "center" }}>
+                        <Button
+                          //onClick={handleClickOpen("paper")}
+                          onClick={moveUploadPrd}
+                          variant="contained"
+                          style={{ fontWeight: "bold" }}
+                        >
+                          Upload Product
+                        </Button>
+                        {/* <Dialog
                           open={upopen}
                           onClose={handleClose}
                           scroll={scroll}
@@ -121,7 +135,7 @@ const DashMain = () => {
                               저장
                             </Button>
                           </DialogActions>
-                        </Dialog>
+                        </Dialog> */}
                       </Box>
                     </Box>
                   </Paper>

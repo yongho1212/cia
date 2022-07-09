@@ -111,6 +111,11 @@ const Profile = () => {
         </div>
       </Grid>
       <Button
+        onClick={() => handleLogout()}
+      >
+        로그아웃
+      </Button>
+      <Button
         onClick={() => deleteUserAll()}
       >
       </Button>

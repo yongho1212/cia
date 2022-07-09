@@ -222,6 +222,11 @@ const ADProfile = () => {
 
           {/* <FacebookLoginButton/> */}
         </Box>
+        <Button
+        onClick={() => handleLogout()}
+      >
+        로그아웃
+      </Button>
 
         <div style={{ backgroundColor: "#a78" }}>
           <Button onClick={() => goDelete()}>회원탈퇴</Button>
