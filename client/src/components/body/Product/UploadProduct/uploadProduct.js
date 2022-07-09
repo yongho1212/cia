@@ -164,6 +164,7 @@ const UploadProduct = () => {
           detailPage,
           offersAndMissions,
           photo,
+          subimage,
           mobile,
           authorEmail,
           authorUid,
@@ -193,6 +194,7 @@ const UploadProduct = () => {
         detailPage,
         offersAndMissions,
         photo,
+        subimage,
         mobile,
         authorEmail,
         authorUid,
@@ -215,6 +217,7 @@ const UploadProduct = () => {
         detailPage,
         offersAndMissions,
         photo,
+        subimage,
         mobile,
         authorUid,
         authorEmail,
@@ -236,6 +239,7 @@ const UploadProduct = () => {
       detailPage,
       offersAndMissions,
       photo,
+      subimage,
       mobile,
       authorEmail,
       authorUid,
@@ -266,7 +270,10 @@ const UploadProduct = () => {
           width: "40vw",
         }}
       >
-        <div
+          <div className="mainImageContainer"
+          style={{display:'flex', justifyContent:'center'}}
+          >
+          <div
           className="mainInamge"
           style={{
             width: "25vw",
@@ -295,6 +302,8 @@ const UploadProduct = () => {
             />
           </label>
         </div>
+          </div>
+        
         <div
           className="subImageContainer"
           style={{ display: "flex", justifyContent: "center", width: "100%" }}
@@ -312,26 +321,31 @@ const UploadProduct = () => {
               
               <span>사진추가</span>
             </label>
-            <img 
-                src={subimage[0]} 
-                
-                style={{width:'10vw'}}
-                />
-                <img 
-                src={subimage[1]} 
-                
-                style={{width:'10vw'}}
-                />
+            
+            <div style={{display:'flex', justifyContent:'left'}}>
             {subimage.map((image, id) => (
-              <div  key={id}>
+              <div key={id}>
                 <img 
                 src={image} 
                 alt={`${image}-${id}`} 
                 style={{width:'10vw'}}
                 />
-                <Button onClick={() => handleDeleteImage(id)} />
+                <Button 
+                onClick={() => handleDeleteImage(id)} 
+                style={{}}
+                >
+                    ✕
+                </Button>
               </div>
             ))}
+            </div>
+            <div style={{display:'flex'}}>
+            
+              
+            
+            </div>
+
+           
           </div>
         </div>
       </div>
