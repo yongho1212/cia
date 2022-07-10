@@ -45,7 +45,7 @@ const EditDetailpage = () => {
     try {
       console.log("accept try");
       const res = await axios
-        .post("http://localhost:1212/products/acceptApplicant", {
+        .post(`${process.env.REACT_APP_GOOGLEPLACES_API}/products/acceptApplicant`, {
           applicant_id,
           id,
         })
@@ -63,7 +63,7 @@ const EditDetailpage = () => {
     try {
       console.log("Decline try");
       const res = await axios
-        .post("http://localhost:1212/products/declineApplicant", {
+        .post(`${process.env.REACT_APP_GOOGLEPLACES_API}/products/declineApplicant`, {
           applicant_id,
           id,
         })
@@ -102,7 +102,7 @@ const EditDetailpage = () => {
     const channelid = joined_channel;
     try {
       const resprdinf = await axios
-        .post("http://localhost:1212/inf/inf_add_prd", {
+        .post(`${process.env.REACT_APP_GOOGLEPLACES_API}/inf/inf_add_prd`, {
           infuid,
           progress_prd,
         })
@@ -111,7 +111,7 @@ const EditDetailpage = () => {
           console.log(resprdinf.data);
         });
       const resad = await axios
-        .post("http://localhost:1212/ad/ad_add_channel", {
+        .post("${process.env.REACT_APP_GOOGLEPLACES_API}/ad/ad_add_channel", {
           uid,
           joined_channel,
         })
@@ -120,7 +120,7 @@ const EditDetailpage = () => {
           console.log(resad.data);
         });
       const resinf = await axios
-        .post("http://localhost:1212/inf/inf_add_channel", {
+        .post(`${process.env.REACT_APP_GOOGLEPLACES_API}/inf/inf_add_channel`, {
           infuid,
           joined_channel,
         })
@@ -129,7 +129,7 @@ const EditDetailpage = () => {
           console.log(resinf.data);
         });
       const chdb = await axios
-        .post("http://localhost:1212/chat/addchat", {
+        .post(`${process.env.REACT_APP_GOOGLEPLACES_API}/chat/addchat`, {
           aduid,
           infuid,
           prdname,
@@ -157,7 +157,7 @@ const EditDetailpage = () => {
     const infuid = applicant_id.uid
     try {
       const resprdinf = await axios
-        .post("http://localhost:1212/inf/inf_reject_prd", {
+        .post(`${process.env.REACT_APP_GOOGLEPLACES_API}/inf/inf_reject_prd`, {
           infuid,
           denied_prd,
         })
@@ -181,7 +181,7 @@ const EditDetailpage = () => {
 
       try {
         const delPrd = await axios
-          .post("http://localhost:1212/products/deleteProduct", { prdfsidDb })
+          .post(`${process.env.REACT_APP_GOOGLEPLACES_API}/products/deleteProduct`, { prdfsidDb })
           .then((dltres) => {
             console.log("delete success");
             console.log(dltres.data);
@@ -203,7 +203,7 @@ const EditDetailpage = () => {
     
     try {
       const res = await axios
-        .post("http://localhost:1212/products/getprdinfo", { id })
+        .post(`${process.env.REACT_APP_GOOGLEPLACES_API}/products/getprdinfo`, { id })
         .then((res) => {
           console.log(res.data);
           const prdinfo = res.data;
@@ -224,7 +224,7 @@ const EditDetailpage = () => {
 //   // 물어보rl
 // const posts = applicant.map(applicant_id => {
 //   return axios
-//     .get("http://localhost:1212/inf/getInfInfo", { params: { uid: applicant_id }})
+//     .get("${process.env.REACT_APP_GOOGLEPLACES_API}/inf/getInfInfo", { params: { uid: applicant_id }})
 //     .then((res) => {
 //         console.log(res.data)
 //         // setInfinfo(res.data)
@@ -243,7 +243,7 @@ const EditDetailpage = () => {
   useEffect((applicant_id) => {
     const infuid = applicant_id
     const applicantsPromise = applicant.map(infuid => 
-      axios.get("http://localhost:1212/inf/getInfInfo", { params: { uid: infuid }})
+      axios.get(`${process.env.REACT_APP_GOOGLEPLACES_API}/inf/getInfInfo`, { params: { uid: infuid }})
         .then((res) => res.data)
       );
       Promise.all(applicantsPromise).then(data => {setInfinfo({data})})

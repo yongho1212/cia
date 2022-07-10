@@ -51,7 +51,7 @@ const INFSignup = () => {
     try{
       const uid = auth.currentUser.uid
       const nickname = displayName
-      const res = await axios.post('/inf/inf_register', 
+      const res = await axios.post(`${process.env.REACT_APP_GOOGLEPLACES_API}/inf/inf_register`, 
       {nickname, email, uid, password})
       .then(function(res){        
         console.log("해당 상풍 아이디" + res)

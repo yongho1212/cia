@@ -102,7 +102,7 @@ const ADEditProfile = () => {
     e.preventDefault();
     try {
       const res = await axios
-        .post("http://localhost:1212/ad/ad_update_profile", {
+        .post(`${process.env.REACT_APP_GOOGLEPLACES_API}/ad/ad_update_profile`, {
           uid,
           brand_name,
           tags,
