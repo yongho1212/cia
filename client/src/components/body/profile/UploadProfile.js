@@ -111,7 +111,7 @@ const UploadProfile = () => {
     e.preventDefault();
     try {
       const res = await axios
-        .post("http://localhost:1212/inf/inf_update_profile", {
+        .post(`${process.env.REACT_APP_GOOGLEPLACES_API}/inf/inf_update_profile`, {
           uid,
           nickname,
           tags,

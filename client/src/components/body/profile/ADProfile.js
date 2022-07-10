@@ -93,7 +93,7 @@ const ADProfile = () => {
   const deleteUserAll = async () => {
     if (window.confirm("정말 탈퇴하시겠습니다?")) {
       const res = await axios
-        .post("http://localhost:1212/user/delete", { uid })
+        .post(`${process.env.REACT_APP_GOOGLEPLACES_API}/user/delete`, { uid })
         .then((res) => {
           console.log(res.data);
           console.log("success");

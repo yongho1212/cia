@@ -53,7 +53,7 @@ const AdSignup = () => {
       const uid = auth.currentUser.uid
       const brand_name = displayName
       console.log('debug line', uid, brand_name)
-      const res = await axios.post('http://localhost:1212/ad/ad_register', 
+      const res = await axios.post(`${process.env.REACT_APP_GOOGLEPLACES_API}/ad/ad_register`, 
       {brand_name, email, uid, password})
       .then(function(res){
         console.log(res.data)

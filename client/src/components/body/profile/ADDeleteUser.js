@@ -91,7 +91,7 @@ const ADDeleteUser = () => {
         });
       
         const res = await axios
-          .post("http://localhost:1212/ad/deleteAdUser", { uid })
+          .post(`${process.env.REACT_APP_GOOGLEPLACES_API}/ad/deleteAdUser`, { uid })
           .then((res) => {
             console.log(res.data);
             console.log("success");

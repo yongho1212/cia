@@ -24,7 +24,7 @@ const Channel = () => {
   const getinfo = async () => {
     console.log(uid);
     const response = await axios
-      .get("http://localhost:1212/user/getUserInfo", { params: { uid: uid } })
+      .get(`${process.env.REACT_APP_GOOGLEPLACES_API}/user/getUserInfo`, { params: { uid: uid } })
       .then((res) => {
         console.log(res.data);
         const loginData = res.data;

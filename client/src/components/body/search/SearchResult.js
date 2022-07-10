@@ -8,7 +8,7 @@ const SearchResult = () => {
 
     const getSearchList = async () => {
         try {
-            const res = await axios.post('http://localhost:1212/user/getlist')
+            const res = await axios.post(`${process.env.REACT_APP_GOOGLEPLACES_API}/user/getlist`)
                 .then((res) => {
                     console.log('now serving');
                     console.log(res.data)
