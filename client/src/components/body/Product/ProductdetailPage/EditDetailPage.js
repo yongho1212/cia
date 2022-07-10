@@ -17,6 +17,7 @@ import { db, auth } from "../../../../firebase";
 import { useNavigate } from "react-router-dom";
 import { reload } from "@firebase/auth";
 import { async } from "@firebase/util";
+import { flexbox } from "@mui/system";
 
 const EditDetailpage = () => {
   const [product, setProduct] = useState([]); // 제품 정보
@@ -35,8 +36,12 @@ const EditDetailpage = () => {
   const uid = state.auth.state.loginData.uid;
 
   console.log(applicant);
+  console.log(id);
+  console.log(id);
+
 
   const onAcceptHandle = async (applicant_id) => {
+    console.log(applicant_id.uid)
     try {
       console.log("accept try");
       const res = await axios
@@ -80,11 +85,12 @@ const EditDetailpage = () => {
   };
 
   const addNewInf = async (applicant_id) => {
+    const infuid = applicant_id.uid
     const docRef = await collection(db, `prdRoom/${prdfsid}/inflist/`);
     const newChannel = await addDoc(docRef, {
-      name: { applicant_id },
+      name: { infuid },
       Aduid: { uid },
-      Infuid: { applicant_id },
+      Infuid: { infuid },
       createdAt: serverTimestamp(),
     });
 
@@ -92,12 +98,12 @@ const EditDetailpage = () => {
     const joined_channel = newChannel.id;
     const progress_prd = prdfsid;
     const aduid = uid;
-    const infuid = applicant_id;
+    
     const channelid = joined_channel;
     try {
       const resprdinf = await axios
         .post("http://localhost:1212/inf/inf_add_prd", {
-          applicant_id,
+          infuid,
           progress_prd,
         })
         .then((resprdinf) => {
@@ -115,7 +121,7 @@ const EditDetailpage = () => {
         });
       const resinf = await axios
         .post("http://localhost:1212/inf/inf_add_channel", {
-          applicant_id,
+          infuid,
           joined_channel,
         })
         .then((resinf) => {
@@ -148,11 +154,11 @@ const EditDetailpage = () => {
 
   const rejectInf = async (applicant_id) => {
     const denied_prd = prdfsid;
-
+    const infuid = applicant_id.uid
     try {
       const resprdinf = await axios
         .post("http://localhost:1212/inf/inf_reject_prd", {
-          applicant_id,
+          infuid,
           denied_prd,
         })
         .then((resprdinf) => {
@@ -194,6 +200,7 @@ const EditDetailpage = () => {
 
 
   const getPostList = async (applicant_id) => {
+    
     try {
       const res = await axios
         .post("http://localhost:1212/products/getprdinfo", { id })
@@ -233,9 +240,10 @@ const EditDetailpage = () => {
   
  const item = product;
 
-  useEffect(() => {
-    const applicantsPromise = applicant.map(applicant_id => 
-      axios.get("http://localhost:1212/inf/getInfInfo", { params: { uid: applicant_id }})
+  useEffect((applicant_id) => {
+    const infuid = applicant_id
+    const applicantsPromise = applicant.map(infuid => 
+      axios.get("http://localhost:1212/inf/getInfInfo", { params: { uid: infuid }})
         .then((res) => res.data)
       );
       Promise.all(applicantsPromise).then(data => {setInfinfo({data})})
@@ -292,12 +300,14 @@ const EditDetailpage = () => {
             </div>
           </div>
           <div style={{ marginTop: "20px" }}>
-            <dix style={{ width: "100%" }}>신청자 목록</dix>
-            {infinfo.length !== 0 ? (
+            <div style={{ width: "100%" }}>신청자 목록</div>
+
+            {/* applicant로 해야하는지 infinfo로 해야하는지? */}
+            {applicant.length !== 0 ? (
               infinfo.data.map((applicant_id) => {
                 return (
                   <div 
-                  key={infinfo.data.uid} 
+                  key={applicant_id.uid} 
                   style={{
                     justifyContent:'space-between', 
                     alignItems:'center', 
@@ -317,18 +327,25 @@ const EditDetailpage = () => {
                     </div>
                     
                     <div className="btnContainer"
-                    style={{backgroundColor:'#EDFFF2', width:'15vw'}}
+                    style={{
+                      backgroundColor:'#EDFFF2',
+                      width:'15vw',
+                      display:'flex'
+                    }}
                     >
                       <Button
                         className="accept"
                         onClick={(e) => {
                           e.preventDefault();
+                          console.log(applicant_id)
                           onAcceptHandle(applicant_id);
                           addNewInf(applicant_id);
                           removeItem(applicant_id);
-                          window.location.reload();
+                          // window.location.reload();
                         }}
-                       
+                       style={{
+                        width:'100%'
+                       }}
                       >
                         ✔️
                       </Button>
@@ -341,6 +358,9 @@ const EditDetailpage = () => {
                           removeItem(applicant_id);
                           window.location.reload();
                         }}
+                        style={{
+                          width:'100%'
+                         }}
                       >
                         ✕
                       </Button>

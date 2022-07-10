@@ -14,7 +14,7 @@ const initialState = {
         isCheck:"",
         detailPage:"",
         offersAndMissions:"",
-        photo:"",
+        photo:[],
         mobile:"",
         authorUid:"",
         joinInf:[],

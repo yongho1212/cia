@@ -123,9 +123,10 @@ const HeaderAD = () => {
       style={{
         backgroundColor: "#fff",
         zIndex: 100,
-        height: "75px",
+        height: "70px",
         justifyContent: "center",
         width: "100vw",
+        
       }}
     >
       <Container maxWidth="xl">
@@ -151,28 +152,40 @@ const HeaderAD = () => {
                 textDecoration: "none",
               }}
             >
-              Collaber
+              Cellabor
             </Link>
           </Box>
 
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <div style={{ display: "flex" }}>
-              <Input
+              {/* <Input
                 variant="contained"
                 placeholder="검색어"
                 style={{
                   width: "230px",
                   display: "flex",
                   color: "#03ff95",
-                  backgroundColor: "#03ff95",
-                  color: "#000",
+                  
+                  
                 }}
                 value={text}
                 onChange={(e) => {
                   setText(e.target.value);
                 }}
-              />
-              <Link
+              /> */}
+              <Button
+              variant="contained"
+              style={{
+                backgroundColor: "#03ff95",
+                color: "#000",
+                marginInline: 10,
+                height: "45px",
+              }}
+              onClick={handleClickSearch}
+            >
+              검색
+            </Button>
+              {/* <Link
                 to={`/SearchResult/${text}`}
                 style={{
                   display: "flex",
@@ -187,7 +200,7 @@ const HeaderAD = () => {
                 onClick={handleSearch}  
               >
                 검색
-              </Link>
+              </Link> */}
             </div>
             {/* <Button 
               variant="contained"
@@ -217,7 +230,7 @@ const HeaderAD = () => {
                 backgroundColor: "#03ff95",
                 color: "#000",
                 marginInline: 10,
-                height: "70px",
+                height: "45px",
               }}
               onClick={handleClickChat}
             >
@@ -229,24 +242,13 @@ const HeaderAD = () => {
                 backgroundColor: "#03ff95",
                 color: "#000",
                 marginInline: 10,
-                height: "70px",
+                height: "45px",
               }}
               onClick={handleClickProfile}
             >
               프로필
             </Button>
-            <Button
-              variant="contained"
-              style={{
-                backgroundColor: "#03ff95",
-                color: "#000",
-                marginInline: 10,
-                height: "70px",
-              }}
-              onClick={handleClickInfprflist}
-            >
-              인플루언서 리스트
-            </Button>
+            
             {/* <Button 
                 variant="contained"
                 style={{backgroundColor:"#03ff95", color:"#000", marginInline:10, height:'70px'}}
@@ -254,18 +256,18 @@ const HeaderAD = () => {
             >
                 WORK SPACE
             </Button> */}
-            <Button
+            {/* <Button
               variant="contained"
               style={{
                 backgroundColor: "#03ff95",
                 color: "#000",
                 marginInline: 10,
-                height: "70px",
+                height: "45px",
               }}
               onClick={handleLogout}
             >
               로그아웃
-            </Button>
+            </Button> */}
           </Box>
         </Toolbar>
       </Container>

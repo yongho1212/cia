@@ -8,12 +8,12 @@ const productCtrl = {
         try {
             const {name, brand, targetPlatform, category, period, postType,
                 point, applicationConditions, qualification, isCheck,
-                detailPage, offersAndMissions, photo, mobile,authorEmail, authorUid, prdfsidDb} = req.body
+                detailPage, offersAndMissions, photo, subimage, mobile,authorEmail, authorUid, prdfsidDb} = req.body
 
             const newProduct = new Product({
                 name, brand, targetPlatform, category, period, postType,
                     point, applicationConditions, qualification, isCheck,
-                    detailPage, offersAndMissions, photo, mobile, authorEmail, authorUid, prdfsidDb
+                    detailPage, offersAndMissions, photo, subimage, mobile, authorEmail, authorUid, prdfsidDb
             })
             
             await newProduct.save()
@@ -129,6 +129,7 @@ const productCtrl = {
                 detailPage,
                 offersAndMissions,
                 photo,
+                subimage,
                 mobile,
                 authorUid,
                 authorEmail
@@ -147,6 +148,7 @@ const productCtrl = {
                 detailPage: detailPage,
                 offersAndMissions: offersAndMissions,
                 photo: photo,
+                subimage: subimage,
                 mobile: mobile,
                 authorEmail: authorEmail
             }})
