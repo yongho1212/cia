@@ -3,8 +3,19 @@ import { Form } from "react-bootstrap";
 import "./uploadProduct.css";
 import { useState } from "react";
 import axios from "axios";
-import { Button } from "react-bootstrap";
+
 import { useNavigate } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import FormControl from "@mui/material/FormControl";
+import Input from "@mui/material/Input";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+
 import AWS from "aws-sdk";
 import {
   addDoc,
@@ -12,6 +23,7 @@ import {
   serverTimestamp,
   collection,
 } from "firebase/firestore";
+
 import { db, auth } from "../../../../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -255,11 +267,10 @@ const UploadProduct = () => {
         display: "flex",
         justifyContent: "space-between",
         marginInline: "10vw",
-        height: "100vh",
-        width: "70vw",
-        marginInline: "15vw",
+        height: "100%",
+        width: "80vw",
+        marginInline: "10vw",
         marginTop: "39px",
-        backgroundColor: "grey",
       }}
     >
       <div
@@ -278,8 +289,7 @@ const UploadProduct = () => {
             style={{
               width: "25vw",
               height: "25vw",
-              border: '3px solid rgba(0, 0, 0)', 
-
+              border: "3px solid rgba(0, 0, 0)",
             }}
           >
             <label
@@ -307,173 +317,365 @@ const UploadProduct = () => {
 
         <div
           className="subImageContainer"
-          style={{ 
-              display: "flex", 
-              justifyContent: "center", 
-              alignItems:'center',
-              width: "100%",
-              border: '3px solid rgba(0, 0, 0)', 
-              height: "15vw",
-              marginTop:'3vw',
-              
-            }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            border: "3px solid rgba(0, 0, 0)",
+            height: "15vw",
+            marginTop: "3vw",
+          }}
         >
           <div style={{}}>
             <div style={{ display: "flex" }}>
               {subimage.map((image, id) => (
-                <div 
-                key={id}
-                style={{marginInline:'3px'}}
-                >
+                <div key={id} style={{ marginInline: "3px" }}>
                   <img
                     src={image}
                     alt={`${image}-${id}`}
                     style={{ width: "10vw" }}
                   />
-                  <Button onClick={() => handleDeleteImage(id)} style={{}}>
+                  <Button
+                    onClick={() => {
+                      handleDeleteImage(id);
+                      console.log("", id);
+                    }}
+                    style={{}}
+                  >
                     ✕
                   </Button>
                 </div>
               ))}
+              <div
+                style={{
+                  width: "100px",
+                  height: "100px",
+                  backgroundColor: "blue",
+                }}
+              >
+                s
+              </div>
+              <div
+                style={{
+                  width: "100px",
+                  height: "100px",
+                  backgroundColor: "blue",
+                }}
+              >
+                s
+              </div>
+              <div
+                style={{
+                  width: "100px",
+                  height: "100px",
+                  backgroundColor: "blue",
+                }}
+              >
+                s
+              </div>
+              <div
+                style={{
+                  width: "100px",
+                  height: "100px",
+                  backgroundColor: "blue",
+                }}
+              >
+                s
+              </div>
             </div>
             <div style={{ display: "flex" }}></div>
-            <div style={{justifyContent:'center',display:'flex', alignItems:'center'}}>
-            <label 
-            htmlFor="input-file" 
-            onChange={handleSubFileInput}
-            style={{
-                backgroundColor:'red',
-                width:'100%',
-                height:'100%',
-                display:'flex',
-                justifyContent:'center',
-                alignItems:'center'
-            }}
-
+            <div
+              style={{
+                justifyContent: "center",
+                display: "flex",
+                alignItems: "center",
+              }}
             >
-              <input
-                type="file"
-                id="input-file"
-                multiple
+              <label
+                htmlFor="input-file"
+                onChange={handleSubFileInput}
                 style={{
-                  opacity: 0,
+                  backgroundColor: "red",
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
-              />
+              >
+                <input
+                  type="file"
+                  id="input-file"
+                  multiple
+                  style={{
+                    opacity: 0,
+                  }}
+                />
 
-              <span>사진추가</span>
-            </label>
+                <span>사진추가</span>
+              </label>
             </div>
-           
           </div>
         </div>
       </div>
 
-      <div style={{width:'50%', justifyContent:'center', display:'flex'}}>
+      <div
+        style={{
+          display: "flex",
+          width: "35vw",
+          flexDirection: "column",
+        }}
+      >
         <Form onSubmit={handlePost} id="prdform">
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
+          <div className="formCell">
+            <FormControl
+              className="mb-3"
+              controlId="formBasicName"
+              fullWidth
+              variant="filled"
+            >
+              {/* <Form.Control
               type="name"
               placeholder="ItemName"
               onChange={(e) => setName(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
+            /> */}
+              <InputLabel htmlFor="component-simple">켐페인 제목</InputLabel>
+              <Input
+                type="name"
+                id="component-simple"
+                onChange={(e) => setName(e.target.value)}
+              />
+            </FormControl>
+          </div>
+
+          <div style={{ display: "flex" }}>
+            <div className="formCell">
+              <FormControl className="mb-3" controlId="formBasicName">
+                {/* <Form.Control
               type="brand"
               placeholder={brand}
               onChange={(e) => setBrand(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
-              type="platform"
-              placeholder="TargetPlatform"
-              onChange={(e) => setTargetPlatform(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
-              type="category"
-              placeholder="Category"
-              onChange={(e) => setCategory(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
-              type="period"
-              placeholder="Period"
-              onChange={(e) => setPeriod(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
-              type="postType"
-              placeholder="PostType"
-              onChange={(e) => setPostType(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
-              type="point"
-              placeholder="Point"
-              onChange={(e) => setPoint(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
-              type="applicationConditions"
-              placeholder="ApplicationConditions"
-              onChange={(e) => setApplicationConditions(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
-              type="qulification"
-              placeholder="Qualification"
-              onChange={(e) => setQualification(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
-              type="isCheck"
-              placeholder="IsCheck?"
-              onChange={(e) => setIsCheck(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
-              type="detailPage"
-              placeholder="DetailPage"
-              onChange={(e) => setDetailPage(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
-              type="offersAndMissions"
-              placeholder="OffersAndMissions"
-              onChange={(e) => setOffersAndMissions(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicName">
+            /> */}
+                <InputLabel htmlFor="component-simple">브랜드명</InputLabel>
+                <Input
+                  type="brand"
+                  id="component-simple"
+                  defaultValue={brand}
+                  onChange={(e) => setBrand(e.target.value)}
+                />
+              </FormControl>
+            </div>
+
+            <div className="formCell">
+              <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                <InputLabel id="demo-simple-select-label">Platform</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={targetPlatform}
+                  defaultValue=""
+                  label="Platform"
+                  onChange={(e) => setTargetPlatform(e.target.value)}
+                >
+                  <MenuItem value={"instagram"}>Instagram</MenuItem>
+                  <MenuItem value={"facebook"}>Facebook</MenuItem>
+                  <MenuItem value={"blog"}>Blog</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+          </div>
+
+          <div className="formCell">
+            <FormControl className="mb-3" controlId="formBasicName">
+              {/* <Form.Control
+                type="category"
+                placeholder="Category"
+                onChange={(e) => setCategory(e.target.value)}
+              /> */}
+              <InputLabel htmlFor="component-simple">Category</InputLabel>
+              <Input
+                type="category"
+                id="component-simple"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+            </FormControl>
+          </div>
+
+          <div className="formCell">
+            <FormControl className="mb-3" controlId="formBasicName">
+              {/* <Form.Control
+                type="period"
+                placeholder="Period"
+                onChange={(e) => setPeriod(e.target.value)}
+              /> */}
+              {/* <InputLabel htmlFor="component-simple">마감기한</InputLabel> */}
+              {/* <TextField
+                type="Date"
+                placeholder="date today"
+                onChange={(e) => setPeriod(e.target.value)}
+              /> */}
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DateTimePicker
+                  renderInput={(props) => <TextField {...props} />}
+                  label="DateTimePicker"
+                  inputFormat="yyyy/MM/dd hh:mm "
+                  value={period}
+                  onChange={(newValue) => {
+                    setPeriod(newValue);
+                  }}
+                />
+              </LocalizationProvider>
+            </FormControl>
+          </div>
+
+          <div className="formCell">
+            <FormControl className="mb-3" controlId="formBasicName">
+              {/* <Form.Control
+                type="postType"
+                placeholder="PostType"
+                onChange={(e) => setPostType(e.target.value)}
+              /> */}
+              <InputLabel htmlFor="component-simple">postType</InputLabel>
+              <Input
+                style={{ width: "300px" }}
+                type="postType"
+                id="component-simple"
+                onChange={(e) => setPostType(e.target.value)}
+              />
+            </FormControl>
+          </div>
+
+          <div className="formCell">
+            <FormControl className="mb-3" controlId="formBasicName">
+              {/* <Form.Control
+                type="point"
+                placeholder="Point"
+                onChange={(e) => setPoint(e.target.value)}
+              /> */}
+              <InputLabel htmlFor="component-simple">포인트</InputLabel>
+              <Input
+                type="point"
+                id="component-simple"
+                onChange={(e) => setPoint(e.target.value)}
+              />
+            </FormControl>
+          </div>
+
+          <div className="formCell">
+            <FormControl className="mb-3" controlId="formBasicName">
+              {/* <Form.Control
+                type="applicationConditions"
+                placeholder="ApplicationConditions"
+                onChange={(e) => setApplicationConditions(e.target.value)}
+              /> */}
+              <InputLabel htmlFor="component-simple">
+                applicationConditions
+              </InputLabel>
+              <Input
+                type="applicationConditions"
+                id="component-simple"
+                onChange={(e) => setApplicationConditions(e.target.value)}
+              />
+            </FormControl>
+          </div>
+
+          <div className="formCell">
+            <FormControl className="mb-3" controlId="formBasicName">
+              {/* <Form.Control
+                type="qulification"
+                placeholder="Qualification"
+                onChange={(e) => setQualification(e.target.value)}
+              /> */}
+              <InputLabel htmlFor="component-simple">신청 조건</InputLabel>
+              <Input
+                type="qulification"
+                id="component-simple"
+                onChange={(e) => setQualification(e.target.value)}
+              />
+            </FormControl>
+          </div>
+
+          <div className="formCell">
+            <FormControl className="mb-3" controlId="formBasicName">
+              <InputLabel htmlFor="component-simple">isCheck</InputLabel>
+              <Input
+                type="isCheck"
+                id="component-simple"
+                onChange={(e) => setIsCheck(e.target.value)}
+              />
+            </FormControl>
+          </div>
+
+          <div className="formCell">
+            <FormControl fullWidth className="mb-3" controlId="formBasicName">
+              {/* <Form.Control
+                type="detailPage"
+                placeholder="DetailPage"
+                onChange={(e) => setDetailPage(e.target.value)}
+              /> */}
+              {/* <InputLabel htmlFor="component-simple">상세 설명</InputLabel> */}
+              <TextField
+                multiline
+                rows={8}
+                type="detailPage"
+                id="component-simple"
+                onChange={(e) => setDetailPage(e.target.value)}
+                style={{}}
+              />
+            </FormControl>
+          </div>
+
+          <div className="formCell">
+            <FormControl className="mb-3" controlId="formBasicName">
+              {/* <Form.Control
+                type="offersAndMissions"
+                placeholder="OffersAndMissions"
+                onChange={(e) => setOffersAndMissions(e.target.value)}
+              /> */}
+              <InputLabel htmlFor="component-simple">미션</InputLabel>
+              <Input
+                type="offersAndMissions"
+                id="component-simple"
+                onChange={(e) => setOffersAndMissions(e.target.value)}
+              />
+            </FormControl>
+          </div>
+
+          <div className="formCell">
+            <FormControl className="mb-3" controlId="formBasicName">
+              {/* <Form.Control
+                type="mobile"
+                placeholder="Mobile"
+                onChange={(e) => setMobile(e.target.value)}
+              /> */}
+              <InputLabel htmlFor="component-simple">담장자 연락처</InputLabel>
+              <Input
+                type="mobile"
+                id="component-simple"
+                onChange={(e) => setMobile(e.target.value)}
+              />
+            </FormControl>
+          </div>
+          {/* <FormControl className="mb-3" controlId="formBasicName">
             <Form.Control
               type="photo"
               placeholder="photo"
               value={photo}
               defaultValue="사진을 선택하세요"
             />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Control
-              type="mobile"
-              placeholder="Mobile"
-              onChange={(e) => setMobile(e.target.value)}
-            />
-          </Form.Group>
-          <div>
-                    <Button variant="primary" type="Submit">
-                        Upload Please!
-                    </Button>
-                </div>
+          </FormControl> */}
+          <div className="formCell">
+            <Button
+              variant="contained"
+              type="Submit"
+              style={{ backgroundColor: "pink" }}
+            >
+              Upload Please!
+            </Button>
+          </div>
+
+          <div></div>
         </Form>
       </div>
     </div>

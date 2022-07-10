@@ -47,7 +47,10 @@ const Myprd = () => {
 
   return (
     <div className="main_Right_chan" style={{display: 'flex', flexWrap: 'wrap'}}>
+      <div style={{width:'100%'}}>
       나의 상품리스트
+      </div>
+      
       {product ? product.map(item => {
         return (
           <div key={item._id} style={{ margin: '20px'}}>
