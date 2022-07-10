@@ -6,7 +6,35 @@ import { actionCreators } from '../../../state/index';
 import axios from "axios";
 import Link from "@mui/material/Link";
 import Button from "@mui/material/Button";
-import { MenuItem, Menu } from "@mui/material";
+import { MenuItem, Menu, Autocomplete, Chip, TextField, styled } from "@mui/material";
+
+const StyledTextField = styled(TextField)({
+  '& label': {
+    color: '#BBBBBB',
+    padding: 0,
+
+    '&.Mui-focused': {
+      color: '#BBBBBB',
+    },
+  },
+  '& .MuiOutlinedInput-root.MuiInputBase-root': {
+    padding: '0 0 0 10px',
+  },
+  '& .MuiOutlinedInput-root': {
+    fontSize: '12px',
+    '& fieldset': {
+      borderColor: '#666666',
+      borderRadius: '10px',
+    },
+    '&.Mui-focused': {
+      '& fieldset': {
+        padding: 0,
+        border: '1px solid #666666',
+      },
+    },
+  },
+});
+
 
 const Search = (props) => {
   const dispatch = useDispatch();
@@ -34,6 +62,23 @@ const Search = (props) => {
   const [ageText, setAgeText] = React.useState('나이');
   const [tagText, setTagText] = React.useState('태그 전체');
   const [testText, setTestText] = React.useState('태그');
+
+  const [value, setValue] = React.useState();
+  const [placeholder, setPlaceholder] = React.useState('');
+  const [inputValue, setInputValue] = React.useState('');
+  const [options, setOptions] = React.useState();
+  const [openOptionsMenu, setOpenOptionMenu] = React.useState(false); //안쓸듯
+
+  console.log(inputValue);
+  console.log(value); // 이거로 필터 해야함
+
+  const taglist = [
+    {title: '축구'},
+    {title: '여행'},
+    {title: '게임'},
+    {title: '음식'},
+    {title: '일상'},
+  ];
 
   const sexFilterClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -144,8 +189,34 @@ const Search = (props) => {
             ]})}
         </Menu>
         <Menu open={testOpen} anchorEl={anchorEl} onClose={handleClose}>
-          <div>
+          <div style={{ width: '400px', height: '200px' }}>
             이찬휘의 입력칸
+            <Autocomplete 
+              multiple 
+              options={taglist} 
+              getOptionLabel={(option) => 
+                option.title
+              }
+              value={value}
+              onChange={(event, selectedValue) => {
+                setValue(selectedValue);
+              }}
+              onInputChange={(event, newInputValue) => {
+                setInputValue(newInputValue);
+              }}
+              limitTags={3}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant='standard'
+                  label='Multiple values'
+                  placeholder="tags"
+                />
+              )}
+              isOptionEqualToValue={(againstTo, selected) => {
+                return selected.title === againstTo.title;
+              }}
+            />
           </div>
         </Menu>
       </div>
