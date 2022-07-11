@@ -47,7 +47,7 @@ const Navbar = () => {
     <ThemeProvider theme={mdTheme}>
       <Box>
         <CssBaseline />
-        <Box style={{ width: "100%", backgroundColor: "#0f0" }}>
+        <Box style={{ width: "100%", backgroundColor: "#dd0" }}>
           <Toolbar
             sx={{
               pr: "24px", // keep right padding when drawer closed
