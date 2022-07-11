@@ -37,7 +37,7 @@ const InfluencerList = ({ useParams }) => {
                     {item.displayName}
                   </div>
                 </div>
-                <div style={{ fontSize: '20px' }}>
+                <div style={{ fontSize: '21px' }}>
                   {item.age}
                 </div>
               </div>
