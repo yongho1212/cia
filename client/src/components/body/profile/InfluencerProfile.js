@@ -19,7 +19,7 @@ const InfluencerProfile = () => {
     const state = useSelector((state) => state);
     const getInfluencerList = async () => {
         try {
-            const res = await axios.post(`${process.env.REACT_APP_GOOGLEPLACES_API}/user/getlist`)
+            const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/user/getlist`)
                 .then((res) => {
                     console.log(res.data)
                     setInfluencer(res.data);

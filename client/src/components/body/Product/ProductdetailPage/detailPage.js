@@ -16,7 +16,7 @@ const DetailPage = () => {
 
     const getPostList = async () => {
         try {
-           const res = await axios.post(`${process.env.REACT_APP_GOOGLEPLACES_API}/products/getprdinfo`,
+           const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/getprdinfo`,
            { id }).then((res) => {
             console.log(res.data)
             setProduct(res.data); 
@@ -33,7 +33,7 @@ const DetailPage = () => {
     const appliyCampaign = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`${process.env.REACT_APP_GOOGLEPLACES_API}/products/appliyCampaign`,
+            const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/appliyCampaign`,
             {uid, id}).then((res) => {
                 console.log('Applied Success!');
             })
@@ -50,7 +50,7 @@ const DetailPage = () => {
     //findApplicant
 const applyChecker = async() => {
     try {
-        const res = await axios.post(`${process.env.REACT_APP_GOOGLEPLACES_API}/products/findApplicant`,
+        const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/findApplicant`,
         {id, uid}).then((res) => {
             console.log(res);
             console.log(res.data)

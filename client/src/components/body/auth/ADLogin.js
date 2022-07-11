@@ -47,7 +47,7 @@ const ADLogin = () => {
 
 
 function moveMain() {
-  navigate("/Main")
+  navigate("/DashMain")
 };
 
 
@@ -58,7 +58,7 @@ function moveMain() {
     console.log(auth.currentUser)
     console.log(uid);
     const response = await axios
-      .get(`${process.env.REACT_APP_GOOGLEPLACES_API}/ad/getAdInfo`, { params: { uid: uid } })
+      .get(`${process.env.REACT_APP_SERVER_URL}/ad/getAdInfo`, { params: { uid: uid } })
       .then((res) => {        
         console.log(res.data)
         const adloginData = res.data
@@ -77,7 +77,7 @@ function moveMain() {
     const uid = auth.currentUser.uid
     console.log(uid)
     try {
-       const res = await axios.get(`${process.env.REACT_APP_GOOGLEPLACES_API}/products/getlistbyid`, 
+       const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/products/getlistbyid`, 
        { params: { uid } })
        .then((res) => { 
         console.log(res.data);

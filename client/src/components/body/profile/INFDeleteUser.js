@@ -96,7 +96,7 @@ const INFDeleteUser = () => {
         });
       
         const res = await axios
-          .post(`${process.env.REACT_APP_GOOGLEPLACES_API}/inf/deleteInfUser`, { uid })
+          .post(`${process.env.REACT_APP_SERVER_URL}/inf/deleteInfUser`, { uid })
           .then((res) => {
             console.log(res.data);
             console.log("success");

@@ -61,7 +61,7 @@ const Profile = () => {
 
   const deleteUserAll = async () => {
     if (window.confirm('정말 탈퇴하시겠습니다?')) {
-      const res = await axios.post(`${process.env.REACT_APP_GOOGLEPLACES_API}/user/delete`, { uid })
+      const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/user/delete`, { uid })
         .then((res) => {
           console.log(res.data)
           console.log('success')
