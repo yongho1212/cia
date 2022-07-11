@@ -35,7 +35,7 @@ const ADChat = () => {
     const channelid = id.id;
     console.log(channelid);
     const res = await axios
-      .get(`${process.env.REACT_APP_GOOGLEPLACES_API}/chat/getchat`, {
+      .get(`${process.env.REACT_APP_SERVER_URL}/chat/getchat`, {
         params: { channelid: channelid },
       })
       .then((res) => {
@@ -54,7 +54,7 @@ const ADChat = () => {
 
   const getinfo = async () => {
     const response = await axios
-      .get(`${process.env.REACT_APP_GOOGLEPLACES_API}/user/getUserInfo`, { params: { uid: uid } })
+      .get(`${process.env.REACT_APP_SERVER_URL}/user/getUserInfo`, { params: { uid: uid } })
       .then((res) => {
         console.log(res.data);
         const loginData = res.data;

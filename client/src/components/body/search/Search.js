@@ -116,7 +116,7 @@ const Search = (props) => {
 
   const getInfList = async () => {
     try {
-      const res = await axios.post(`${process.env.REACT_APP_GOOGLEPLACES_API}/inf/getlist`)
+      const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/inf/getlist`)
         .then((res) => {
           console.log(res);
           setInfList(res.data);

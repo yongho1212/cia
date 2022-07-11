@@ -158,7 +158,7 @@ const UploadProduct = () => {
     try {
       console.log(qqq);
       const res = await axios
-        .post(`${process.env.REACT_APP_GOOGLEPLACES_API}products/upload`, {
+        .post(`${process.env.REACT_APP_SERVER_URL}/products/upload`, {
           name,
           brand,
           targetPlatform,
@@ -183,7 +183,7 @@ const UploadProduct = () => {
           console.log("success");
         });
       const resprdad = await axios
-        .post(`${process.env.REACT_APP_GOOGLEPLACES_API}/ad/ad_add_prd`, { uid, progress_prd })
+        .post(`${process.env.REACT_APP_SERVER_URL}/ad/ad_add_prd`, { uid, progress_prd })
         .then((resprdad) => {
           console.log("success");
           console.log(resprdad.data);

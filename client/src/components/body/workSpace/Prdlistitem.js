@@ -40,7 +40,7 @@ const Prdlistitems = ({chatlistopen, getlistopen, getChatData}) => {
     
     const uid = state.auth.state.loginData.uid
     try {
-       const res = await axios.get(`${process.env.REACT_APP_GOOGLEPLACES_API}/products/getlistbyid`, 
+       const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/products/getlistbyid`, 
        { params: { uid } })
        .then((res) => { 
         console.log(res.data);

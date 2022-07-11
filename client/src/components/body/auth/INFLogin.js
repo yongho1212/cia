@@ -44,7 +44,7 @@ const moveMain = () => {
   const getinfo = async () => {
     const uid = auth.currentUser.uid;
     const response = await axios
-      .get(`${process.env.REACT_APP_GOOGLEPLACES_API}/inf/getInfInfo`, { params: { uid: uid } })
+      .get(`${process.env.REACT_APP_SERVER_URL}/inf/getInfInfo`, { params: { uid: uid } })
       .then((res) => {        
         console.log(res.data)
         const infloginData = res.data;
@@ -61,7 +61,7 @@ const moveMain = () => {
   const getListById = async () => {
     const uid = auth.currentUser.uid;
     try {
-       const res = await axios.get('http://localhost:1212/products/getlistbyid', 
+       const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/products/getlistbyid`, 
        { params: { uid } })
        .then((res) => {
         prependprd(res.data);

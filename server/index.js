@@ -23,6 +23,10 @@ app.use('/api', require('./routes/upload'))
 app.use('/products', require('./routes/products'))
 app.use('/chat', require('./routes/chatRouter'))
 
+app.get('/', function(req, res){
+    res.send('opened')
+})
+
 
 // Connect to mongodb
 const URI = process.env.MONGODB_URL

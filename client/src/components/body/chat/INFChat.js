@@ -26,7 +26,7 @@ const INFChat = () => {
 
   const getchatInfo = async () => {
     const channelid = id.id
-    const res = await axios.get(`${process.env.REACT_APP_GOOGLEPLACES_API}/chat/getchat`, { params: { channelid: channelid } })
+    const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/chat/getchat`, { params: { channelid: channelid } })
       .then((res) => {
         const chatdata = res.data
         const prdfsid = chatdata[0].prdfsid
@@ -39,7 +39,7 @@ const INFChat = () => {
 
   const getinfo = async () => {
     const response = await axios
-      .get(`${process.env.REACT_APP_GOOGLEPLACES_API}/user/getUserInfo`, { params: { uid: uid } })
+      .get(`${process.env.REACT_APP_SERVER_URL}/user/getUserInfo`, { params: { uid: uid } })
       .then((res) => {
         const loginData = res.data
       })

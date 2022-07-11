@@ -9,7 +9,7 @@ const ProdcutView = ({ useParams }) => {
 
   const getPostList = async () => {
     try {
-      const res = await axios.post(`${process.env.REACT_APP_GOOGLEPLACES_API}/products/getlist`)
+      const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/getlist`)
         .then((res) => {
           setProduct(res.data);
           return 0;

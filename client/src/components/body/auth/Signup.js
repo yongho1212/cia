@@ -51,7 +51,7 @@ const Signup = () => {
   async function upLoadProfile() {
     try{
       const uid = auth.currentUser.uid
-      const res = await axios.post(`${process.env.REACT_APP_GOOGLEPLACES_API}/user/register`, 
+      const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/user/register`, 
       {displayName, email, role, uid, password})
       .then(function(res){
       })
