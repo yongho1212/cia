@@ -32,7 +32,7 @@ const InfluencerList = ({ useParams }) => {
                 <img className='profile-img' src={item.avatar} width='200px' height='200px' />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <div style={{ fontSize: '20px' }}>
+                <div style={{ fontSize: '21px' }}>
                   <div>
                     {item.displayName}
                   </div>
