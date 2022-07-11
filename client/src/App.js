@@ -142,7 +142,7 @@ function App() {
             <Route path="/Search/*" element={<Search />} />
             <Route path="/EditProfile/*" element={<EditProfile />} />
             <Route path="/Upload/" element={<UploadProduct />} />
-            <Route path="/Influencerprflist/" element={<InfluencerList />} />
+            {/* <Route path="/Influencerprflist/" element={<InfluencerList />} /> */}
             <Route path="/Workspace/" element={<Workspace />} />
             <Route path="/DashMain/" element={<DashMain />} />
             <Route path="/InfluencerProfile/:id" element={<InfluencerProfile />} />
