@@ -15,7 +15,7 @@ import Chat from './components/body/chat/Chat';
 import INFChat from './components/body/chat/INFChat';
 import ADChat from './components/body/chat/ADChat';
 
-import InfluencerList from './components/body/influencerList/InfluencerList';
+import InfluencerList from './components/body/influencerlist/InfluencerList';
 import Search from './components/body/search/Search';
 import UploadProfile from './components/body/profile/UploadProfile';
 
@@ -30,12 +30,12 @@ import Footer from './components/footer/Footer';
 import SearchResult from './components/body/search/SearchResult';
 import EditProfile from './components/body/editprofile/EditProfile';
 import UploadProduct from './components/body/Product/UploadProduct/uploadProduct';
-import Workspace from './components/body/workSpace/Workspace';
+import Workspace from './components/body/workspace/Workspace';
 // import Navbar from './components/body/workSpace/Navbar';
 // import InfNavBar from './components/navbar/InfNavBar';
 // import AdNavBar from './components/navbar/AdNavBar';
 // import HomeNavBar from './components/navbar/HomeNavBar';
-import DashMain from './components/body/workSpace/Dashmain';
+import DashMain from './components/body/workspace/Dashmain';
 import Layout from './layout/Layout'
 
 import Emailverify from './components/body/auth/Emailverify'
