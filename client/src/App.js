@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
-import Login from "./components/body/auth/Login";
+// import Login from "./components/body/auth/Login";
 import Signup from "./components/body/auth/Signup";
 import Home from './components/body/home/Home'
 import HeaderLogin  from './components/header/HeaderLogin';
@@ -104,7 +104,7 @@ function App() {
         { !state.loggedin ?
           <>
             <Route path="/Home" element={<Home />}  />
-            <Route path="/Login" element={<Login />} />
+            {/* <Route path="/Login" element={<Login />} /> */}
             <Route path="/ADLogin" element={<ADLogin />} />
             <Route path="/INFLogin" element={<INFLogin />} />
             <Route path="/Signup" element={<Signup />} />
